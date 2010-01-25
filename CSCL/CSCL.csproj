@@ -256,12 +256,53 @@
     <Compile Include="Helpers\ListViewHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\TreeViewHelpers.cs" />
-    <Compile Include="Math\Arithmetic.cs" />
-    <Compile Include="Math\Collision.cs" />
-    <Compile Include="Math\Geometry.cs" />
-    <Compile Include="Math\NumberSystem.cs" />
-    <Compile Include="Math\PrimeNumbers.cs" />
-    <Compile Include="Math\Various.cs" />
+    <Compile Include="Maths\Arithmetic.cs" />
+    <Compile Include="Maths\Collision.cs" />
+    <Compile Include="Maths\Geometry.cs" />
+    <Compile Include="Maths\NumberSystem.cs" />
+    <Compile Include="Maths\PrimeNumbers.cs" />
+    <Compile Include="Maths\Various.cs" />
+    <Compile Include="Network\edtftpnet\Appender.cs" />
+    <Compile Include="Network\edtftpnet\BandwidthThrottler.cs" />
+    <Compile Include="Network\edtftpnet\BaseSocket.cs" />
+    <Compile Include="Network\edtftpnet\CustomFileParsers.cs" />
+    <Compile Include="Network\edtftpnet\DirectoryEmptyStrings.cs" />
+    <Compile Include="Network\edtftpnet\FileAppender.cs" />
+    <Compile Include="Network\edtftpnet\FileNotFoundStrings.cs" />
+    <Compile Include="Network\edtftpnet\FileTransferException.cs" />
+    <Compile Include="Network\edtftpnet\FTPActiveDataSocket.cs" />
+    <Compile Include="Network\edtftpnet\FTPClient.cs" />
+    <Compile Include="Network\edtftpnet\FTPConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Network\edtftpnet\FTPControlSocket.cs" />
+    <Compile Include="Network\edtftpnet\FTPDataSocket.cs" />
+    <Compile Include="Network\edtftpnet\FTPException.cs" />
+    <Compile Include="Network\edtftpnet\FTPFile.cs" />
+    <Compile Include="Network\edtftpnet\FTPFileFactory.cs" />
+    <Compile Include="Network\edtftpnet\FTPFileParser.cs" />
+    <Compile Include="Network\edtftpnet\FTPPassiveDataSocket.cs" />
+    <Compile Include="Network\edtftpnet\FTPReply.cs" />
+    <Compile Include="Network\edtftpnet\FTPSemaphore.cs" />
+    <Compile Include="Network\edtftpnet\FTPTypes.cs" />
+    <Compile Include="Network\edtftpnet\HostNameResolver.cs" />
+    <Compile Include="Network\edtftpnet\IFileTransferClient.cs" />
+    <Compile Include="Network\edtftpnet\IFTPComponent.cs" />
+    <Compile Include="Network\edtftpnet\Level.cs" />
+    <Compile Include="Network\edtftpnet\Logger.cs" />
+    <Compile Include="Network\edtftpnet\MemoryAppender.cs" />
+    <Compile Include="Network\edtftpnet\OS400FileParser.cs" />
+    <Compile Include="Network\edtftpnet\PathUtil.cs" />
+    <Compile Include="Network\edtftpnet\RollingFileAppender.cs" />
+    <Compile Include="Network\edtftpnet\ServerStrings.cs" />
+    <Compile Include="Network\edtftpnet\StandardOutputAppender.cs" />
+    <Compile Include="Network\edtftpnet\StringSplitter.cs" />
+    <Compile Include="Network\edtftpnet\TandemFileParser.cs" />
+    <Compile Include="Network\edtftpnet\TraceAppender.cs" />
+    <Compile Include="Network\edtftpnet\TransferCompleteStrings.cs" />
+    <Compile Include="Network\edtftpnet\UnixFileParser.cs" />
+    <Compile Include="Network\edtftpnet\VMSFileParser.cs" />
+    <Compile Include="Network\edtftpnet\WindowsFileParser.cs" />
     <Compile Include="Network\Ping.cs" />
     <Compile Include="Network\SMTP.cs" />
     <Compile Include="Helpers\ProcessHelpers.cs" />
@@ -288,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graphic\TWAIN\TwainExceptions.resx" />
     <EmbeddedResource Include="Graphic\TWAIN\TwainPreviewForm.resx" />
+    <EmbeddedResource Include="Network\edtftpnet\FTPConnection.resx">
+      <DependentUpon>FTPConnection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TextInputbox.resx">
       <DependentUpon>TextInputbox.cs</DependentUpon>
       <SubType>Designer</SubType>

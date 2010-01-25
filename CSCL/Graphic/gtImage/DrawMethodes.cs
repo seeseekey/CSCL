@@ -880,7 +880,7 @@ namespace CSCL.Graphic
 					if (k<1|k>height-1) continue;
 
 					//Berechne Distanz
-					if (radius>CSCL.Math.Geometry.Distanz(x0, y0, i, k))
+					if (radius>CSCL.Maths.Geometry.Distanz(x0, y0, i, k))
 					{
 						SetPixel(i, k, color);
 					}

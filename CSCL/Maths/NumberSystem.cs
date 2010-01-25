@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSCL.Math
+namespace CSCL.Maths
 {
     public static class NumberSystem
     {

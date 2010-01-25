@@ -407,7 +407,7 @@ namespace CSCL.Graphic
 
 		public gtImage ResizeToPowerOf2()
 		{
-			return Resize(CSCL.Math.Arithmetic.MakePowerOf2(width), CSCL.Math.Arithmetic.MakePowerOf2(height));
+			return Resize(CSCL.Maths.Arithmetic.MakePowerOf2(width), CSCL.Maths.Arithmetic.MakePowerOf2(height));
 		}
 
 		public gtImage ResizeByWidth(double newWidth)
