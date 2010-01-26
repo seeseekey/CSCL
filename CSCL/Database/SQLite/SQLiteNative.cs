@@ -44,6 +44,7 @@ namespace CSCL.Database.SQLite
 				case "System.UInt16":
 				case "System.UInt32":
 				case "System.UInt64":
+				case "System.DateTime":
 					{
 						return "INTEGER";
 					}
