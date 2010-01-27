@@ -181,6 +181,7 @@ namespace CSCL.Database.SQLite
 				}
 				table.Rows.Add(columnValues);
 			}
+
 			return resultType;
 		}
 		// private function for creating Column Names

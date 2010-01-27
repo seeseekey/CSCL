@@ -68,6 +68,33 @@ namespace CSCL.Database.SQLite
 			}
 		}
 
+		public static string GetNETDatatype(string datatype)
+		{
+			switch(datatype)
+			{
+				case "INTEGER":
+					{
+						return "System.Int64";
+					}
+				case "REAL":
+					{
+						return "System.Decimal";
+					}
+				case "TEXT":
+					{
+						return "System.String";
+					}
+				case "BLOB":
+					{
+						return "System.Byte[]";
+					}
+				default:
+					{
+						throw new Exception("Type not supported!");
+					}
+			}
+		}
+
 		/// <summary>
 		/// Gibt den DBType zurück
 		/// </summary>
@@ -358,9 +385,52 @@ namespace CSCL.Database.SQLite
 		/// <returns></returns>
 		public DataTable GetTableStructure(string tblName)
 		{
-			string sqlCommand="SELECT * FROM \""+tblName+"\" LIMIT 0;";
-			DataTable ret=InstSQLiteDatabase.ExecuteQuery(sqlCommand);
-			ret.TableName=tblName;
+			string sqlCommand=String.Format("SELECT * FROM sqlite_master WHERE name = \"{0}\"", tblName);
+			DataTable tmp=InstSQLiteDatabase.ExecuteQuery(sqlCommand);
+			if(tmp.Rows.Count==0) throw new Exception("Table don't exists!");
+
+			string sql = tmp.Rows[0]["sql"].ToString();
+			int posOpenK=sql.IndexOf('(');
+			int posClosedK=sql.IndexOf(')');
+			sql=sql.Substring(posOpenK+1, posClosedK-posOpenK-1);
+
+			char[] splitChars = {','};
+			string[] columnDescriptions=sql.Split(splitChars, StringSplitOptions.RemoveEmptyEntries);
+
+			DataTable ret=new DataTable(tblName);
+
+			foreach(string columnDesc in columnDescriptions)
+			{
+				char[] splitCharsEmpty= { ' ' };
+				string[] partsOfColumnDesc=columnDesc.Split(splitCharsEmpty, StringSplitOptions.RemoveEmptyEntries);
+
+				string name=partsOfColumnDesc[0];
+				string datatype=partsOfColumnDesc[1];
+				bool primary=false;
+				bool autoincrement=false;
+
+				if(partsOfColumnDesc.Length>=3)
+				{
+					if(partsOfColumnDesc[2]=="PRIMARY") primary=true;
+				}
+
+				if(partsOfColumnDesc.Length>=5)
+				{
+					if(partsOfColumnDesc[4]=="AUTOINCREMENT") autoincrement=true;
+				}
+
+				ret.Columns.Add(name, Type.GetType(GetNETDatatype(datatype)));
+				if(primary)
+				{
+					ret.Columns[name].AllowDBNull=false;
+					ret.Columns[name].Unique=true;
+				}
+				if(autoincrement)
+				{
+					ret.Columns[name].AutoIncrement=true;
+				}
+			}
+
 			return ret;
 		}
 

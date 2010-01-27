@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Collections;
 using CSCL.Database.SQLite;
+using System.IO;
 
 namespace CSCL.Database.SQLite
 {
@@ -41,59 +42,6 @@ namespace CSCL.Database.SQLite
 		public Vdbe VirtualMachine()
 		{
 			return vm;
-		}
-
-		/// <summary>
-		/// <summary>
-		/// BindInteger
-		/// </summary>
-		/// <param name="index"></param>
-		/// <param name="bInteger"></param>
-		/// <returns>LastResult</returns>
-		public int BindInteger(int index, int bInteger)
-		{
-			if((LastResult=csSQLite.sqlite3_bind_int(vm, index, bInteger))==csSQLite.SQLITE_OK)
-			{ LastError=""; }
-			else
-			{
-				LastError="Error "+LastError+"binding Integer ["+bInteger+"]";
-			}
-			return LastResult;
-		}
-
-		/// <summary>
-		/// <summary>
-		/// BindLong
-		/// </summary>
-		/// <param name="index"></param>
-		/// <param name="bLong"></param>
-		/// <returns>LastResult</returns>
-		public int BindLong(int index, long bLong)
-		{
-			if((LastResult=csSQLite.sqlite3_bind_int64(vm, index, bLong))==csSQLite.SQLITE_OK)
-			{ LastError=""; }
-			else
-			{
-				LastError="Error "+LastError+"binding Long ["+bLong+"]";
-			}
-			return LastResult;
-		}
-
-		/// <summary>
-		/// BindText
-		/// </summary>
-		/// <param name="index"></param>
-		/// <param name="bLong"></param>
-		/// <returns>LastResult</returns>
-		public int BindText(int index, string bText)
-		{
-			if((LastResult=csSQLite.sqlite3_bind_text(vm, index, bText, -1, null))==csSQLite.SQLITE_OK)
-			{ LastError=""; }
-			else
-			{
-				LastError="Error "+LastError+"binding Text ["+bText+"]";
-			}
-			return LastResult;
 		}
 
 		/// <summary>
@@ -179,6 +127,16 @@ namespace CSCL.Database.SQLite
 						}
 						break;
 					}
+				case "System.Int64":
+					{
+						Int64 tmpValue=(Int64)bObject;
+
+						if((ret=csSQLite.sqlite3_bind_int64(vm, index, tmpValue))!=csSQLite.SQLITE_OK)
+						{
+							LastError="Error "+LastError+"binding Integer64 ["+tmpValue+"]";
+						}
+						break;
+					}
 				case "System.String":
 					{
 						String tmpValue=(String)bObject;
@@ -189,6 +147,18 @@ namespace CSCL.Database.SQLite
 						}
 						break;
 					}
+				//case "System.Byte[]":
+				//    {
+				//        byte[] tmpValue=(byte[])bObject;
+				//        byte[] tmpValue=File.ReadAllBytes(filename);
+
+
+				//        if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
+				//        {
+				//            LastError="Error "+LastError+"binding Blob ["+tmpValue+"]";
+				//        }
+				//        break;
+				//    }
 				case "System.DBNull":
 					{
 						//wird ignoriert (Autoincrement)
