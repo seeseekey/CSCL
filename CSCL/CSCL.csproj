@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -155,7 +155,7 @@
     <Compile Include="Database\SQLite\csharp-sqlite\where_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
     <Compile Include="Database\SQLite\SQLiteDatabase.cs" />
-    <Compile Include="Database\SQLite\SQLiteNative.cs" />
+    <Compile Include="Database\SQLite\SQLite.cs" />
     <Compile Include="Database\SQLite\SQLiteVdbe.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExceptionHandler.cs">

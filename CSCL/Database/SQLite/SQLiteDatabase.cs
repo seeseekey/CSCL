@@ -75,6 +75,7 @@ namespace CSCL.Database.SQLite
 		public List<string> GetTables()
 		{
 			List<string> ret=new List<string>();
+
 			// executes query that select names of all tables in master table of the database
 			String query="SELECT name FROM sqlite_master "+
 										"WHERE type = 'table'"+
@@ -148,26 +149,31 @@ namespace CSCL.Database.SQLite
 					{
 						case csSQLite.SQLITE_INTEGER:
 							{
+								table.Columns[i].DataType=typeof(Int64);
 								columnValues[i]=csSQLite.sqlite3_column_int(vm, i);
 								break;
 							}
 						case csSQLite.SQLITE_FLOAT:
 							{
+								table.Columns[i].DataType=typeof(Double);
 								columnValues[i]=csSQLite.sqlite3_column_double(vm, i);
 								break;
 							}
 						case csSQLite.SQLITE_TEXT:
 							{
+								table.Columns[i].DataType=typeof(String);
 								columnValues[i]=csSQLite.sqlite3_column_text(vm, i);
 								break;
 							}
 						case csSQLite.SQLITE_BLOB:
 							{
+								table.Columns[i].DataType=typeof(Byte[]);
 								columnValues[i]=csSQLite.sqlite3_column_blob(vm, i);
 								break;
 							}
 						default:
 							{
+								table.Columns[i].DataType=null;
 								columnValues[i]="";
 								break;
 							}
@@ -177,11 +183,11 @@ namespace CSCL.Database.SQLite
 			}
 			return resultType;
 		}
-
 		// private function for creating Column Names
 		// Return number of colums read
 		private int ReadColumnNames(Vdbe vm, DataTable table)
 		{
+
 			String columnName="";
 			int columnType=0;
 			// returns number of columns returned by statement
@@ -234,71 +240,5 @@ namespace CSCL.Database.SQLite
 			}
 			return table.Columns.Count;
 		}
-
-
-		//// private function for creating Column Names
-		//// Return number of colums read
-		//private int ReadColumnNames(Vdbe vm, DataTable table)
-		//{
-		//    String columnName="";
-		//    int columnType=0;
-		//    // returns number of columns returned by statement
-		//    int columnCount=csSQLite.sqlite3_column_count(vm);
-		//    object[] columnValues=new object[columnCount];
-
-		//    try
-		//    {
-		//        // reads columns one by one
-		//        for(int i=0;i<columnCount;i++)
-		//        {
-		//            columnName=csSQLite.sqlite3_column_name(vm, i);
-
-		//            columnType=csSQLite.sqlite3_column_type(vm, i);
-
-		//            //                    public const u8 SQLITE_INTEGER = 1;
-		//            //public const u8 SQLITE_FLOAT = 2;
-		//            //public const u8 SQLITE_BLOB = 4;
-		//            //public const u8 SQLITE_NULL = 5;
-		//            //public const u8 SQLITE_TEXT = 3;
-		//            //public const u8 SQLITE3_TEXT = 3;
-
-		//            switch(columnType)
-		//            {
-		//                case csSQLite.SQLITE_INTEGER:
-		//                    {
-		//                        // adds new integer column to table
-		//                        table.Columns.Add(columnName, Type.GetType("System.Int64"));
-		//                        break;
-		//                    }
-		//                case csSQLite.SQLITE_FLOAT:
-		//                    {
-		//                        table.Columns.Add(columnName, Type.GetType("System.Double"));
-		//                        break;
-		//                    }
-		//                case csSQLite.SQLITE_TEXT:
-		//                    {
-		//                        table.Columns.Add(columnName, Type.GetType("System.String"));
-		//                        break;
-		//                    }
-		//                case csSQLite.SQLITE_BLOB:
-		//                    {
-		//                        table.Columns.Add(columnName, Type.GetType("System.byte[]"));
-		//                        break;
-		//                    }
-		//                default:
-		//                    {
-		//                        table.Columns.Add(columnName, Type.GetType("System.String"));
-		//                        break;
-		//                    }
-		//            }
-		//        }
-		//    }
-		//    catch
-		//    {
-		//        return 0;
-		//    }
-		//    return table.Columns.Count;
-		//}
-
 	}
 }

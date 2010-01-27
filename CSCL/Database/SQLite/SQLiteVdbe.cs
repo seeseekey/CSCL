@@ -43,53 +43,22 @@ namespace CSCL.Database.SQLite
 			return vm;
 		}
 
-		public int BindObjectToType(int index, object bObject)
+		/// <summary>
+		/// <summary>
+		/// BindInteger
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="bInteger"></param>
+		/// <returns>LastResult</returns>
+		public int BindInteger(int index, int bInteger)
 		{
-			string TypeId = bObject.GetType().FullName;
-			int ret=0;
-			LastError="";
-
-			switch(TypeId)
-			{
-				case "System.Int32":
-					{
-						Int32 tmpValue=(Int32)bObject;
-
-						if((ret=csSQLite.sqlite3_bind_int(vm, index, tmpValue))!=csSQLite.SQLITE_OK)
-						{
-							LastError="Error "+LastError+"binding Integer ["+tmpValue+"]";
-						}
-						break;
-					}
-				case "System.String":
-					{
-						String tmpValue=(String)bObject;
-
-						if((ret=csSQLite.sqlite3_bind_text(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
-						{
-							LastError="Error "+LastError+"binding Text ["+tmpValue+"]";
-						}
-						break;
-					}
-				case "System.DBNull":
-					{
-						//wird ignoriert (Autoincrement)
-						break;
-					}
-				default:
-					{
-						throw new NotImplementedException();
-					}
-			}
-
-			if(ret!=0)
-			{
-				throw new Exception(LastError + "/ return code: " + ret.ToString());
-			}
+			if((LastResult=csSQLite.sqlite3_bind_int(vm, index, bInteger))==csSQLite.SQLITE_OK)
+			{ LastError=""; }
 			else
 			{
-				return ret;
+				LastError="Error "+LastError+"binding Integer ["+bInteger+"]";
 			}
+			return LastResult;
 		}
 
 		/// <summary>
@@ -106,6 +75,23 @@ namespace CSCL.Database.SQLite
 			else
 			{
 				LastError="Error "+LastError+"binding Long ["+bLong+"]";
+			}
+			return LastResult;
+		}
+
+		/// <summary>
+		/// BindText
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="bLong"></param>
+		/// <returns>LastResult</returns>
+		public int BindText(int index, string bText)
+		{
+			if((LastResult=csSQLite.sqlite3_bind_text(vm, index, bText, -1, null))==csSQLite.SQLITE_OK)
+			{ LastError=""; }
+			else
+			{
+				LastError="Error "+LastError+"binding Text ["+bText+"]";
 			}
 			return LastResult;
 		}
@@ -175,5 +161,53 @@ namespace CSCL.Database.SQLite
 			csSQLite.sqlite3_finalize(ref vm);
 		}
 
+		public int BindObjectToType(int index, object bObject)
+		{
+			string TypeId=bObject.GetType().FullName;
+			int ret=0;
+			LastError="";
+
+			switch(TypeId)
+			{
+				case "System.Int32":
+					{
+						Int32 tmpValue=(Int32)bObject;
+
+						if((ret=csSQLite.sqlite3_bind_int(vm, index, tmpValue))!=csSQLite.SQLITE_OK)
+						{
+							LastError="Error "+LastError+"binding Integer ["+tmpValue+"]";
+						}
+						break;
+					}
+				case "System.String":
+					{
+						String tmpValue=(String)bObject;
+
+						if((ret=csSQLite.sqlite3_bind_text(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
+						{
+							LastError="Error "+LastError+"binding Text ["+tmpValue+"]";
+						}
+						break;
+					}
+				case "System.DBNull":
+					{
+						//wird ignoriert (Autoincrement)
+						break;
+					}
+				default:
+					{
+						throw new NotImplementedException();
+					}
+			}
+
+			if(ret!=0)
+			{
+				throw new Exception(LastError+"/ return code: "+ret.ToString());
+			}
+			else
+			{
+				return ret;
+			}
+		}
 	}
 }
