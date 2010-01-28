@@ -150,10 +150,9 @@ namespace CSCL.Database.SQLite
 				//case "System.Byte[]":
 				//    {
 				//        byte[] tmpValue=(byte[])bObject;
-				//        byte[] tmpValue=File.ReadAllBytes(filename);
+				//        string tmpVxx=Encoding.UTF8.GetString(tmpValue);
 
-
-				//        if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
+				//        if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpVxx, -1, null))!=csSQLite.SQLITE_OK)
 				//        {
 				//            LastError="Error "+LastError+"binding Blob ["+tmpValue+"]";
 				//        }

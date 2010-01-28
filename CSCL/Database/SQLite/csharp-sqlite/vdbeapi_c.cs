@@ -1163,6 +1163,20 @@ pStmt, N, (const void*(*)(Mem*))sqlite3_value_text16, COLNAME_COLUMN);
       return bindText( pStmt, i, zData, nData, xDel, 0 );
     }
 
+	/*
+** Bind a blob value to an SQL statement variable.
+*/
+	public static int sqlite3_bind_blob(
+	sqlite3_stmt pStmt,
+	int i,
+	byte[] zBlob,
+	int nData,
+	dxDel xDel
+	)
+	{
+		return bindText(pStmt, i, Encoding.UTF8.GetString(zBlob), nData, xDel, 0);
+	} 
+
     public static int sqlite3_bind_double( sqlite3_stmt pStmt, int i, double rValue )
     {
       int rc;
