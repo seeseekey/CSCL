@@ -884,7 +884,8 @@ return SQLITE_OK;
         if ( enc == 0 )
         {
           pMem.z = null;
-          pMem.zBLOB = new byte[n];
+         // pMem.zBLOB = new byte[n];
+		  pMem.zBLOB=new byte[n<=0?z.Length-offset:n];
           for ( int i = 0; i < n && i < z.Length - offset; i++ ) pMem.zBLOB[i] = (byte)z[offset + i];
         }
         else

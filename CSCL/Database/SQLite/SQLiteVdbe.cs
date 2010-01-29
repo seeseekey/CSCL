@@ -147,17 +147,17 @@ namespace CSCL.Database.SQLite
 						}
 						break;
 					}
-				//case "System.Byte[]":
-				//    {
-				//        byte[] tmpValue=(byte[])bObject;
-				//        string tmpVxx=Encoding.UTF8.GetString(tmpValue);
+				case "System.Byte[]":
+					{
+						byte[] tmpValue=(byte[])bObject;
+						string tmpVxx=Encoding.UTF8.GetString(tmpValue);
 
-				//        if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpVxx, -1, null))!=csSQLite.SQLITE_OK)
-				//        {
-				//            LastError="Error "+LastError+"binding Blob ["+tmpValue+"]";
-				//        }
-				//        break;
-				//    }
+						if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpVxx, -1, null))!=csSQLite.SQLITE_OK)
+						{
+							LastError="Error "+LastError+"binding Blob ["+tmpValue+"]";
+						}
+						break;
+					}
 				case "System.DBNull":
 					{
 						//wird ignoriert (Autoincrement)

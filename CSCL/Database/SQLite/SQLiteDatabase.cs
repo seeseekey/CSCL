@@ -9,6 +9,7 @@ namespace CSCL.Database.SQLite
 	using sqlite=csSQLite.sqlite3;
 	using Vdbe=csSQLite.Vdbe;
 	using System.Collections.Generic;
+	using System.Text;
 	/// <summary>
 	/// C#-SQLite wrapper with functions for opening, closing and executing queries.
 	/// </summary>
@@ -123,6 +124,28 @@ namespace CSCL.Database.SQLite
 			do { } while(ReadNextRow(statement.VirtualMachine(), table)==csSQLite.SQLITE_ROW);
 			// finalize executing this query
 			statement.Close();
+
+			//Blobs umwandeln (UTF 8 in byte[])
+			//foreach(DataRow row in table.Rows)
+			//{
+			//    for(int i =0; i<table.Columns.Count; i++)
+			//    {
+			//        string TypeId=row[i].GetType().FullName;
+
+			//        switch(TypeId)
+			//    {
+			//        case "System.Byte[]":
+			//            {
+			//                row[i]=Encoding.UTF8.GetBytes((char[])row[i]);
+			//                break;
+			//            }
+			//        default:
+			//            {
+			//                throw new NotImplementedException();
+			//            }
+			//    }
+			//    }
+			//}
 
 			// returns table
 			return table;
