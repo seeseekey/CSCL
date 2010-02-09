@@ -69,7 +69,7 @@
     </Compile>
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
-    <Compile Include="Database\Datatable.cs" />
+    <Compile Include="Helpers\DatatableHelpers.cs" />
     <Compile Include="Database\SpecialTables.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\alter_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\analyze_c.cs" />

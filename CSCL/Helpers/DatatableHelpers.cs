@@ -7,7 +7,7 @@ using System.Data.Odbc;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace CSCL.Database
+namespace CSCL.Helpers
 {
     public static class Datatable
     {
