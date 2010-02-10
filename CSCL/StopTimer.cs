@@ -7,7 +7,7 @@ namespace CSCL
     /// <summary>
     /// Stellt einen Timer bereit
     /// </summary>
-    public class Timer
+    public class StopTimer
     {
         //TODO: Pause und Resume implementieren
 
@@ -24,7 +24,7 @@ namespace CSCL
         Int64 StartTime;
         Int64 StopTime;
 
-        public void StartTimer()
+        public void Start()
         {
             if(InternalTimerState == TimerState.enStart)
             {
@@ -35,7 +35,7 @@ namespace CSCL
             InternalTimerState = TimerState.enStart;
         }
 
-        public void StopTimer()
+        public void Stop()
         {
             StopTime = DateTime.Now.Ticks;
             InternalTimerState = TimerState.enStop;
