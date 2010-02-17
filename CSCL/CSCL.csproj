@@ -24,13 +24,15 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRUE WIN32 _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_ENABLE_OVERSIZE_CELL_CHECK SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_TRIGGER SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF</DefineConstants>
+    <DefineConstants>TRUE WIN32 _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_MEM_POOL SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -388,8 +390,6 @@
     <Compile Include="Controls\Sourcegrid\SourceGrid\Utils\PerformanceCounter.cs" />
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
-    <Compile Include="Helpers\DatatableHelpers.cs" />
-    <Compile Include="Database\SpecialTables.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\alter_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\analyze_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\attach_c.cs" />
@@ -421,8 +421,8 @@
     <Compile Include="Database\SQLite\csharp-sqlite\loadext_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\main_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\malloc_c.cs" />
-    <Compile Include="Database\SQLite\csharp-sqlite\mem0_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\memjournal_c.cs" />
+    <Compile Include="Database\SQLite\csharp-sqlite\mem_Pool.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\mutex_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\mutex_h.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\mutex_noop_c.cs" />
@@ -473,6 +473,8 @@
     <Compile Include="Database\SQLite\csharp-sqlite\walker_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\where_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
+    <Compile Include="Helpers\DatatableHelpers.cs" />
+    <Compile Include="Database\SpecialTables.cs" />
     <Compile Include="Database\SQLite\SQLiteDatabase.cs" />
     <Compile Include="Database\SQLite\SQLite.cs" />
     <Compile Include="Database\SQLite\SQLiteVdbe.cs" />
@@ -760,6 +762,7 @@
     <None Include="Games\OnlineHighscore.php" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Controls\Sourcegrid\DevAge.Windows.Forms\Res\DropDown.ico" />
     <None Include="Controls\Sourcegrid\DevAge.Windows.Forms\Res\left.cur" />
     <None Include="Controls\Sourcegrid\DevAge.Windows.Forms\Res\right.cur" />

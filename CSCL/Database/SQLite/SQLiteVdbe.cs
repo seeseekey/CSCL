@@ -152,9 +152,9 @@ namespace CSCL.Database.SQLite
 						byte[] tmpValue=(byte[])bObject;
 						//string tmpVxx=Encoding.UTF8.GetString(tmpValue);
 						////string tmpVxx=Encoding.ASCII.GetString(tmpValue);
-						string tmpVxx=System.Text.Encoding.GetEncoding("iso-8859-1").GetString(tmpValue);
+						//string tmpVxx=System.Text.Encoding.GetEncoding("iso-8859-1").GetString(tmpValue);
 
-						if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpVxx, -1, null))!=csSQLite.SQLITE_OK)
+						if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
 						{
 							LastError="Error "+LastError+"binding Blob ["+tmpValue+"]";
 						}
