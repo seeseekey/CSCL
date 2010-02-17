@@ -473,6 +473,7 @@
     <Compile Include="Database\SQLite\csharp-sqlite\walker_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\where_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
+    <Compile Include="Database\SQLite\SQLiteMisc.cs" />
     <Compile Include="Helpers\DatatableHelpers.cs" />
     <Compile Include="Database\SpecialTables.cs" />
     <Compile Include="Database\SQLite\SQLiteDatabase.cs" />
