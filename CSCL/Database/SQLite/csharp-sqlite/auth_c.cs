@@ -29,7 +29,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header: C#-SQLite/src/auth_c.cs,v 7491e0c5add9 2010/01/12 20:47:08 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
