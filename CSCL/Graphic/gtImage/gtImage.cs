@@ -386,6 +386,32 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
+		#region GetMedianColor
+		public Color GetMedianColor()
+		{
+			long r=0;
+			long g=0;
+			long b=0;
+
+			for(int y=0;y<width;y++)
+			{
+				for(int x=0;x<width;x++)
+				{
+					Color pix=GetPixel(x, y);
+					r+=pix.R;
+					g+=pix.G;
+					b+=pix.B;
+				}
+			}
+
+			r=r/(width*height);
+			g=g/(width*height);
+			b=b/(width*height);
+
+			return Color.FromArgb((int)r, (int)g, (int)b);
+		}
+		#endregion
+
 		/////////////////////////////////////////////////////////////////
 		// Resize
 		/////////////////////////////////////////////////////////////////
