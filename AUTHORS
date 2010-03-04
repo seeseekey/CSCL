@@ -3,3 +3,8 @@ seeseekey <seeseekey googlemail.com>
 
 == Contributors ==
 -
+
+== Integrated libs ==
+Sourcegrid -> MIT License -> http://sourcegrid.codeplex.com/
+csharp-sqlite -> Public domain -> http://code.google.com/p/csharp-sqlite/
+edtftpnet -> LGPL -> http://www.enterprisedt.com/products/edtftpnet/overview.html
