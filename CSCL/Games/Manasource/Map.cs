@@ -5,17 +5,17 @@ using System.Xml;
 
 namespace CSCL.Games.Manasource
 {
-	public class Map
+	public class Map: IComparable
 	{
 		#region Statische Funktionen
 		public static List<Map> GetMapsFromMapsXml(string filename)
 		{
 			List<Map> ret=new List<Map>();
 
-			XmlData itemsFile=new XmlData(filename);
-			List<XmlNode> items=itemsFile.GetElements("maps.map");
+			XmlData mapsFile=new XmlData(filename);
+			List<XmlNode> maps=mapsFile.GetElements("maps.map");
 
-			foreach(XmlNode i in items)
+			foreach(XmlNode i in maps)
 			{
 				ret.Add(new Map(i));
 			}
@@ -41,6 +41,24 @@ namespace CSCL.Games.Manasource
 			else if(z>0) vZ="p";
 
 			return String.Format("ow-{0:0000}{1:0000}-{2}{3:0000}-{4}{5:0000}", vX, Math.Abs(x), vY, Math.Abs(y), vZ, Math.Abs(z));
+		}
+
+		public static void SaveToMapsXml(string filename, List<Map> maps)
+		{
+			XmlData xml=new XmlData(filename, true);
+
+			maps.Sort();
+
+			XmlNode mapsnode=xml.AddRoot("maps");
+
+			foreach(Map i in maps)
+			{
+				XmlNode mapNode=xml.AddElement(mapsnode, "map", "");
+				xml.AddAttribute(mapNode, "id", i.ID);
+				xml.AddAttribute(mapNode, "name", i.Name);
+			}
+
+			xml.Save();
 		}
 		#endregion
 
@@ -108,6 +126,12 @@ namespace CSCL.Games.Manasource
 		public int ID { get; private set; }
 		public string Name { get; private set; }
 
+		public Map(int id, string name)
+		{
+			ID=id;
+			Name=name;
+		}
+
 		public Map(XmlNode node)
 		{
 			foreach(XmlAttribute i in node.Attributes)
@@ -131,5 +155,24 @@ namespace CSCL.Games.Manasource
 				}
 			}
 		}
+
+		#region IComparable Members
+		public int CompareTo(object obj)
+		{
+			Map tmp=(Map)obj;
+			if(tmp.ID<this.ID)
+			{
+				return 1;
+			}
+			else if(tmp.ID==this.ID)
+			{
+				return 0;
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		#endregion
 	}
 }

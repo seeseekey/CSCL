@@ -88,26 +88,40 @@ namespace CSCL
 			InternalXmlDocument.InsertBefore(InternalXmlDeclaration, InternalXmlDocument.DocumentElement);
 		}
 
+		public XmlData(string filename)
+		{
+			InitXmlDataWithFile(filename, false);
+		}
+
+		public XmlData(string filename, bool overwrite)
+		{
+			InitXmlDataWithFile(filename, overwrite);
+		}
+
 		/// <summary>
 		/// Konstruktor welcher gleich eine Datei lädt
 		/// </summary>
 		/// <param name="filename">Name der Datei</param>
-		public XmlData(string filename)
+		public void InitXmlDataWithFile(string filename, bool overwrite)
 		{
 			//XmlDocument initialisieren
 			InternalXmlDocument=new XmlDocument();
 			InternalXmlDeclaration=InternalXmlDocument.CreateXmlDeclaration("1.0", "utf-8", "yes");
 			InternalXmlDocument.InsertBefore(InternalXmlDeclaration, InternalXmlDocument.DocumentElement);
 
-			if(!FileSystem.ExistsFile(filename))
-			{
-				InternalXmlDocument.AppendChild(InternalXmlDocument.CreateElement("xml"));
-				Save(filename);
-			}
+			//if(!FileSystem.ExistsFile(filename))
+			//{
+			//    InternalXmlDocument.AppendChild(InternalXmlDocument.CreateElement("xml"));
+			//    Save(filename);
+			//}
 
 			InternalFilename=filename;
 			InternalXmlDocument.XmlResolver=null;
-			InternalXmlDocument.Load(InternalFilename);
+
+			if(FileSystem.ExistsFile(filename)&&overwrite==false)
+			{
+				InternalXmlDocument.Load(InternalFilename);
+			}
 		}
 
 		public XmlData(byte[] data)
@@ -125,6 +139,11 @@ namespace CSCL
 		#endregion
 
 		#region Add Funktionen
+		public void AddAttribute(XmlNode addNode, string attributeName, int attributeValue)
+		{
+			AddAttribute(addNode, attributeName, attributeValue.ToString());
+		}
+
 		/// <summary>
 		/// Fügt der Node ein Atribute hinzu
 		/// </summary>
@@ -137,6 +156,16 @@ namespace CSCL
 			XmlAttribute AddAttribute=TmpXmlDoc.CreateAttribute(attributeName);
 			AddAttribute.Value=attributeValue;
 			addNode.Attributes.SetNamedItem(AddAttribute);
+		}
+
+		/// <summary>
+		/// Erstellt ein Root Element
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public XmlNode AddRoot(string name)
+		{
+			return InternalXmlDocument.AppendChild(InternalXmlDocument.CreateElement(name));
 		}
 
 		/// <summary>
