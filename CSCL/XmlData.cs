@@ -206,7 +206,7 @@ namespace CSCL
 		#endregion
 
 		#region Get Funktionen
-		public static string GetAttributeAsString(XmlNode node, string attName)
+		public string GetAttributeAsString(XmlNode node, string attName)
 		{
 			return node.Attributes.GetNamedItem("name").Value.ToString();
 		}

@@ -60,10 +60,86 @@ namespace CSCL.Games.Manasource
 
 			xml.Save();
 		}
+
+		public static Map GetMapFromName(List<Map> maps, string name)
+		{
+			foreach(Map i in maps)
+			{
+				if(i.Name.ToLower()==name.ToLower()) return i;
+			}
+
+			throw new Exception("No map found!");
+		}
+
+		public static string IncreaseArcofMap(string name, XYZ axis)
+		{
+			char[] splitChars= { '-' };
+			string[] Splited=name.Split(splitChars);
+
+			if(Splited[0]!="ow") throw new NotImplementedException();
+
+			int x=GetCoord(Splited[1]);
+			int y=GetCoord(Splited[2]);
+			int z=GetCoord(Splited[3]);
+
+			switch(axis)
+			{
+				case XYZ.X:
+					{
+						x++;
+						break;
+					}
+				case XYZ.Y:
+					{
+						y++;
+						break;
+					}
+				case XYZ.Z:
+					{
+						z++;
+						break;
+					}
+			}
+
+			return GetOuterWorldMapFilenameWithoutExtension(x, y, z);
+		}
+
+		public static string DecreaseArcofMap(string name, XYZ axis)
+		{
+			char[] splitChars= { '-' };
+			string[] Splited=name.Split(splitChars);
+
+			if(Splited[0]!="ow") throw new NotImplementedException();
+
+			int x=GetCoord(Splited[1]);
+			int y=GetCoord(Splited[2]);
+			int z=GetCoord(Splited[3]);
+
+			switch(axis)
+			{
+				case XYZ.X:
+					{
+						x--;
+						break;
+					}
+				case XYZ.Y:
+					{
+						y--;
+						break;
+					}
+				case XYZ.Z:
+					{
+						z--;
+						break;
+					}
+			}
+
+			return GetOuterWorldMapFilenameWithoutExtension(x, y, z);
+		}
 		#endregion
 
 		#region Hilfsfunktionen
-		private int GetCoord(string coord)
+		private static int GetCoord(string coord)
 		{
 			string replace=coord.Replace("n", "-");
 			replace=replace.Replace("p", "");
@@ -71,6 +147,15 @@ namespace CSCL.Games.Manasource
 
 			return Convert.ToInt32(replace);
 		}
+
+		//private string GetCoord(int coord)
+		//{
+		//    string replace=coord.Replace("n", "-");
+		//    replace=replace.Replace("p", "");
+		//    replace=replace.Replace("o", "");
+
+		//    return Convert.ToInt32(replace);
+		//}
 		#endregion
 
 		public int X
