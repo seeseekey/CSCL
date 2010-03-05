@@ -575,13 +575,19 @@ namespace CSCL
 			return std;
 		}
 
-		public long GetInt(string name) { return GetInt(name, 0L); }
-		public long GetInt(string name, int std)
+		public int GetInt(string name) { return GetInt(name, 0); }
+		public int GetInt(string name, int std)
 		{
-			return GetInt(name, (long)std);
+			return GetInt32(name, std);
 		}
 
-		public long GetInt(string name, long std)
+		public int GetInt32(string name) { return GetInt32(name, 0); }
+		public int GetInt32(string name, int std)
+		{
+			return (int)GetInt64(name, (long)std);
+		}
+
+		public long GetInt64(string name, long std)
 		{
 			object o=Get(name, std);
 

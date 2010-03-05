@@ -9,6 +9,8 @@ namespace CSCL
     /// </summary>
     public class FileSystem
     {
+		//TODO System Dateisystemzeichen auswerten
+
         #region Statische Variablen
         /// <summary>
         /// Feld nicht erlaubter Zeichen im Dateinamen
