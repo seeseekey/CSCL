@@ -71,7 +71,14 @@ namespace CSCL
 					SelectedPath[0].AppendChild(AddNode);
 				}
 
-				checkpath+="."+i;
+				if(checkpath=="")
+				{
+					checkpath+=i;
+				}
+				else
+				{
+					checkpath+="."+i;
+				}
 			}
 		}
 		#endregion
@@ -328,7 +335,17 @@ namespace CSCL
 		public bool ExistElement(string path)
 		{
 			if(GetElements(path).Count==0) return false;
-			return true;
+			else if(GetElements(path).Count==1)
+			{
+				XmlNode node=GetElements(path)[0];
+
+				if(node.NodeType==XmlNodeType.XmlDeclaration)
+				{
+					return false;
+				}
+				else return true;
+			}
+			else return true;
 		}
 
 		/// <summary>
