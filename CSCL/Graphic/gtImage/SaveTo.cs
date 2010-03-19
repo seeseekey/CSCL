@@ -76,8 +76,13 @@ namespace CSCL.Graphic
 
 		public void SaveToJpeg(string filename, int exifWidth, int exifHeight)
 		{
-			if(channelFormat!=Format.RGB) // nur RGB Bilder bitte
-				throw new Exception("Only rgb images can be saved by SaveToJpeg.");
+			if(channelFormat==Format.RGBA)
+			{
+				ConvertToRGB().SaveToJpeg(filename, exifWidth, exifHeight);
+				return;
+			}
+
+			if(channelFormat!=Format.RGB) throw new Exception("Only rgb images can be saved by SaveToJpeg.");
 
 			Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
 
@@ -140,8 +145,13 @@ namespace CSCL.Graphic
 
 		public void SaveToJpeg(string filename, int exifWidth, int exifHeight, byte quality)
 		{
-			if(channelFormat!=Format.RGB) // nur RGB Bilder bitte
-				throw new Exception("Only rgb images can be saved by SaveToJpeg.");
+			if(channelFormat==Format.RGBA)
+			{
+				ConvertToRGB().SaveToJpeg(filename, exifWidth, exifHeight);
+				return;
+			}
+
+			if(channelFormat!=Format.RGB) throw new Exception("Only rgb images can be saved by SaveToJpeg.");
 
 			Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
 

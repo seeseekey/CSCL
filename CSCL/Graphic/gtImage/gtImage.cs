@@ -416,6 +416,11 @@ namespace CSCL.Graphic
 		// Resize
 		/////////////////////////////////////////////////////////////////
 		#region Resize
+		public gtImage Resize(int w, int h)
+		{
+			return Resize((uint)w, (uint)h);
+		}
+
 		public gtImage Resize(uint w, uint h)
 		{
 			if(width==w&&height==h) return this;
