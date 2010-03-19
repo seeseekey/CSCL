@@ -4,9 +4,9 @@ using System.Text;
 
 namespace CSCL.Database.SQLite
 {
-  using sqlite3_value = csSQLite.Mem;
+  using sqlite3_value = Sqlite3.Mem;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2005 February 15
@@ -25,9 +25,9 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+    **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/alter_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -539,9 +539,9 @@ sqlite3MayAbort(pParse);
     ** for which the renamed table is the parent table.  */
     if( (zWhere=whereForeignKeys(pParse, pTab))!=null ){
       sqlite3NestedParse(pParse, 
-          "UPDATE sqlite_master SET " +
-              "sql = sqlite_rename_parent(sql, %Q, %Q) " +
-              "WHERE %s;", zTabName, zName, zWhere);
+          "UPDATE \"%w\".%s SET "+
+              "sql = sqlite_rename_parent(sql, %Q, %Q) "+
+              "WHERE %s;", zDb, SCHEMA_TABLE(iDb), zTabName, zName, zWhere);
       sqlite3DbFree(db, ref zWhere);
     }
   }

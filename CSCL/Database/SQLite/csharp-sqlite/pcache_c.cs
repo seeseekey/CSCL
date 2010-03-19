@@ -7,10 +7,10 @@ using Pgno = System.UInt32;
 
 namespace CSCL.Database.SQLite
 {
-  using sqlite3_value = csSQLite.Mem;
-  using sqlite3_pcache = csSQLite.PCache1;
+  using sqlite3_value = Sqlite3.Mem;
+  using sqlite3_pcache = Sqlite3.PCache1;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2008 August 05
@@ -28,9 +28,9 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+    **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/pcache_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"

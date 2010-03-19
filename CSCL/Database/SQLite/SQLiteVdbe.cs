@@ -1,15 +1,10 @@
-//  $Header$
+//  $Header: Community.CsharpSqlite.Benchmark/Classes/SQLiteVdbe.cs,v 51ed90cff79a 2010/02/23 22:58:18 Noah $
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
-using System.Collections;
 
 namespace CSCL.Database.SQLite
 {
 
-  using sqlite = csSQLite.sqlite3;
-  using Vdbe = csSQLite.Vdbe;
+  using Vdbe = Sqlite3.Vdbe;
 
   /// <summary>
   /// C#-SQLite wrapper with functions for opening, closing and executing queries.
@@ -30,7 +25,7 @@ namespace CSCL.Database.SQLite
       vm = null;
 
       // prepare and compile 
-      csSQLite.sqlite3_prepare_v2( db.Connection(), query, query.Length, ref vm, 0 );
+	  Sqlite3.sqlite3_prepare_v2(db.Connection(), query, query.Length, ref vm, 0);
     }
 
     /// <summary>
@@ -52,7 +47,7 @@ namespace CSCL.Database.SQLite
     /// <returns>LastResult</returns>
     public int BindInteger(int index, int bInteger )
     {
-      if ( (LastResult = csSQLite.sqlite3_bind_int( vm, index, bInteger ))== csSQLite.SQLITE_OK )
+      if ( (LastResult = Sqlite3.sqlite3_bind_int( vm, index, bInteger ))== Sqlite3.SQLITE_OK )
       { LastError = ""; }
       else
       {
@@ -70,7 +65,7 @@ namespace CSCL.Database.SQLite
     /// <returns>LastResult</returns>
     public int BindLong( int index, long bLong )
     {
-      if ( ( LastResult = csSQLite.sqlite3_bind_int64( vm, index, bLong ) ) == csSQLite.SQLITE_OK )
+      if ( ( LastResult = Sqlite3.sqlite3_bind_int64( vm, index, bLong ) ) == Sqlite3.SQLITE_OK )
       { LastError = ""; }
       else
       {
@@ -87,7 +82,7 @@ namespace CSCL.Database.SQLite
     /// <returns>LastResult</returns>
     public int BindText(  int index, string bText )
     {
-      if ( ( LastResult = csSQLite.sqlite3_bind_text( vm, index, bText ,-1,null) ) == csSQLite.SQLITE_OK )
+      if ( ( LastResult = Sqlite3.sqlite3_bind_text( vm, index, bText ,-1,null) ) == Sqlite3.SQLITE_OK )
       { LastError = ""; }
       else
       {
@@ -104,7 +99,7 @@ namespace CSCL.Database.SQLite
     public int ExecuteStep(   )
     {
       // Execute the statement
-      int LastResult = csSQLite.sqlite3_step( vm );
+		int LastResult=Sqlite3.sqlite3_step(vm);
 
       return LastResult;
     }
@@ -116,7 +111,7 @@ namespace CSCL.Database.SQLite
     /// <returns>Result column</returns>
     public long Result_Long(int index)
     {
-      return csSQLite.sqlite3_column_int64( vm, index );
+      return Sqlite3.sqlite3_column_int64( vm, index );
     }
 
     /// <summary>
@@ -126,7 +121,7 @@ namespace CSCL.Database.SQLite
     /// <returns>Result column</returns>
     public string Result_Text( int index )
     {
-      return csSQLite.sqlite3_column_text( vm, index );
+		return Sqlite3.sqlite3_column_text(vm, index);
     }
 
     
@@ -148,7 +143,7 @@ namespace CSCL.Database.SQLite
     public void Reset()
     {
       // Reset the statment so it's ready to use again
-      csSQLite.sqlite3_reset( vm );
+      Sqlite3.sqlite3_reset( vm );
     }
     
     /// <summary>
@@ -158,8 +153,7 @@ namespace CSCL.Database.SQLite
     /// <returns>LastResult</returns>
     public void Close()
     {
-      csSQLite.sqlite3_finalize( ref vm );
+		Sqlite3.sqlite3_finalize(ref vm);
     }
-  
   }
 }

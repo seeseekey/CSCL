@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2008 October 07
@@ -38,7 +38,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/mutex_noop_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"

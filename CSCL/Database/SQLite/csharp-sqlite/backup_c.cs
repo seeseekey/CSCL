@@ -12,8 +12,8 @@ using Pgno = System.UInt32;
 namespace CSCL.Database.SQLite
 {
   using sqlite3_int64 = System.Int64;
-  using DbPage = csSQLite.PgHdr;
-  public partial class csSQLite
+  using DbPage = Sqlite3.PgHdr;
+  public partial class Sqlite3
   {
     /*
     ** 2009 January 28
@@ -32,9 +32,9 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+    **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/backup_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -130,10 +130,10 @@ namespace CSCL.Database.SQLite
           pParse.db = pDb;
           if ( sqlite3OpenTempDatabase( pParse ) != 0 )
           {
-            sqlite3ErrorClear( pParse );
             sqlite3Error( pErrorDb, pParse.rc, "%s", pParse.zErrMsg );
             rc = SQLITE_ERROR;
           }
+          sqlite3DbFree(pErrorDb, ref pParse.zErrMsg);
           //sqlite3StackFree( pErrorDb, pParse );
         }
         if ( rc != 0 )

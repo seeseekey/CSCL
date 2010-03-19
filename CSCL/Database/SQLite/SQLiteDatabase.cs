@@ -1,13 +1,13 @@
-//  $Header$
+//  $Header: Community.CsharpSqlite.Benchmark/Classes/SQLiteDatabase.cs,v 51ed90cff79a 2010/02/23 22:58:18 Noah $
 using System;
-using System.Data;
 using System.Collections;
+using System.Data;
 
 namespace CSCL.Database.SQLite
 {
 
-  using sqlite = csSQLite.sqlite3;
-  using Vdbe = csSQLite.Vdbe;
+  using sqlite = Sqlite3.sqlite3;
+  using Vdbe = Sqlite3.Vdbe;
   /// <summary>
   /// C#-SQLite wrapper with functions for opening, closing and executing queries.
   /// </summary>
@@ -39,7 +39,7 @@ namespace CSCL.Database.SQLite
     public void OpenDatabase( String DatabaseName )
     {
       // opens database 
-      if ( csSQLite.sqlite3_open( DatabaseName, ref db ) != csSQLite.SQLITE_OK )
+		if(Sqlite3.sqlite3_open(DatabaseName, ref db)!=Sqlite3.SQLITE_OK)
       {
         // if there is some error, database pointer is set to 0 and exception is throws
         db = null;
@@ -55,7 +55,7 @@ namespace CSCL.Database.SQLite
       // closes the database if there is one opened
       if ( db != null )
       {
-        csSQLite.sqlite3_close( db );
+        Sqlite3.sqlite3_close( db );
       }
     }
 
@@ -74,10 +74,10 @@ namespace CSCL.Database.SQLite
     public void ExecuteNonQuery( String query )
     {
       // calles SQLite function that executes non-query
-      csSQLite.sqlite3_exec( db, query, 0, 0, 0 );
+      Sqlite3.exec( db, query, 0, 0, 0 );
       // if there is error, excetion is thrown
-      if ( db.errCode != csSQLite.SQLITE_OK )
-        throw new Exception( "Error with executing non-query: \"" + query + "\"!\n" + csSQLite.sqlite3_errmsg( db ) );
+      if ( db.errCode != Sqlite3.SQLITE_OK )
+        throw new Exception( "Error with executing non-query: \"" + query + "\"!\n" + Sqlite3.sqlite3_errmsg( db ) );
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ namespace CSCL.Database.SQLite
       table = new DataTable( "resultTable" );
 
       // reads rows
-      do { } while ( ReadNextRow( statement.VirtualMachine(), table ) == csSQLite.SQLITE_ROW );
+      do { } while ( ReadNextRow( statement.VirtualMachine(), table ) == Sqlite3.SQLITE_ROW );
       // finalize executing this query
       statement.Close();
 
@@ -111,41 +111,41 @@ namespace CSCL.Database.SQLite
       int columnCount = table.Columns.Count;
       if ( columnCount == 0 )
       {
-        if ( ( columnCount = ReadColumnNames( vm, table ) ) == 0 ) return csSQLite.SQLITE_ERROR;
+        if ( ( columnCount = ReadColumnNames( vm, table ) ) == 0 ) return Sqlite3.SQLITE_ERROR;
       }
 
       int resultType;
-      if ( ( resultType = csSQLite.sqlite3_step( vm) ) == csSQLite.SQLITE_ROW )
+	  if((resultType=Sqlite3.sqlite3_step(vm))==Sqlite3.SQLITE_ROW)
       {
         object[] columnValues = new object[columnCount];
 
         for ( int i = 0 ; i < columnCount ; i++ )
         {
-          int columnType = csSQLite.sqlite3_column_type( vm, i );
+			int columnType=Sqlite3.sqlite3_column_type(vm, i);
           switch ( columnType )
           {
-            case csSQLite.SQLITE_INTEGER:
+            case Sqlite3.SQLITE_INTEGER:
               {
                 table.Columns[i].DataType = typeof(Int64);
-                columnValues[i] = csSQLite.sqlite3_column_int(vm, i);
+				columnValues[i]=Sqlite3.sqlite3_column_int(vm, i);
                 break;
               }
-            case csSQLite.SQLITE_FLOAT:
+            case Sqlite3.SQLITE_FLOAT:
               {
                 table.Columns[i].DataType = typeof(Double);
-                columnValues[i] = csSQLite.sqlite3_column_double(vm, i);
+				columnValues[i]=Sqlite3.sqlite3_column_double(vm, i);
                 break;
               }
-            case csSQLite.SQLITE_TEXT:
+            case Sqlite3.SQLITE_TEXT:
               {
                 table.Columns[i].DataType = typeof(String);
-                columnValues[i] = csSQLite.sqlite3_column_text(vm, i);
+				columnValues[i]=Sqlite3.sqlite3_column_text(vm, i);
                 break;
               }
-            case csSQLite.SQLITE_BLOB:
+            case Sqlite3.SQLITE_BLOB:
               {
                 table.Columns[i].DataType = typeof(Byte[]);
-                columnValues[i] = csSQLite.sqlite3_column_blob(vm, i);
+				columnValues[i]=Sqlite3.sqlite3_column_blob(vm, i);
                 break;
               }
             default:
@@ -168,7 +168,7 @@ namespace CSCL.Database.SQLite
       String columnName = "";
       int columnType = 0;
       // returns number of columns returned by statement
-      int columnCount = csSQLite.sqlite3_column_count( vm );
+	  int columnCount=Sqlite3.sqlite3_column_count(vm);
       object[] columnValues = new object[columnCount];
 
       try
@@ -176,29 +176,29 @@ namespace CSCL.Database.SQLite
         // reads columns one by one
         for ( int i = 0 ; i < columnCount ; i++ )
         {
-          columnName = csSQLite.sqlite3_column_name( vm, i );
+			columnName=Sqlite3.sqlite3_column_name(vm, i);
 
-          columnType = csSQLite.sqlite3_column_type( vm, i );
+			columnType=Sqlite3.sqlite3_column_type(vm, i);
 
           switch ( columnType )
           {
-            case csSQLite.SQLITE_INTEGER:
+            case Sqlite3.SQLITE_INTEGER:
               {
                 // adds new integer column to table
                 table.Columns.Add( columnName, Type.GetType( "System.Int64" ) );
                 break;
               }
-            case csSQLite.SQLITE_FLOAT:
+            case Sqlite3.SQLITE_FLOAT:
               {
                 table.Columns.Add( columnName, Type.GetType( "System.Double" ) );
                 break;
               }
-            case csSQLite.SQLITE_TEXT:
+            case Sqlite3.SQLITE_TEXT:
               {
                 table.Columns.Add( columnName, Type.GetType( "System.String" ) );
                 break;
               }
-            case csSQLite.SQLITE_BLOB:
+            case Sqlite3.SQLITE_BLOB:
               {
                 table.Columns.Add( columnName, Type.GetType( "System.byte[]" ) );
                 break;

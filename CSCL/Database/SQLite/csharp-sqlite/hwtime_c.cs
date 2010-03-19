@@ -2,7 +2,7 @@ namespace CSCL.Database.SQLite
 {
   using sqlite_u3264 = System.UInt64;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2008 May 27
@@ -25,7 +25,7 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/hwtime_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
     *************************************************************************
     */
     //#if !_HWTIME_H_

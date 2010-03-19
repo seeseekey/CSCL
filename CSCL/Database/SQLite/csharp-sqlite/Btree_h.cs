@@ -1,6 +1,6 @@
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2001 September 15
@@ -20,9 +20,9 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+    **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/Btree_h.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
     *************************************************************************
     */
     //#if !_BTREE_H_
@@ -94,6 +94,7 @@ namespace CSCL.Database.SQLite
     //int sqlite3BtreeSetPageSize(Btree *p, int nPagesize, int nReserve, int eFix);
     //int sqlite3BtreeGetPageSize(Btree*);
     //int sqlite3BtreeMaxPageCount(Btree*,int);
+    //int sqlite3BtreeSecureDelete(Btree*,int);
     //int sqlite3BtreeGetReserve(Btree*);
     //int sqlite3BtreeSetAutoVacuum(Btree , int);
     //int sqlite3BtreeGetAutoVacuum(Btree );

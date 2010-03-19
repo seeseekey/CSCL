@@ -1,12 +1,12 @@
 /*
 *************************************************************************
-**  $Header$
+**  $Header: Community.CsharpSqlite/src/_Custom.cs,v c8b9bab808c8 2010/02/22 12:54:28 Noah $
 *************************************************************************
 */
 using System;
 using System.Diagnostics;
 using System.IO;
-#if !SILVERLIGHT
+#if !SQLITE_SILVERLIGHT
 using System.Management;
 #endif
 using System.Text;
@@ -18,9 +18,9 @@ using time_t = System.Int64;
 
 namespace CSCL.Database.SQLite
 {
-  using sqlite3_value = csSQLite.Mem;
+  using sqlite3_value = Sqlite3.Mem;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
 
     static int atoi( byte[] inStr )
@@ -311,7 +311,7 @@ namespace CSCL.Database.SQLite
     // Example (C#)
     public static int GetbytesPerSector( StringBuilder diskPath )
     {
-#if !SILVERLIGHT
+#if !SQLITE_SILVERLIGHT
       ManagementObjectSearcher mosLogicalDisks = new ManagementObjectSearcher( "select * from Win32_LogicalDisk where DeviceID = '" + diskPath.ToString().Remove( diskPath.Length - 1, 1 ) + "'" );
       try
       {

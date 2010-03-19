@@ -9,7 +9,7 @@ namespace CSCL.Database.SQLite
   using u32 = System.UInt32;
   using System;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2001 September 15
@@ -30,7 +30,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/malloc_c.cs,v 36ea17db6ba3 2010/02/22 16:26:59 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -223,7 +223,7 @@ namespace CSCL.Database.SQLite
       else
       {
         sqlite3GlobalConfig.pPage = null;
-        sqlite3GlobalConfig.szPage = 0;
+        sqlite3GlobalConfig.nPage = 0;
       }
       return sqlite3GlobalConfig.m.xInit( sqlite3GlobalConfig.m.pAppData );
     }

@@ -9,9 +9,9 @@ using u64 = System.UInt64;
 
 namespace CSCL.Database.SQLite
 {
-  using sqlite3_value = csSQLite.Mem;
+  using sqlite3_value = Sqlite3.Mem;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2003 October 31
@@ -61,9 +61,9 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+    **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/date_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -85,9 +85,9 @@ namespace CSCL.Database.SQLite
 ** already, check for an MSVC build environment that provides
 ** localtime_s().
 */
-#if !(HAVE_LOCALTIME_R) && !(HAVE_LOCALTIME_S) &&      (_MSC_VER) && (_CRT_INSECURE_DEPRECATE)
-#define HAVE_LOCALTIME_S
-#endif
+//#if !(HAVE_LOCALTIME_R) && !(HAVE_LOCALTIME_S) &&      (_MSC_VER) && (_CRT_INSECURE_DEPRECATE)
+//#define HAVE_LOCALTIME_S
+//#endif
 
     /*
 ** A structure for holding a single date and time.
@@ -1296,8 +1296,8 @@ FUNCTION("current_timestamp", 0, 0, 0, (dxFunc)ctimestampFunc),
 FUNCTION("current_date",      0, 0, 0, (dxFunc)cdateFunc     ),
 #else
 STR_FUNCTION("current_time",      0, "%H:%M:%S",          0, currentTimeFunc),
-STR_FUNCTION("current_timestamp", 0, "%Y-%m-%d",          0, currentTimeFunc),
-STR_FUNCTION("current_date",      0, "%Y-%m-%d %H:%M:%S", 0, currentTimeFunc),
+STR_FUNCTION("current_date",      0, "%Y-%m-%d",          0, currentTimeFunc),
+STR_FUNCTION("current_timestamp", 0, "%Y-%m-%d %H:%M:%S", 0, currentTimeFunc),
 #endif
 };
       int i;

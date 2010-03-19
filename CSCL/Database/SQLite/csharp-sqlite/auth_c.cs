@@ -4,9 +4,9 @@ using System.Text;
 
 namespace CSCL.Database.SQLite
 {
-  using sqlite3_value = csSQLite.Mem;
+  using sqlite3_value = Sqlite3.Mem;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2003 January 11
@@ -29,7 +29,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/auth_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"

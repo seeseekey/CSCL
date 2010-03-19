@@ -19,7 +19,7 @@ namespace CSCL.Database.SQLite
 					{
 						Int32 tmpValue=(Int32)bObject;
 
-						if((ret=csSQLite.sqlite3_bind_int(vm, index, tmpValue))!=csSQLite.SQLITE_OK)
+						if((ret=Sqlite3.sqlite3_bind_int(vm, index, tmpValue))!=Sqlite3.SQLITE_OK)
 						{
 							LastError="Error "+LastError+"binding Integer ["+tmpValue+"]";
 						}
@@ -29,7 +29,7 @@ namespace CSCL.Database.SQLite
 					{
 						Int64 tmpValue=(Int64)bObject;
 
-						if((ret=csSQLite.sqlite3_bind_int64(vm, index, tmpValue))!=csSQLite.SQLITE_OK)
+						if((ret=Sqlite3.sqlite3_bind_int64(vm, index, tmpValue))!=Sqlite3.SQLITE_OK)
 						{
 							LastError="Error "+LastError+"binding Integer64 ["+tmpValue+"]";
 						}
@@ -39,7 +39,7 @@ namespace CSCL.Database.SQLite
 					{
 						String tmpValue=(String)bObject;
 
-						if((ret=csSQLite.sqlite3_bind_text(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
+						if((ret=Sqlite3.sqlite3_bind_text(vm, index, tmpValue, -1, null))!=Sqlite3.SQLITE_OK)
 						{
 							LastError="Error "+LastError+"binding Text ["+tmpValue+"]";
 						}
@@ -52,7 +52,7 @@ namespace CSCL.Database.SQLite
 						////string tmpVxx=Encoding.ASCII.GetString(tmpValue);
 						//string tmpVxx=System.Text.Encoding.GetEncoding("iso-8859-1").GetString(tmpValue);
 
-						if((ret=csSQLite.sqlite3_bind_blob(vm, index, tmpValue, -1, null))!=csSQLite.SQLITE_OK)
+						if((ret=Sqlite3.sqlite3_bind_blob(vm, index, tmpValue, -1, null))!=Sqlite3.SQLITE_OK)
 						{
 							LastError="Error "+LastError+"binding Blob ["+tmpValue+"]";
 						}

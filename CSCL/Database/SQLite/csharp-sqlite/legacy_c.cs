@@ -4,10 +4,10 @@ using System.Text;
 
 namespace CSCL.Database.SQLite
 {
-  using sqlite3_callback = csSQLite.dxCallback;
-  using sqlite3_stmt = csSQLite.Vdbe;
+  using sqlite3_callback = Sqlite3.dxCallback;
+  using sqlite3_stmt = Sqlite3.Vdbe;
 
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2001 September 15
@@ -28,9 +28,9 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
+    **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/legacy_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
     *************************************************************************
     */
 
@@ -46,8 +46,16 @@ namespace CSCL.Database.SQLite
     ** argument to xCallback().  If xCallback=NULL then no callback
     ** is invoked, even for queries.
     */
-    //OVERLOADS
+//C# Alias
+    static public int exec(    sqlite3 db,             /* The database on which the SQL executes */    string zSql,            /* The SQL to be executed */    int NoCallback, int NoArgs, int NoErrors    )
+    {      string Errors = "";      return sqlite3_exec( db, zSql, null, null, ref Errors );    }
 
+    static public int exec(    sqlite3 db,             /* The database on which the SQL executes */    string zSql,                /* The SQL to be executed */    sqlite3_callback xCallback, /* Invoke this callback routine */    object pArg,                /* First argument to xCallback() */    int NoErrors   )
+    {      string Errors = "";      return sqlite3_exec( db, zSql, xCallback, pArg, ref Errors );    }
+    static public int exec(     sqlite3 db,             /* The database on which the SQL executes */    string zSql,                /* The SQL to be executed */    sqlite3_callback xCallback, /* Invoke this callback routine */    object pArg,                /* First argument to xCallback() */    ref string pzErrMsg         /* Write error messages here */)
+    { return sqlite3_exec(db, zSql, xCallback, pArg, ref pzErrMsg); }
+
+    //OVERLOADS 
     static public int sqlite3_exec(
     sqlite3 db,             /* The database on which the SQL executes */
     string zSql,            /* The SQL to be executed */
@@ -85,10 +93,7 @@ namespace CSCL.Database.SQLite
       int nRetry = 0;             /* Number of retry attempts */
       int callbackIsInit;         /* True if callback data is initialized */
 
-      if ( !sqlite3SafetyCheckOk( db ) )
-      {
-        return SQLITE_MISUSE;
-      }
+      if (!sqlite3SafetyCheckOk(db)) return SQLITE_MISUSE_BKPT();
 
       if ( zSql == null ) zSql = "";
 
@@ -129,10 +134,10 @@ namespace CSCL.Database.SQLite
             if ( 0 == callbackIsInit )
             {
               azCols = new string[nCol];//sqlite3DbMallocZero(db, 2*nCol*sizeof(const char*) + 1);
-              if ( azCols == null )
-              {
-                goto exec_out;
-              }
+              //if ( azCols == null )
+              //{
+              //  goto exec_out;
+              //}
               for ( i = 0; i < nCol; i++ )
               {
                 azCols[i] = sqlite3_column_name( pStmt, i );
@@ -150,8 +155,8 @@ namespace CSCL.Database.SQLite
                 azVals[i] = sqlite3_column_text( pStmt, i );
                 if ( azVals[i] == null && sqlite3_column_type( pStmt, i ) != SQLITE_NULL )
                 {
-                  ////        db.mallocFailed = 1;
-                  goto exec_out;
+                  //db.mallocFailed = 1;
+                  //goto exec_out;
                 }
               }
             }

@@ -1,6 +1,6 @@
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /* Automatically generated.  Do not edit */
     /* See the mkopcodeh.awk script for details */

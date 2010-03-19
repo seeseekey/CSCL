@@ -1,6 +1,6 @@
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2006 June 7
@@ -25,7 +25,7 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/sqlite3ext_h.cs,v 9f128469ffab 2010/02/23 17:15:40 Noah $
     *************************************************************************
     */
 #if !_SQLITE3EXT_H_
@@ -224,7 +224,7 @@ namespace CSCL.Database.SQLite
 #if !SQLITE_CORE
     //#define sqlite3_aggregate_context      sqlite3_api->aggregate_context
 #if !SQLITE_OMIT_DEPRECATED
-    /#define sqlite3_aggregate_count        sqlite3_api->aggregate_count
+    //#define sqlite3_aggregate_count        sqlite3_api->aggregate_count
 #endif
     //#define sqlite3_bind_blob              sqlite3_api->bind_blob
     //#define sqlite3_bind_double            sqlite3_api->bind_double
@@ -282,7 +282,7 @@ namespace CSCL.Database.SQLite
     //#define sqlite3_errmsg16               sqlite3_api->errmsg16
     //#define sqlite3_exec                   sqlite3_api->exec
 #if !SQLITE_OMIT_DEPRECATED
-    /#define sqlite3_expired                sqlite3_api->expired
+    //#define sqlite3_expired                sqlite3_api->expired
 #endif
     //#define sqlite3_finalize               sqlite3_api->finalize
     //#define //sqlite3_free                   sqlite3_api->free

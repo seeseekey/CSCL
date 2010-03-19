@@ -1,6 +1,6 @@
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2007 May 7
@@ -21,7 +21,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/sqliteLimit_h.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
     *************************************************************************
     */
     /*
@@ -159,7 +159,7 @@ namespace CSCL.Database.SQLite
     const int SQLITE_DEFAULT_PAGE_SIZE = 1024;
 #endif
 #if SQLITE_DEFAULT_PAGE_SIZE //SQLITE_DEFAULT_PAGE_SIZE>SQLITE_MAX_PAGE_SIZE
-# undef SQLITE_DEFAULT_PAGE_SIZE
+//# undef SQLITE_DEFAULT_PAGE_SIZE
 const int SQLITE_DEFAULT_PAGE_SIZE SQLITE_MAX_PAGE_SIZE
 #endif
 
@@ -174,7 +174,7 @@ const int SQLITE_DEFAULT_PAGE_SIZE SQLITE_MAX_PAGE_SIZE
     const int SQLITE_MAX_DEFAULT_PAGE_SIZE = 8192;
 #endif
 #if SQLITE_MAX_DEFAULT_PAGE_SIZE //SQLITE_MAX_DEFAULT_PAGE_SIZE>SQLITE_MAX_PAGE_SIZE
-# undef SQLITE_MAX_DEFAULT_PAGE_SIZE
+//# undef SQLITE_MAX_DEFAULT_PAGE_SIZE
 const int SQLITE_MAX_DEFAULT_PAGE_SIZE SQLITE_MAX_PAGE_SIZE
 #endif
 

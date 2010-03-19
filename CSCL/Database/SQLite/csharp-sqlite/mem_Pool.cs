@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     *************************************************************************
@@ -18,7 +18,7 @@ namespace CSCL.Database.SQLite
     ** routines specified in the sqlite3_mem_methods object.
     **
     *************************************************************************
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/mem_Pool.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
     *************************************************************************
     */
 

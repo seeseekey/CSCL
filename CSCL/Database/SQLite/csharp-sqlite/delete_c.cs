@@ -7,7 +7,7 @@ using u32 = System.UInt32;
 
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     ** 2001 September 15
@@ -28,7 +28,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-01-05 15:30:36 28d0d7710761114a44a1a3a425a6883c661f06e7
     **
-    **  $Header$
+    **  $Header: Community.CsharpSqlite/src/delete_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
     *************************************************************************
     */
     //#include "sqliteInt.h"

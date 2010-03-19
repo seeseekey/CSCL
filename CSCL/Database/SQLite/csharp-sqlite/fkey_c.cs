@@ -8,7 +8,7 @@ using u32 = System.UInt32;
 
 namespace CSCL.Database.SQLite
 {
-  public partial class csSQLite
+  public partial class Sqlite3
   {
     /*
     **
