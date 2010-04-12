@@ -9,21 +9,28 @@ namespace CSCL
 	/// </summary>
 	public static class Various
 	{
+		static System.Random TmpRandom=new System.Random(Environment.TickCount);
+		static System.Random TmpRandom2=new System.Random((int)Environment.WorkingSet);
+
+		static uint TmpCounter=0;
+
 		/// <summary>
 		/// Diese Funtion liefert eine eindeutige ID zurück
 		/// </summary>
 		/// <returns></returns>
 		public static string GetUniqueID()
 		{
-			DateTime TmpDateTime = DateTime.Now;
-			System.Random TmpRandom = new System.Random(Environment.TickCount);
-			System.Random TmpRandom2 = new System.Random((int)Environment.WorkingSet);
+			if(TmpCounter>4294967200) TmpCounter=0;
+
+			DateTime TmpDateTime=DateTime.Now;
 
 			return TmpDateTime.Ticks.ToString().PadLeft(20, '0')
-				 + '-'
-				 + TmpRandom2.Next(999999999).ToString().PadLeft(9, '0')
-				 + '-'
-				 + TmpRandom.Next(999999999).ToString().PadLeft(9, '0');
+				+"-"
+				+TmpCounter.ToString().PadLeft(10, '0')
+				+"-"
+				+TmpRandom2.Next(999999999).ToString().PadLeft(9, '0')
+				+"-"
+				+TmpRandom.Next(999999999).ToString().PadLeft(9, '0');
 		}
 
 		/// <summary>
