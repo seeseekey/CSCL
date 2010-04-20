@@ -9,7 +9,7 @@ namespace CSCL
     /// </summary>
     public class FileSystem
     {
-		//TODO System Dateisystemzeichen auswerten
+		static char pathDelimiter=System.IO.Path.DirectorySeparatorChar;
 
         #region Statische Variablen
         /// <summary>
@@ -28,7 +28,7 @@ namespace CSCL
         {
             get
             {
-                return Path.GetTempPath().TrimEnd('\\')+'\\';
+				return Path.GetTempPath().TrimEnd(pathDelimiter)+pathDelimiter;
             }
         }
 
@@ -41,7 +41,7 @@ namespace CSCL
             get
             {
                 FileInfo fi=new FileInfo(System.Reflection.Assembly.GetEntryAssembly().Location);
-                return fi.DirectoryName+"\\";
+				return fi.DirectoryName+pathDelimiter;
             }
         }
 
@@ -66,7 +66,7 @@ namespace CSCL
         {
             get
             {
-                return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\')+"\\";
+				return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd(pathDelimiter)+pathDelimiter;
             }
         }
         #endregion
@@ -129,13 +129,13 @@ namespace CSCL
 
             bool ret=true;
 
-            char[] sep=new char[] { '/', '\\' };
+			char[] sep=new char[] { pathDelimiter };
             string[] pathParts=dir.Split(sep, StringSplitOptions.RemoveEmptyEntries);
 
             string path="";
             foreach(string i in pathParts)
             {
-                path+=i+"\\";
+				path+=i+pathDelimiter;
                 if(IsRoot(i)) continue;
 
                 if(!Directory.Exists(path))
@@ -167,7 +167,7 @@ namespace CSCL
 
             foreach(FileInfo fi in SourceDI.GetFiles())
             {
-                string destFile=dest+"\\"+fi.Name;
+				string destFile=dest+pathDelimiter+fi.Name;
                 result=result&&(fi.CopyTo(destFile, false)!=null);
             }
 
@@ -239,7 +239,7 @@ namespace CSCL
         /// <returns></returns>
         public static string GetCurrentDir()
         {
-            return Environment.CurrentDirectory.TrimEnd('\\')+"\\";
+			return Environment.CurrentDirectory.TrimEnd(pathDelimiter)+pathDelimiter;
         }
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace CSCL
         /// <returns></returns>
         public static bool SetCurrentDir(string dir)
         {
-            Environment.CurrentDirectory=dir.TrimEnd('\\')+"\\";
+			Environment.CurrentDirectory=dir.TrimEnd(pathDelimiter)+pathDelimiter;
             return GetCurrentDir()==dir;
         }
 
@@ -527,7 +527,7 @@ namespace CSCL
         /// <returns></returns>
         public static bool IsRoot(string path)
         {
-            path=path.TrimEnd('\\').ToLower();
+            path=path.TrimEnd(pathDelimiter).ToLower();
             if(path.Length==2&&path[0]>='a'&&path[0]<='z'&&path[1]==':') return true;
             return false;
         }
@@ -641,7 +641,7 @@ namespace CSCL
             basePath=GetAbsolutePath(basePath);
 
             // canonize
-            if(basePath[basePath.Length-1]!='\\') basePath+='\\';
+			if(basePath[basePath.Length-1]!=pathDelimiter) basePath+=pathDelimiter;
 
             string relativePath="";
 
@@ -651,9 +651,9 @@ namespace CSCL
             {
                 basePath=GetPath(basePath.Substring(0, basePath.Length-1));
 
-                if(basePath[basePath.Length-1]!='\\') basePath+='\\';
+				if(basePath[basePath.Length-1]!=pathDelimiter) basePath+=pathDelimiter;
 
-                relativePath+="..\\";
+				relativePath+=".."+pathDelimiter;
                 baseStart=completePath.IndexOf(basePath);
             }
 
@@ -678,7 +678,7 @@ namespace CSCL
         {
             if(stringMethod)
             {
-                if(filename[filename.Length-1]=='\\') return filename;
+				if(filename[filename.Length-1]==pathDelimiter) return filename;
 
                 int idx=-1;
 
@@ -694,19 +694,19 @@ namespace CSCL
                 if(idx==-1) return "";
                 string path=filename.Substring(0, idx);
 
-                return path+'\\';
+				return path+pathDelimiter;
             }
             else
             {
                 FileInfo ret=new FileInfo(filename);
                 if(ret.DirectoryName.Length==3) return ret.DirectoryName;
-                return ret.DirectoryName+'\\';
+				return ret.DirectoryName+pathDelimiter;
             }
         }
 
-		public static string GetPathWithBackslash(string path)
+		public static string GetPathWithPathDelimiter(string path)
 		{
-			return path.TrimEnd('\\')+'\\';
+			return path.TrimEnd(pathDelimiter)+pathDelimiter;
 		}
 
         /// <summary>
@@ -723,7 +723,7 @@ namespace CSCL
         {
             if(stringMethod)
             {
-                if(filename[filename.Length-1]=='\\') return filename;
+				if(filename[filename.Length-1]==pathDelimiter) return filename;
 
                 int idx=-1;
 
