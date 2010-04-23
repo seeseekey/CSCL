@@ -11,6 +11,14 @@ namespace CSCL
     {
 		static char pathDelimiter=System.IO.Path.DirectorySeparatorChar;
 
+		public static char PathDelimiter
+		{
+			get
+			{
+				return pathDelimiter;
+			}
+		}
+
         #region Statische Variablen
         /// <summary>
         /// Feld nicht erlaubter Zeichen im Dateinamen
