@@ -519,14 +519,6 @@
     <Compile Include="Games\OnlineHighscore.cs" />
     <Compile Include="Games\PlayCube.cs" />
     <Compile Include="Games\Manasource\Helper.cs" />
-    <Compile Include="Games\Winemaker\Bank.cs" />
-    <Compile Include="Games\Winemaker\Enums.cs" />
-    <Compile Include="Games\Winemaker\Player.cs" />
-    <Compile Include="Games\Winemaker\VineAssortment.cs" />
-    <Compile Include="Games\Winemaker\Vineyard.cs" />
-    <Compile Include="Games\Winemaker\Weather.cs" />
-    <Compile Include="Games\Winemaker\Wine.cs" />
-    <Compile Include="Games\Winemaker\Winemaker.cs" />
     <Compile Include="GenericTree.cs" />
     <Compile Include="Graphic\gtImage\Channels.cs" />
     <Compile Include="Graphic\gtImage\DownSampling.cs" />
