@@ -27,7 +27,7 @@ namespace CSCL.Games.Manasource
 		public int ID { get; private set; }
 		public string Name { get; private set; }
 		public double Weight { get; private set; }
-		public int WeaponType { get; private set; }
+		public string WeaponType { get; private set; }
 		public string Sprite { get; private set; }
 		public string Type { get; private set; }
 		public List<Sound> Sounds { get; private set; }
@@ -44,6 +44,8 @@ namespace CSCL.Games.Manasource
 		public int Defense { get; private set; }
 		public int HP { get; private set; }
 		public string Script { get; private set; }
+		public string MissileParticle { get; private set; }
+		public int View { get; private set; }
 
 		public Item(XmlNode node)
 		{
@@ -115,7 +117,7 @@ namespace CSCL.Games.Manasource
 						}
 					case "weapon-type":
 						{
-							WeaponType=Convert.ToInt32(i.Value);
+							WeaponType=i.Value.ToString();
 							break;
 						}
 					case "weight":
@@ -147,6 +149,16 @@ namespace CSCL.Games.Manasource
 					case "attack-angle":
 						{
 							AttackAngle=Convert.ToInt32(i.Value);
+							break;
+						}
+					case "missile-particle":
+						{
+							MissileParticle=i.Value.ToString();
+							break;
+						}
+					case "view":
+						{
+							View=Convert.ToInt32(i.Value);
 							break;
 						}
 					default:
