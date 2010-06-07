@@ -496,35 +496,33 @@ namespace CSCL
         /// <param name="Root">Folder which contains files to be listed</param>
         /// <param name="SubFolders">True for scanning subfolders</param>
         /// <returns></returns>
-        public static List<string> GetFiles(string Root, bool Recursiv, string Filter)
-        {
-            List<string> ret=new List<string>();
+		public static List<string> GetFiles(string directory, bool recursiv, string filter)
+		{
+			try
+			{
+				List<string> ret=new List<string>();
 
-            try
-            {
-                string[] Files=System.IO.Directory.GetFiles(Root, Filter);
-                string[] Folders=System.IO.Directory.GetDirectories(Root, Filter);
+				string[] subdirs=Directory.GetDirectories(directory);
+				string[] files=Directory.GetFiles(directory, filter);
 
-                for(int i=0;i<Files.Length;i++)
-                {
-                    ret.Add(Files[i].ToString());
-                }
+				ret.AddRange(files);
 
-                if(Recursiv==true)
-                {
-                    for(int i=0;i<Folders.Length;i++)
-                    {
-                        ret.AddRange(GetFiles(Folders[i], Recursiv));
-                    }
-                }
-            }
-            catch(Exception Ex)
-            {
-                throw (Ex);
-            }
+				if(recursiv)
+				{
+					foreach(string dir in subdirs)
+					{
+						List<string> subfiles=GetFiles(dir, recursiv, filter);
+						ret.AddRange(subfiles);
+					}
+				}
 
-            return ret;
-        }
+				return ret;
+			}
+			catch(Exception)
+			{
+				return null;
+			}
+		}
         #endregion
 
         #region Paths
