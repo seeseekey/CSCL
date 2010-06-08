@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using CSCL.Graphic;
 
 namespace gtImage
 {
@@ -13,6 +14,11 @@ namespace gtImage
 		public FormMain()
 		{
 			InitializeComponent();
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			//gtImage bild=new 
 		}
 	}
 }
