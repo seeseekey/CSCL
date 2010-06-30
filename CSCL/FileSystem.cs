@@ -346,7 +346,7 @@ namespace CSCL
         public static bool CopyFile(string src, string dst, bool overwrite)
         {
 			try { File.Copy(src, dst, overwrite); }
-			catch (Exception) { return false; }
+			catch(Exception) { return false; }
             return true;
         }
 
