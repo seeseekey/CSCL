@@ -118,8 +118,9 @@ namespace CSCL
 
 			//if(!FileSystem.ExistsFile(filename))
 			//{
-			//    InternalXmlDocument.AppendChild(InternalXmlDocument.CreateElement("xml"));
-			//    Save(filename);
+			//    //throw new Exception("File don't exist!");
+			//    //InternalXmlDocument.AppendChild(InternalXmlDocument.CreateElement("xml"));
+			//    //Save(filename);
 			//}
 
 			InternalFilename=filename;
