@@ -19,7 +19,7 @@ using ynVar = System.Int16;
 using ynVar = System.Int32; 
 #endif
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using Op = Sqlite3.VdbeOp;
 
@@ -47,7 +47,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header: Community.CsharpSqlite/src/VdbeInt_h.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#if !_VDBEINT_H_

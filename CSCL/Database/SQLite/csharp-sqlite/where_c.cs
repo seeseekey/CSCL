@@ -9,7 +9,7 @@ using u8 = System.Byte;
 using u16 = System.UInt16;
 using u32 = System.UInt32;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using sqlite3_value = Sqlite3.Mem;
   public partial class Sqlite3
@@ -37,7 +37,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/where_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -4034,7 +4034,7 @@ OP_IdxLT             /* 2: (end_constraints && bRev) */
       ** only generate code for the first table in pTabList and assume that
       ** any cursors associated with subsequent tables are uninitialized.
       */
-      nTabList = ((wctrlFlags & WHERE_ONETABLE_ONLY) != 0) ? 1 : pTabList.nSrc;
+      nTabList = ((wctrlFlags & WHERE_ONETABLE_ONLY) != 0) ? 1 : (int)pTabList.nSrc;
 
       /* Allocate and initialize the WhereInfo structure that will become the
       ** return value. A single allocation is used to store the WhereInfo

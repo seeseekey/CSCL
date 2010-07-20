@@ -6,7 +6,7 @@ using u8 = System.Byte;
 using u32 = System.UInt32;
 using u64 = System.UInt64;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -32,7 +32,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header: Community.CsharpSqlite/src/random_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -147,6 +147,18 @@ sqlite3_mutex mutex = sqlite3MutexAlloc( SQLITE_MUTEX_STATIC_PRNG );
       while ( N-- > 0 )
       {
         pBuf = (u32)( ( pBuf << 8 ) + randomu8() );//  zBuf[N] = randomu8();
+      }
+      sqlite3_mutex_leave( mutex );
+    }
+
+    static void sqlite3_randomness(byte[] pBuf, int Offset, int N)
+    {
+      i64 iBuf = System.DateTime.Now.Ticks;
+      sqlite3_mutex_enter( mutex );
+      while ( N-- > 0 )
+      {
+        iBuf = (u32)( ( iBuf << 8 ) + randomu8() );//  zBuf[N] = randomu8();
+        pBuf[Offset++] = (byte)iBuf;
       }
       sqlite3_mutex_leave( mutex );
     }

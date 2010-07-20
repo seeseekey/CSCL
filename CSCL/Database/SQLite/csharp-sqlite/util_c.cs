@@ -11,7 +11,7 @@ using u64 = System.UInt64;
 using Pgno = System.UInt32;
 
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using sqlite_int64 = System.Int64;
   using System.Globalization;
@@ -40,7 +40,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/util_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -810,7 +810,7 @@ return sqlite3Atoi64(z, pResult);
     }
     static int getVarint(byte[] p, int offset, ref i64 v)
     {
-      v = offset >= p.Length ? 0 : p[offset + 0];
+      v = offset >= p.Length ? 0 : (int)p[offset + 0];
       if ( v <= 0x7F ) return 1;
       if ( offset + 1 >= p.Length )
       { v = 65535; return 2; }

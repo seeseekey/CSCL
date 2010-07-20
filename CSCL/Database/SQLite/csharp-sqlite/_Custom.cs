@@ -1,6 +1,6 @@
 /*
 *************************************************************************
-**  $Header: Community.CsharpSqlite/src/_Custom.cs,v c8b9bab808c8 2010/02/22 12:54:28 Noah $
+**  $Header$
 *************************************************************************
 */
 using System;
@@ -16,7 +16,7 @@ using i64 = System.Int64;
 using u32 = System.UInt32;
 using time_t = System.Int64;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using sqlite3_value = Sqlite3.Mem;
 
@@ -444,5 +444,6 @@ Monitor.Exit(mtx);
 
 }
 #endif
+
   }
 }

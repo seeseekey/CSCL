@@ -1,4 +1,4 @@
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -25,7 +25,7 @@ namespace CSCL.Database.SQLite
     **  Included in SQLite3 port to C#-SQLite;  2008 Noah B Hart
     **  C#-SQLite is an independent reimplementation of the SQLite software library
     **
-    **  $Header: Community.CsharpSqlite/src/sqlite3ext_h.cs,v 9f128469ffab 2010/02/23 17:15:40 Noah $
+    **  $Header$
     *************************************************************************
     */
 #if !_SQLITE3EXT_H_

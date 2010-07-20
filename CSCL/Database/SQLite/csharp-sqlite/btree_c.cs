@@ -9,7 +9,8 @@ using u32 = System.UInt32;
 using u64 = System.UInt64;
 using sqlite3_int64 = System.Int64;
 using Pgno = System.UInt32;
-namespace CSCL.Database.SQLite
+
+namespace Community.CsharpSqlite
 {
   using DbPage = Sqlite3.PgHdr;
 
@@ -34,7 +35,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/btree_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "btreeInt.h"
@@ -557,11 +558,11 @@ p.eState = CURSOR_INVALID;
       int rc = SQLITE_OK;
       if ( null == pBt.pHasContent )
       {
-        int nPage = 100;
+        Pgno nPage = 100;
         sqlite3PagerPagecount( pBt.pPager, ref nPage );
         /* If sqlite3PagerPagecount() fails there is no harm because the
         ** nPage variable is unchanged from its default value of 100 */
-        pBt.pHasContent = sqlite3BitvecCreate( (u32)nPage );
+        pBt.pHasContent = sqlite3BitvecCreate( nPage );
         if ( null == pBt.pHasContent )
         {
           rc = SQLITE_NOMEM;
@@ -1810,12 +1811,12 @@ return SQLITE_CORRUPT_BKPT();
     */
     static Pgno pagerPagecount( BtShared pBt )
     {
-      int nPage = -1;
+      Pgno nPage = Pgno.MaxValue;
       int rc;
       Debug.Assert( pBt.pPage1 != null );
       rc = sqlite3PagerPagecount( pBt.pPager, ref nPage );
-      Debug.Assert( rc == SQLITE_OK || nPage == -1 );
-      return (Pgno)nPage;
+      Debug.Assert( rc == SQLITE_OK || nPage == Pgno.MaxValue );
+      return nPage;
     }
 
     /*
@@ -2384,7 +2385,7 @@ if( p.pNext ) p.pNext.pPrev = p.pPrev;
 ** If parameter nReserve is less than zero, then the number of reserved
 ** bytes per page is left unchanged.
 **
-** If the iFix!=null then the pageSizeFixed flag is set so that the page size
+** If iFix!=0 then the pageSizeFixed flag is set so that the page size
 ** and autovacuum mode can no longer be changed.
 */
     static int sqlite3BtreeSetPageSize( Btree p, int pageSize, int nReserve, int iFix )
@@ -2445,11 +2446,11 @@ if( p.pNext ) p.pNext.pPrev = p.pPrev;
     ** No changes are made if mxPage is 0 or negative.
     ** Regardless of the value of mxPage, return the maximum page count.
     */
-    static int sqlite3BtreeMaxPageCount( Btree p, int mxPage )
+    static Pgno sqlite3BtreeMaxPageCount( Btree p, Pgno mxPage )
     {
-      int n;
+      Pgno n;
       sqlite3BtreeEnter( p );
-      n = (int)sqlite3PagerMaxPageCount( p.pBt.pPager, mxPage );
+      n = sqlite3PagerMaxPageCount( p.pBt.pPager, mxPage );
       sqlite3BtreeLeave( p );
       return n;
     }
@@ -2539,7 +2540,7 @@ return BTREE_AUTOVACUUM_NONE;
     {
       int rc;
       MemPage pPage1 = new MemPage();
-      int nPage = 0;
+      Pgno nPage = 0;
 
       Debug.Assert( sqlite3_mutex_held( pBt.mutex ) );
       Debug.Assert( pBt.pPage1 == null );
@@ -2680,7 +2681,7 @@ return BTREE_AUTOVACUUM_NONE;
       MemPage pP1;
       byte[] data;
       int rc;
-      int nPage = 0;
+      Pgno nPage = 0;
 
       Debug.Assert( sqlite3_mutex_held( pBt.mutex ) );
       rc = sqlite3PagerPagecount( pBt.pPager, ref nPage );
@@ -5532,8 +5533,8 @@ static void assertParentIndex(MemPage pParent, int iIdx, Pgno iChild) { }
       {
         /* There are no pages on the freelist, so create a new page at the
         ** end of the file */
-        int nPage = (int)pagerPagecount( pBt );
-        pPgno = (u32)nPage + 1;
+        Pgno nPage = pagerPagecount(pBt);
+        pPgno = nPage + 1;
 
         if ( pPgno == PENDING_BYTE_PAGE( pBt ) )
         {

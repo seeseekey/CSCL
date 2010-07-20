@@ -6,7 +6,7 @@ using Pgno = System.UInt32;
 
 using u32 = System.UInt32;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using sqlite3_stmt = Sqlite3.Vdbe;
 
@@ -33,7 +33,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/vacuum_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -207,13 +207,14 @@ sqlite3_step(pStmt);
 
       /* A VACUUM cannot change the pagesize of an encrypted database. */
 #if SQLITE_HAS_CODEC
-if( db.nextPagesize ){
-extern void sqlite3CodecGetKey(sqlite3*, int, void**, int*);
-int nKey;
-char *zKey;
-sqlite3CodecGetKey(db, 0, (void**)&zKey, nKey);
-if( nKey ) db.nextPagesize = 0;
-}
+      if ( db.nextPagesize != 0 )
+      {
+        //extern void sqlite3CodecGetKey(sqlite3*, int, void**, int*);
+        int nKey;
+        string zKey;
+        sqlite3CodecGetKey( db, 0, out zKey, out nKey ); // sqlite3CodecGetKey(db, 0, (void**)&zKey, nKey);
+        if ( nKey != 0 ) db.nextPagesize = 0;
+      }
 #endif
 
       if ( sqlite3BtreeSetPageSize( pTemp, sqlite3BtreeGetPageSize( pMain ), nRes, 0 ) != 0

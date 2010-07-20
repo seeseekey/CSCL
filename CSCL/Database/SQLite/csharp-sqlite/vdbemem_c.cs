@@ -7,7 +7,7 @@ using u8 = System.Byte;
 using u16 = System.UInt16;
 using u32 = System.UInt32;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using sqlite3_value = Sqlite3.Mem;
 
@@ -35,7 +35,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/vdbemem_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"

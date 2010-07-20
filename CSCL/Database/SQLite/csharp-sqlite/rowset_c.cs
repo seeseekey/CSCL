@@ -8,7 +8,7 @@ using u32 = System.UInt32;
 
 using Pgno = System.UInt32;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using sqlite3_int64 = System.Int64;
 
@@ -81,7 +81,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header: Community.CsharpSqlite/src/rowset_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"

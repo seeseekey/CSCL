@@ -13,7 +13,7 @@ using sqlite3_int64 = System.Int64;
 using u32 = System.UInt32;
 using u8 = System.Byte;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -36,7 +36,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/os_win_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -945,7 +945,7 @@ return SQLITE_OK;
     /*
     ** Determine the current size of a file in bytes
     */
-    static int sqlite3_fileSize( sqlite3_file id, ref int pSize )
+    static int sqlite3_fileSize( sqlite3_file id, ref long pSize )
     {
       //DWORD upperBits;
       //DWORD lowerBits;
@@ -963,7 +963,7 @@ return SQLITE_OK;
       //  return SQLITE_IOERR_FSTAT;
       //}
       //pSize = (((sqlite3_int64)upperBits)<<32) + lowerBits;
-      pSize = id.fs.CanRead ? (int)id.fs.Length : 0;
+      pSize = id.fs.CanRead ? id.fs.Length : 0;
       return SQLITE_OK;
     }
 
@@ -1587,8 +1587,7 @@ return SQLITE_OK;
       //    free(zOut);
       //  }
 #if SQLITE_SILVERLIGHT
-        zBuf = "Unknown error";
-        return 0;
+      zBuf = "Unknown error";
 #else
       zBuf = Marshal.GetLastWin32Error().ToString();//new Win32Exception( Marshal.GetLastWin32Error() ).Message;
 #endif
@@ -1942,7 +1941,7 @@ pFile.zDeleteOnClose = zConverted;
         {
            try
            {
-            var name = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
+            string name = Path.Combine(Path.GetTempPath(), Path.GetTempFileName());
             FileStream fs = File.Create(name);
             fs.Close();
             File.Delete(name);

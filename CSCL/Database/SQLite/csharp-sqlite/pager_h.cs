@@ -1,6 +1,6 @@
 using Pgno = System.UInt32;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -24,7 +24,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2009-12-07 16:39:13 1ed88e9d01e9eda5cbc622e7614277f29bcc551c
     **
-    **  $Header: Community.CsharpSqlite/src/pager_h.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#if !_PAGER_H_

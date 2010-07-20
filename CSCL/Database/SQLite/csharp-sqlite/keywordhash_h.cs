@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -22,7 +22,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-01-05 15:30:36 28d0d7710761114a44a1a3a425a6883c661f06e7
     **
-    **  $Header: Community.CsharpSqlite/src/keywordhash_h.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
+    **  $Header$
     *************************************************************************
     */
     /* Hash score: 175 */

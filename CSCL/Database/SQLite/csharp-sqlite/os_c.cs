@@ -6,7 +6,7 @@ using i64 = System.Int64;
 using u32 = System.UInt32;
 
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -31,7 +31,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/os_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#define _SQLITE_OS_C_ 1
@@ -103,7 +103,7 @@ if (!pTstAlloc) return SQLITE_IOERR_NOMEM;                       \
       DO_OS_MALLOC_TEST( id );
       return id.pMethods.xSync( id, flags );
     }
-    static int sqlite3OsFileSize( sqlite3_file id, ref int pSize )
+    static int sqlite3OsFileSize( sqlite3_file id, ref long pSize )
     {
       return id.pMethods.xFileSize( id, ref pSize );
     }

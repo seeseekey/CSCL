@@ -1,6 +1,6 @@
 using u8 = System.Byte;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -42,7 +42,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4d
     **
-    **  $Header: Community.CsharpSqlite/src/sqlite3_h.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#if !_SQLITE3_H_
@@ -4029,7 +4029,6 @@ namespace CSCL.Database.SQLite
     //  void(*)(void*,sqlite3*,int eTextRep,const void*)
     //);
 
-#if SQLITE_HAS_CODEC
     /*
     ** Specify the key for an encrypted database.  This routine should be
     ** called right after sqlite3_open().
@@ -4058,11 +4057,11 @@ namespace CSCL.Database.SQLite
 ** Specify the activation key for a SEE database.  Unless 
 ** activated, none of the SEE routines will work.
 */
-SQLITE_API void sqlite3_activate_see(
-  const char *zPassPhrase        /* Activation phrase */
-);
-#endif
-
+    // propietary stuff for comercial SEE routines
+    
+    //SQLITE_API void sqlite3_activate_see(
+    //  const char *zPassPhrase        /* Activation phrase */
+    //);
 #if SQLITE_ENABLE_CEROD
 /*
 ** Specify the activation key for a CEROD database.  Unless 

@@ -5,7 +5,7 @@ using System.Text;
 using u8 = System.Byte;
 using u32 = System.UInt32;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   public partial class Sqlite3
   {
@@ -28,7 +28,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-01-05 15:30:36 28d0d7710761114a44a1a3a425a6883c661f06e7
     **
-    **  $Header: Community.CsharpSqlite/src/delete_c.cs,v bcbd36f24b23 2010/02/18 17:35:24 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
@@ -604,7 +604,7 @@ sqlite3AuthContextPop(sContext);
       if ( pTab.pSelect == null )
       {
         sqlite3GenerateRowIndexDelete( pParse, pTab, iCur, 0 );
-        sqlite3VdbeAddOp2( v, OP_Delete, iCur, ( count != 0 ? OPFLAG_NCHANGE : 0 ) );
+        sqlite3VdbeAddOp2( v, OP_Delete, iCur, ( count != 0 ? (int)OPFLAG_NCHANGE : 0 ) );
         if ( count != 0 )
         {
           sqlite3VdbeChangeP4( v, -1, pTab.zName, P4_STATIC );

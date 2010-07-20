@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace CSCL.Database.SQLite
+namespace Community.CsharpSqlite
 {
   using etByte = System.Boolean;
   using i64 = System.Int64;
@@ -71,7 +71,7 @@ namespace CSCL.Database.SQLite
     **
     **  SQLITE_SOURCE_ID: 2010-03-09 19:31:43 4ae453ea7be69018d8c16eb8dabe05617397dc4dy
     **
-    **  $Header: Community.CsharpSqlite/src/printf_c.cs,v 6604176a7dbe 2010/03/12 23:35:36 Noah $
+    **  $Header$
     *************************************************************************
     */
     //#include "sqliteInt.h"
