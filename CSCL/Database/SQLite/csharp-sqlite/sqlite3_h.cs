@@ -1,6 +1,6 @@
 using u8 = System.Byte;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   public partial class Sqlite3
   {

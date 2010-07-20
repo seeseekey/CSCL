@@ -11,7 +11,7 @@ using u32 = System.UInt32;
 
 using Pgno = System.UInt32;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using System.Text;
   using DbPage = Sqlite3.PgHdr;

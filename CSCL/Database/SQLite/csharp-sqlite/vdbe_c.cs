@@ -16,7 +16,7 @@ using sqlite3_int64 = System.Int64;
 using Pgno = System.UInt32;
 
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_value = Sqlite3.Mem;
   using Op = Sqlite3.VdbeOp;

@@ -1,4 +1,4 @@
-//  $Header: Community.CsharpSqlite.Benchmark/Classes/SQLiteDatabase.cs,v 51ed90cff79a 2010/02/23 22:58:18 Noah $
+//  $Header$
 using System;
 using System.Collections;
 using System.Data;
@@ -39,7 +39,13 @@ namespace CSCL.Database.SQLite
     public void OpenDatabase( String DatabaseName )
     {
       // opens database 
-		if(Sqlite3.sqlite3_open(DatabaseName, ref db)!=Sqlite3.SQLITE_OK)
+      if (
+#if NET_35
+ Sqlite3.Open
+#else
+Sqlite3.sqlite3_open
+#endif
+( DatabaseName, ref db ) != Sqlite3.SQLITE_OK )
       {
         // if there is some error, database pointer is set to 0 and exception is throws
         db = null;
@@ -55,7 +61,12 @@ namespace CSCL.Database.SQLite
       // closes the database if there is one opened
       if ( db != null )
       {
-        Sqlite3.sqlite3_close( db );
+#if NET_35
+        Sqlite3.Close
+#else
+Sqlite3.sqlite3_close
+#endif
+( db );
       }
     }
 
@@ -77,7 +88,13 @@ namespace CSCL.Database.SQLite
       Sqlite3.exec( db, query, 0, 0, 0 );
       // if there is error, excetion is thrown
       if ( db.errCode != Sqlite3.SQLITE_OK )
-        throw new Exception( "Error with executing non-query: \"" + query + "\"!\n" + Sqlite3.sqlite3_errmsg( db ) );
+        throw new Exception( "Error with executing non-query: \"" + query + "\"!\n" +
+#if NET_35
+ Sqlite3.Errmsg
+#else
+Sqlite3.sqlite3_errmsg
+#endif
+( db ) );
     }
 
     /// <summary>
@@ -88,7 +105,7 @@ namespace CSCL.Database.SQLite
     public DataTable ExecuteQuery( String query )
     {
       // compiled query
-      SQLiteVdbe statement = new SQLiteVdbe(this, query);
+      SQLiteVdbe statement = new SQLiteVdbe( this, query );
 
       // table for result of query
       DataTable table = new DataTable();
@@ -115,37 +132,73 @@ namespace CSCL.Database.SQLite
       }
 
       int resultType;
-	  if((resultType=Sqlite3.sqlite3_step(vm))==Sqlite3.SQLITE_ROW)
+      if ( ( resultType =
+#if NET_35
+ Sqlite3.Step
+#else
+Sqlite3.sqlite3_step
+#endif
+( vm ) ) == Sqlite3.SQLITE_ROW )
       {
         object[] columnValues = new object[columnCount];
 
-        for ( int i = 0 ; i < columnCount ; i++ )
+        for ( int i = 0; i < columnCount; i++ )
         {
-			int columnType=Sqlite3.sqlite3_column_type(vm, i);
+          int columnType =
+#if NET_35
+ Sqlite3.ColumnType
+#else
+Sqlite3.sqlite3_column_type
+#endif
+( vm, i );
           switch ( columnType )
           {
             case Sqlite3.SQLITE_INTEGER:
               {
-                table.Columns[i].DataType = typeof(Int64);
-				columnValues[i]=Sqlite3.sqlite3_column_int(vm, i);
+                table.Columns[i].DataType = typeof( Int64 );
+                columnValues[i] =
+#if NET_35
+ Sqlite3.ColumnInt
+#else
+Sqlite3.sqlite3_column_int
+#endif
+( vm, i );
                 break;
               }
             case Sqlite3.SQLITE_FLOAT:
               {
-                table.Columns[i].DataType = typeof(Double);
-				columnValues[i]=Sqlite3.sqlite3_column_double(vm, i);
+                table.Columns[i].DataType = typeof( Double );
+                columnValues[i] =
+#if NET_35
+ Sqlite3.ColumnDouble
+#else
+Sqlite3.sqlite3_column_double
+#endif
+( vm, i );
                 break;
               }
             case Sqlite3.SQLITE_TEXT:
               {
-                table.Columns[i].DataType = typeof(String);
-				columnValues[i]=Sqlite3.sqlite3_column_text(vm, i);
+                table.Columns[i].DataType = typeof( String );
+                columnValues[i] =
+#if NET_35
+ Sqlite3.ColumnText
+#else
+Sqlite3.sqlite3_column_text
+#endif
+( vm, i );
                 break;
               }
             case Sqlite3.SQLITE_BLOB:
               {
-                table.Columns[i].DataType = typeof(Byte[]);
-				columnValues[i]=Sqlite3.sqlite3_column_blob(vm, i);
+                table.Columns[i].DataType = typeof( Byte[] );
+                columnValues[i] =
+#if NET_35
+ Sqlite3.ColumnBlob
+#else
+Sqlite3.sqlite3_column_blob
+#endif
+( vm, i );
                 break;
               }
             default:
@@ -168,17 +221,34 @@ namespace CSCL.Database.SQLite
       String columnName = "";
       int columnType = 0;
       // returns number of columns returned by statement
-	  int columnCount=Sqlite3.sqlite3_column_count(vm);
+      int columnCount =
+#if NET_35
+ Sqlite3.ColumnCount
+#else
+Sqlite3.sqlite3_column_count
+#endif
+( vm );
       object[] columnValues = new object[columnCount];
 
       try
       {
         // reads columns one by one
-        for ( int i = 0 ; i < columnCount ; i++ )
+        for ( int i = 0; i < columnCount; i++ )
         {
-			columnName=Sqlite3.sqlite3_column_name(vm, i);
-
-			columnType=Sqlite3.sqlite3_column_type(vm, i);
+          columnName =
+#if NET_35
+ Sqlite3.ColumnName
+#else
+Sqlite3.sqlite3_column_name
+#endif
+( vm, i );
+          columnType =
+#if NET_35
+ Sqlite3.ColumnType
+#else
+Sqlite3.sqlite3_column_type
+#endif
+( vm, i );
 
           switch ( columnType )
           {

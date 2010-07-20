@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using etByte = System.Boolean;
   using i64 = System.Int64;

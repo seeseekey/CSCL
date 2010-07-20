@@ -5,7 +5,7 @@ using System.Text;
 using u32 = System.UInt32;
 using Pgno = System.UInt32;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_value = Sqlite3.Mem;
   using sqlite3_pcache = Sqlite3.PCache1;

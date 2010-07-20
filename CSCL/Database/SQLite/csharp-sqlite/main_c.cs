@@ -13,7 +13,7 @@ using u64 = System.UInt64;
 
 using Pgno = System.UInt32;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_value = Sqlite3.Mem;
 

@@ -403,9 +403,10 @@
     <Compile Include="Database\SQLite\csharp-sqlite\build_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\callback_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\complete_c.cs" />
+    <Compile Include="Database\SQLite\csharp-sqlite\crypto.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\ctime_cs.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\date_c.cs" />
-    <Compile Include="Database\SQLite\csharp-sqlite\Delagates.cs" />
+    <Compile Include="Database\SQLite\csharp-sqlite\Delegates.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\delete_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\expr_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\fault_c.cs" />

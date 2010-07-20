@@ -8,7 +8,7 @@ using u8 = System.Byte;
 using u32 = System.UInt32;
 using u64 = System.UInt64;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_value = Sqlite3.Mem;
   using sqlite_int64 = System.Int64;

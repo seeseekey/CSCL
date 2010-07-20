@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_callback = Sqlite3.dxCallback;
   using sqlite3_stmt = Sqlite3.Vdbe;

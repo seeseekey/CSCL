@@ -7,7 +7,7 @@ using u16 = System.UInt16;
 using u32 = System.UInt32;
 using sqlite3_int64 = System.Int64;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_stmt = Sqlite3.Vdbe;
 

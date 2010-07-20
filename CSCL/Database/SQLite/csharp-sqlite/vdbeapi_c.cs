@@ -7,7 +7,7 @@ using u32 = System.UInt32;
 using u64 = System.UInt64;
 using u8 = System.Byte;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using Op = Sqlite3.VdbeOp;
   using sqlite_int64 = System.Int64;

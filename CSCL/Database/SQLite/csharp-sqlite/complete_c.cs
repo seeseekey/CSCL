@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
 
   using u8 = System.Byte;

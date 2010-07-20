@@ -19,7 +19,7 @@ using u32 = System.UInt32;
 using u64 = System.UInt64;
 
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using DbPage = Sqlite3.PgHdr;
   using sqlite3_pcache = Sqlite3.PCache1;

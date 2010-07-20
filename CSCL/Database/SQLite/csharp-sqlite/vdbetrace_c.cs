@@ -7,7 +7,7 @@ using u8 = System.Byte;
 using u16 = System.UInt16;
 using u32 = System.UInt32;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   public partial class Sqlite3
   {

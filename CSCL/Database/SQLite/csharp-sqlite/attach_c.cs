@@ -4,7 +4,7 @@ using System.Text;
 
 using u8 = System.Byte;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   using sqlite3_value = Sqlite3.Mem;
 

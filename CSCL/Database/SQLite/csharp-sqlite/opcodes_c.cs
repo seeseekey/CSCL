@@ -8,7 +8,7 @@
 **  $Header$
 *************************************************************************
 */
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
   public partial class Sqlite3
   {

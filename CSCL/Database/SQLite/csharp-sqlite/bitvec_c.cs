@@ -7,7 +7,7 @@ using i64 = System.Int64;
 using u32 = System.UInt32;
 using BITVEC_TELEM = System.Byte;
 
-namespace Community.CsharpSqlite
+namespace CSCL.Database.SQLite
 {
 
   public partial class Sqlite3
