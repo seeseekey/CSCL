@@ -162,10 +162,15 @@ namespace CSCL
 
         public static bool CopyDirectory(string source, string dest, bool recursiv)
         {
-            return CopyDirectory(source, dest, recursiv, new List<string>());
+            return CopyDirectory(source, dest, recursiv, new List<string>(), false);
         }
 
-        public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders)
+		public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders)
+		{
+			return CopyDirectory(source, dest, recursiv, ExcludeFolders, false);
+		}
+
+        public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders, bool ignoreExistingFiles)
         {
             DirectoryInfo SourceDI=new DirectoryInfo(source);
 
@@ -176,7 +181,18 @@ namespace CSCL
             foreach(FileInfo fi in SourceDI.GetFiles())
             {
 				string destFile=dest+pathDelimiter+fi.Name;
-                result=result&&(fi.CopyTo(destFile, false)!=null);
+
+				if(ignoreExistingFiles)
+				{
+					if(!ExistsFile(destFile))
+					{
+						result=result&&(fi.CopyTo(destFile, false)!=null);
+					}
+				}
+				else
+				{
+					result=result&&(fi.CopyTo(destFile, false)!=null);
+				}
             }
 
             if(recursiv)
@@ -197,7 +213,7 @@ namespace CSCL
                     if(make)
                     {
                         string destTmp=subDir.FullName.Replace(SourceDI.FullName, dest);
-                        result=result&&CopyDirectory(subDir.FullName, destTmp, true, ExcludeFolders);
+						result=result&&CopyDirectory(subDir.FullName, destTmp, true, ExcludeFolders, ignoreExistingFiles);
                     }
                 }
             }
