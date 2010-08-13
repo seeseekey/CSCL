@@ -162,15 +162,20 @@ namespace CSCL
 
         public static bool CopyDirectory(string source, string dest, bool recursiv)
         {
-            return CopyDirectory(source, dest, recursiv, new List<string>(), false);
+            return CopyDirectory(source, dest, recursiv, new List<string>(), new List<string>(), false);
         }
 
 		public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders)
 		{
-			return CopyDirectory(source, dest, recursiv, ExcludeFolders, false);
+			return CopyDirectory(source, dest, recursiv, ExcludeFolders, new List<string>(), false);
 		}
 
-        public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders, bool ignoreExistingFiles)
+		public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders, List<string> ExcludeFiles)
+		{
+			return CopyDirectory(source, dest, recursiv, ExcludeFolders, ExcludeFiles, false);
+		}
+
+        public static bool CopyDirectory(string source, string dest, bool recursiv, List<string> ExcludeFolders, List<string> ExcludeFiles, bool ignoreExistingFiles)
         {
             DirectoryInfo SourceDI=new DirectoryInfo(source);
 
@@ -178,9 +183,23 @@ namespace CSCL
             if(!Directory.Exists(dest))
                 Directory.CreateDirectory(dest);
 
+
             foreach(FileInfo fi in SourceDI.GetFiles())
             {
 				string destFile=dest+pathDelimiter+fi.Name;
+
+				bool breakOut=false;
+
+				foreach(string i in ExcludeFiles)
+				{
+					if(fi.Name==i)
+					{
+						breakOut=true;
+						continue;
+					}
+				}
+
+				if(breakOut) continue;
 
 				if(ignoreExistingFiles)
 				{
@@ -213,7 +232,7 @@ namespace CSCL
                     if(make)
                     {
                         string destTmp=subDir.FullName.Replace(SourceDI.FullName, dest);
-						result=result&&CopyDirectory(subDir.FullName, destTmp, true, ExcludeFolders, ignoreExistingFiles);
+						result=result&&CopyDirectory(subDir.FullName, destTmp, true, ExcludeFolders, ExcludeFiles, ignoreExistingFiles);
                     }
                 }
             }
@@ -366,6 +385,11 @@ namespace CSCL
             return true;
         }
 
+		public static bool CopyFiles(string source, string target, string filter)
+		{
+			return CopyFiles(source, target, filter, new List<string>());
+		}
+
         /// <summary>
         /// Kopiert mehrere Dateien anhand Filterkriterien
         /// </summary>
@@ -373,26 +397,39 @@ namespace CSCL
         /// <param name="target"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public static bool CopyFiles(string source, string target, string filter)
-        {
-            List<string> files=GetFiles(source, false, filter);
+		public static bool CopyFiles(string source, string target, string filter, List<string> ExcludeFiles)
+		{
+			List<string> files=GetFiles(source, false, filter);
 
-            foreach(string i in files)
-            {
-                string fn=GetFilename(i);
+			foreach(string i in files)
+			{
+				string fn=GetFilename(i);
 
-                try
-                {
-                    File.Copy(i, target+fn);
-                }
-                catch(Exception)
-                {
-                    return false;
-                }
-            }
+				try
+				{
+					bool breakOut=false;
 
-            return true;
-        }
+					foreach(string j in ExcludeFiles)
+					{
+						if(fn==j)
+						{
+							breakOut=true;
+							continue;
+						}
+					}
+
+					if(breakOut) continue;
+
+					File.Copy(i, target+fn);
+				}
+				catch(Exception)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 
         /// <summary>
         /// Verschiebt eine Datei
