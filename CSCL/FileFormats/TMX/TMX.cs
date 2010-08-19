@@ -89,6 +89,11 @@ namespace CSCL.FileFormats.TMX
 
 		public void Open(string filename)
 		{
+			Open(filename, true);
+		}
+
+		public void Open(string filename, bool loadTilesets)
+		{
 			//Datei öffnen
 			tilesets=new List<TilesetData>();
 			layers=new List<LayerData>();
@@ -119,7 +124,11 @@ namespace CSCL.FileFormats.TMX
 
 				ts.imgsource=j.SelectNodes("child::image")[0].Attributes[0].Value; //Image Source für den Layer
 				string imgsourceComplete=FileSystem.GetPath(filename)+ts.imgsource;
-				ts.img=gtImage.FromFile(imgsourceComplete);
+
+				if(loadTilesets)
+				{
+					ts.img=gtImage.FromFile(imgsourceComplete);
+				}
 
 				//Attrribute
 				ts.name=j.Attributes["name"].Value; 
