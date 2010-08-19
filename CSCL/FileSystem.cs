@@ -19,6 +19,13 @@ namespace CSCL
 			}
 		}
 
+		public static DateTime GetFileDateTime(string filename)
+		{
+			if(!IsFile(filename)) throw new FileNotFoundException("", filename);
+			FileInfo fi=new FileInfo(filename);
+			return fi.LastWriteTime;
+		}
+
         #region Statische Variablen
         /// <summary>
         /// Feld nicht erlaubter Zeichen im Dateinamen
