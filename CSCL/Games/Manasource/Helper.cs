@@ -26,5 +26,19 @@ namespace CSCL.Games.Manasource
             double ret=pixelCoord/32;
             return (int)System.Math.Round(ret);
         }
+
+		/// <summary>
+		/// Gibt die Valide Tileset Höhe zurück
+		/// </summary>
+		/// <param name="tileheight"></param>
+		/// <returns></returns>
+		public static int GetValidTilesetHeight(int tileheight)
+		{
+			int value=tileheight;
+			int tmp=1024/value;
+			int height=tmp*value;
+
+			return height;
+		}
 	}
 }
