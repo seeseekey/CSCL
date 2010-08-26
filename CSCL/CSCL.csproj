@@ -479,6 +479,9 @@
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
     <Compile Include="Database\SQLite\SQLiteMisc.cs" />
     <Compile Include="FileFormats\INI\INI.cs" />
+    <Compile Include="FileFormats\TMX\Object.cs" />
+    <Compile Include="FileFormats\TMX\Objectgroup.cs" />
+    <Compile Include="FileFormats\TMX\Property.cs" />
     <Compile Include="Games\Manasource\Action.cs" />
     <Compile Include="Games\Manasource\Animation.cs" />
     <Compile Include="Games\Manasource\Frame.cs" />
@@ -513,19 +516,6 @@
     <Compile Include="Games\Manasource\Monster.cs" />
     <Compile Include="Games\Manasource\Sound.cs" />
     <Compile Include="Games\Manasource\Vulnerability.cs" />
-    <Compile Include="Games\Monopoly\Bank.cs" />
-    <Compile Include="Games\Monopoly\Board.cs" />
-    <Compile Include="Games\Monopoly\CommunityCards.cs" />
-    <Compile Include="Games\Monopoly\Constants.cs" />
-    <Compile Include="Games\Monopoly\Enums.cs" />
-    <Compile Include="Games\Monopoly\EventCards.cs" />
-    <Compile Include="Games\Monopoly\Monopoly.cs" />
-    <Compile Include="Games\Monopoly\Player.cs" />
-    <Compile Include="Games\mx\mx.cs" />
-    <Compile Include="Games\mx\Ship.cs" />
-    <Compile Include="Games\mx\Universe.cs" />
-    <Compile Include="Games\NineMenMorris\Board.cs" />
-    <Compile Include="Games\NineMenMorris\NineMenMorris.cs" />
     <Compile Include="Games\OnlineHighscore.cs" />
     <Compile Include="Games\PlayCube.cs" />
     <Compile Include="Games\Manasource\Helper.cs" />
@@ -784,7 +774,6 @@
     <None Include="Controls\Sourcegrid\SourceGrid.Extensions\Res\Refresh.ico" />
     <None Include="Controls\Sourcegrid\SourceGrid.License.txt" />
     <Content Include="Controls\Sourcegrid\info.txt" />
-    <Content Include="Games\Monopoly\Rules.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

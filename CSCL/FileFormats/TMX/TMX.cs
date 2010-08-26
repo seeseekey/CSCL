@@ -68,24 +68,9 @@ namespace CSCL.FileFormats.TMX
 		int TileWidth;
 		int TileHeight;
 
-		List<TilesetData> tilesets;
-		List<LayerData> layers;
-
-		public List<TilesetData> Tilesets
-		{
-			get
-			{
-				return tilesets;
-			}
-		}
-
-		public List<LayerData> Layers
-		{
-			get
-			{
-				return layers;
-			}
-		}
+		public List<TilesetData> Tilesets { get; private set; }
+		public List<LayerData> Layers { get; private set; }
+		public List<Objectgroup> ObjectLayers { get; private set; }
 
 		public void Open(string filename)
 		{
@@ -95,8 +80,9 @@ namespace CSCL.FileFormats.TMX
 		public void Open(string filename, bool loadTilesets)
 		{
 			//Datei öffnen
-			tilesets=new List<TilesetData>();
-			layers=new List<LayerData>();
+			Tilesets=new List<TilesetData>();
+			Layers=new List<LayerData>();
+			ObjectLayers=new List<Objectgroup>();
 
 			//XMLdata öffnen
             FileData=new XmlData(filename);
@@ -136,7 +122,7 @@ namespace CSCL.FileFormats.TMX
 				ts.tilewidth=Convert.ToInt32(j.Attributes["tilewidth"].Value);
 				ts.tileheight=Convert.ToInt32(j.Attributes["tileheight"].Value);
 
-				tilesets.Add(ts);
+				Tilesets.Add(ts);
 			}
 			#endregion
 
@@ -185,7 +171,16 @@ namespace CSCL.FileFormats.TMX
 					}
 				}
 				
-				layers.Add(lr);
+				Layers.Add(lr);
+			}
+			#endregion
+
+			#region Objektlayer ermitteln
+			xnl=FileData.Document.SelectNodes("/map/objectgroup");
+
+			foreach(XmlNode j in xnl) //pro layer
+			{
+				ObjectLayers.Add(new Objectgroup(j));
 			}
 			#endregion
 		}
@@ -199,7 +194,7 @@ namespace CSCL.FileFormats.TMX
 			int w=0;
 			int h=0;
 
-			foreach(LayerData i in layers)
+			foreach(LayerData i in Layers)
 			{
 				if(i.width>w) w=i.width;
 				if(i.height>h) h=i.height;
@@ -218,7 +213,7 @@ namespace CSCL.FileFormats.TMX
 		{
 			TilesetData ret=new TilesetData();
 
-			foreach(TilesetData i in tilesets)
+			foreach(TilesetData i in Tilesets)
 			{
 				if(number>=i.firstgid)
 				{
@@ -269,8 +264,8 @@ namespace CSCL.FileFormats.TMX
 		{
 			gtImage ret=new gtImage((uint)width, (uint)height, gtImage.Format.RGBA);
 			ret=ret.InvertAlpha();
-			
-			foreach(LayerData i in layers)
+
+			foreach(LayerData i in Layers)
 			{
 				if (onlyLayer=="")
 				{
