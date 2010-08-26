@@ -155,5 +155,31 @@ namespace CSCL.Games.Manasource
 			}
 		}
 		#endregion
+
+		public string ToMediaWikiInfobox()
+		{
+			string agressive="nicht definiert";
+
+			if(Behavior!=null)
+			{
+				if(Behavior.Aggressive) agressive="Ja";
+				else agressive="Nein";
+			}
+
+			string ret=String.Format("{{{{Infobox Monster");
+			ret+=String.Format("| image = Monster-{0}.png", ID);
+			ret+=String.Format("| name  = {0}", Name);
+			ret+=String.Format("| id = {0}", ID);
+			ret+=String.Format("| exp = {0}", Exp);
+			ret+=String.Format("| hp = {0}", Attributes.HP);
+
+			ret+=String.Format("| aggressive = {0}", agressive);
+			ret+=String.Format("| attack = {0}-{1}", Attributes.AttackMin-Attributes.AttackDelta, Attributes.AttackMin+Attributes.AttackDelta);
+			ret+=String.Format("| defense-physical = {0}", Attributes.PhysicalDefence);
+			ret+=String.Format("| defense-magical = {0}", Attributes.MagicalDefence);
+			ret+=String.Format("}}}}");
+
+			return ret;
+		}
 	}
 }

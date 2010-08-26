@@ -209,5 +209,20 @@ namespace CSCL.Games.Manasource
 			}
 		}
 		#endregion
+
+		public string ToMediaWikiInfobox()
+		{
+			string ret=String.Format("{{{{Infobox Item");
+			ret+=String.Format("| image = Item-{0}.png", ID);
+			ret+=String.Format("| name  = {0}", Name);
+			ret+=String.Format("| id = {0}", ID);
+			ret+=String.Format("| description = {0}", Description);
+			ret+=String.Format("| weight = {0}", Weight);
+			ret+=String.Format("| effect = {0}", Effect);
+			ret+=String.Format("| maxperslot = {0}", MaxPerSlot);
+			ret+=String.Format("}}}}");
+
+			return ret;
+		}
 	}
 }
