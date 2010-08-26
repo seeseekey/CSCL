@@ -27,6 +27,7 @@ namespace CSCL.Games.Manasource
 		public int ID { get; private set; }
 		public string Name { get; private set; }
 		public string TargetCursor { get; private set; }
+		//public string SpriteFilename { get; private set; }
 		public string Sprite { get; private set; }
 		public List<Sound> Sounds { get; private set; }
 		public Attributes Attributes { get; private set; }
@@ -84,7 +85,7 @@ namespace CSCL.Games.Manasource
 				{
 					case "sprite":
 						{
-							//TODO: In Objekt überführen
+							//SpriteFilename=i.InnerText;
 							Sprite=i.InnerText;
 							break;
 						}

@@ -57,6 +57,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -67,6 +68,7 @@
     <Compile Include="API\Win32\Kernel32.cs" />
     <Compile Include="API\Win32\Structs.cs" />
     <Compile Include="API\Win32\User32.cs" />
+    <Compile Include="Bots\Mediawiki\DotNetWikiBot.cs" />
     <Compile Include="Compression\gzip.cs" />
     <Compile Include="Controls\MultiView.cs">
       <SubType>Component</SubType>
@@ -477,7 +479,13 @@
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
     <Compile Include="Database\SQLite\SQLiteMisc.cs" />
     <Compile Include="FileFormats\INI\INI.cs" />
+    <Compile Include="Games\Manasource\Action.cs" />
+    <Compile Include="Games\Manasource\Animation.cs" />
+    <Compile Include="Games\Manasource\Frame.cs" />
+    <Compile Include="Games\Manasource\Imageset.cs" />
     <Compile Include="Games\Manasource\Map.cs" />
+    <Compile Include="Games\Manasource\Sequence.cs" />
+    <Compile Include="Games\Manasource\Sprite.cs" />
     <Compile Include="Graphic\gtImage\ToAscii.cs" />
     <Compile Include="Helpers\DatatableHelpers.cs" />
     <Compile Include="Database\SpecialTables.cs" />
