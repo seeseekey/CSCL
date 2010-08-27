@@ -31,6 +31,12 @@ namespace CSCL.Helpers
             return enc.GetString(arr);
         }
 
+		public static string ByteArrayToStringUTF8(byte[] arr)
+        {
+			System.Text.UTF8Encoding enc=new System.Text.UTF8Encoding();
+            return enc.GetString(arr);
+        }
+
         /// <summary>
         /// Helper-Method
         /// Converted an ASCII-Text to Hex-Value
