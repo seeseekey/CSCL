@@ -147,15 +147,6 @@ namespace CSCL.Games.Manasource
 
 			return Convert.ToInt32(replace);
 		}
-
-		//private string GetCoord(int coord)
-		//{
-		//    string replace=coord.Replace("n", "-");
-		//    replace=replace.Replace("p", "");
-		//    replace=replace.Replace("o", "");
-
-		//    return Convert.ToInt32(replace);
-		//}
 		#endregion
 
 		public int X
