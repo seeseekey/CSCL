@@ -35,6 +35,16 @@ namespace CSCL.Crypto
                 return myEncoder.GetEncoded();
             }
 
+			public static string Encode(byte[] input)
+			{
+				//first get the bytes for the original
+				Base64Encoder myEncoder=new Base64Encoder(input);
+
+				StringBuilder sb=new StringBuilder();
+				sb.Append(myEncoder.GetEncoded());
+				return sb.ToString();
+			}
+
             /// <summary>
             /// Dekodiert einen String aus Base64
             /// </summary>

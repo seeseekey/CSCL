@@ -209,7 +209,7 @@ namespace CSCL.FileFormats.TMX
 		/// </summary>
 		/// <param name="number"></param>
 		/// <returns></returns>
-		private TilesetData GetTileset(int number)
+		public TilesetData GetTileset(int number)
 		{
 			TilesetData ret=new TilesetData();
 
@@ -241,6 +241,103 @@ namespace CSCL.FileFormats.TMX
 			//gtImage ret=new gtImage(TileWidth, TileHeight);
 
 			return ts.img.GetSubImage((uint)tilesetPixelStartX, (uint)tilesetPixelStartY, (uint)ts.tilewidth, (uint)ts.tileheight);
+		}
+
+		public void Save(string filename)
+		{
+			#region MapsInfo speichern
+			XmlNodeList xnl=FileData.Document.SelectNodes("/map");
+
+			xnl[0].Attributes["version"].Value=MapVersion;
+			xnl[0].Attributes["orientation"].Value=Orientation;
+
+			xnl[0].Attributes["width"].Value=Width.ToString();
+			xnl[0].Attributes["height"].Value=Height.ToString();
+
+			xnl[0].Attributes["tilewidth"].Value=TileWidth.ToString();
+			xnl[0].Attributes["tileheight"].Value=TileHeight.ToString();
+			#endregion
+
+			#region Tilesets speichern
+			xnl=FileData.Document.SelectNodes("/map/tileset");
+
+			foreach(XmlNode j in xnl)
+			{
+				//Tilesets
+				TilesetData ts=new TilesetData();
+
+				ts.imgsource=j.SelectNodes("child::image")[0].Attributes[0].Value; //Image Source für den Layer
+				string imgsourceComplete=FileSystem.GetPath(filename)+ts.imgsource;
+
+				foreach(TilesetData td in Tilesets)
+				{
+					if(ts.imgsource==td.imgsource)
+					{
+						//Attrribute
+						j.Attributes["name"].Value=td.name;
+						j.Attributes["firstgid"].Value=td.firstgid.ToString();
+						j.Attributes["tilewidth"].Value=td.tilewidth.ToString();
+						j.Attributes["tileheight"].Value=td.tileheight.ToString();
+
+						break;
+					}
+				}
+			}
+			#endregion
+
+			#region Layers speichern
+			xnl=FileData.Document.SelectNodes("/map/layer");
+
+			foreach(XmlNode j in xnl) //pro layer
+			{
+				foreach(LayerData ld in Layers)
+				{
+					if(ld.name==j.Attributes["name"].Value)
+					{
+						//Attribute
+						j.Attributes["width"].Value=ld.width.ToString();
+						j.Attributes["height"].Value=ld.height.ToString();
+
+						//Layerdaten
+						// Attribute werden als "<data encoding="base64" compression="gzip">" angenommen
+						j["data"].Attributes["encoding"].Value="base64";
+						j["data"].Attributes["compression"].Value="gzip";
+
+						//
+						MemoryStream ms =new MemoryStream();
+						BinaryWriter bw=new BinaryWriter(ms);
+
+						for(int y=0; y<ld.height; y++)
+						{
+							for(int x=0; x<ld.width; x++)
+							{
+								bw.Write(ld.data[x, y]);
+							}
+						}
+
+						//Gzip Decodierung
+						byte[] layerdataCompressed=gzip.Compress(ms.ToArray());
+
+						//Base64 Encodierung
+						string layerdataEncoded=CSCL.Crypto.Encoding.Base64.Encode(layerdataCompressed);
+						j.SelectNodes("child::data")[0].InnerText=layerdataEncoded;
+
+						break;
+					}
+				}
+			}
+			#endregion
+
+			#region Objektlayer speichern
+			//xnl=FileData.Document.SelectNodes("/map/objectgroup");
+
+			//foreach(XmlNode j in xnl) //pro layer
+			//{
+			//    ObjectLayers.Add(new Objectgroup(j));
+			//}
+			#endregion
+
+			FileData.Save(filename);
 		}
 
 		public gtImage Render()

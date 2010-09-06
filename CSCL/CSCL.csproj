@@ -487,6 +487,7 @@
     <Compile Include="Games\Manasource\Frame.cs" />
     <Compile Include="Games\Manasource\Imageset.cs" />
     <Compile Include="Games\Manasource\Map.cs" />
+    <Compile Include="Games\Manasource\TilesetInfo.cs" />
     <Compile Include="Games\Manasource\Sequence.cs" />
     <Compile Include="Games\Manasource\Sprite.cs" />
     <Compile Include="Graphic\gtImage\ToAscii.cs" />

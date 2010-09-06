@@ -40,5 +40,24 @@ namespace CSCL.Games.Manasource
 
 			return height;
 		}
+
+		public static TilesetInfo GetTilesetInfo(string filename)
+		{
+			string fn=FileSystem.GetFilenameWithoutExt(filename);
+			string[] splited=fn.Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
+
+			int height=Convert.ToInt32(splited[splited.Length-1]);
+			int width=Convert.ToInt32(splited[splited.Length-2]);
+			string animated=splited[splited.Length-3];
+
+			if(animated=="ani")
+			{
+				return new TilesetInfo(true, width, height);
+			}
+			else
+			{
+				return new TilesetInfo(false, width, height);
+			}
+		}
 	}
 }
