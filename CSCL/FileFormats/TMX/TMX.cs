@@ -114,6 +114,25 @@ namespace CSCL.FileFormats.TMX
 			}
 		}
 
+		public void ReplaceTilesetInTilesetMap(TMX.TilesetData oldTileset, TMX.TilesetData newTileset)
+		{
+			foreach(TMX.LayerData ld in Layers)
+			{
+				for(int y=0; y<ld.height; y++)
+				{
+					for(int x=0; x<ld.width; x++)
+					{
+						TMX.TilesetData ts=ld.tilesetmap[x, y];
+
+						if(ts==oldTileset)
+						{
+							ld.tilesetmap[x, y]=newTileset;
+						}
+					}
+				}
+			}
+		}
+
 		public void AddsGidsToLayerData()
 		{
 			foreach(TMX.LayerData ld in Layers)
@@ -322,10 +341,14 @@ namespace CSCL.FileFormats.TMX
 			#region Tilesets speichern
 			xnl=FileData.Document.SelectNodes("/map/tileset");
 
+			List<XmlNode> TilesetsToRemove=new List<XmlNode>();
+
 			foreach(XmlNode j in xnl)
 			{
 				//Tilesets
 				string name=j.Attributes["name"].Value;
+
+				bool exist=false;
 
 				foreach(TilesetData td in Tilesets)
 				{
@@ -339,9 +362,22 @@ namespace CSCL.FileFormats.TMX
 						//Image Source
 						j.SelectNodes("child::image")[0].Attributes[0].Value=td.imgsource;
 
+						exist=true;
+
 						break;
 					}
 				}
+
+				if(exist==false)
+				{
+					TilesetsToRemove.Add(j);
+				}
+			}
+
+			//Nicht mehr vorhandene Nodes entfernen
+			foreach(XmlNode removeNode in TilesetsToRemove)
+			{
+				removeNode.ParentNode.RemoveChild(removeNode);
 			}
 			#endregion
 
@@ -359,7 +395,7 @@ namespace CSCL.FileFormats.TMX
 						j.Attributes["height"].Value=ld.height.ToString();
 
 						//Layerdaten
-						// Attribute werden als "<data encoding="base64" compression="gzip">" angenommen
+						//Attribute werden als "<data encoding="base64" compression="gzip">" angenommen
 						j["data"].Attributes["encoding"].Value="base64";
 						j["data"].Attributes["compression"].Value="gzip";
 
