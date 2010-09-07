@@ -20,7 +20,7 @@ namespace CSCL.FileFormats.TMX
 	public class TMX
 	{
 		#region Datenstrukturen
-		public class TilesetData
+		public class TilesetData: IComparable
 		{
 			public string name;
 			public int firstgid;
@@ -29,10 +29,30 @@ namespace CSCL.FileFormats.TMX
 
 			public string imgsource;
 			public gtImage img;
+
+			#region IComparable Members
+			public int CompareTo(object obj)
+			{
+				TilesetData tmp=(TilesetData)obj;
+				if(tmp.firstgid<this.firstgid)
+				{
+					return 1;
+				}
+				else if(tmp.firstgid==this.firstgid)
+				{
+					return 0;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			#endregion
 		}
 
 		public class LayerData
 		{
+			public TilesetData[,] tilesetmap;
 			public string name;
 			public int width;
 			public int height;
@@ -71,6 +91,47 @@ namespace CSCL.FileFormats.TMX
 		public List<TilesetData> Tilesets { get; private set; }
 		public List<LayerData> Layers { get; private set; }
 		public List<Objectgroup> ObjectLayers { get; private set; }
+
+		public void RemoveGidsFromLayerData()
+		{
+			foreach(TMX.LayerData ld in Layers)
+			{
+				ld.tilesetmap=new TilesetData[ld.width, ld.height];
+
+				for(int y=0; y<ld.height; y++)
+				{
+					for(int x=0; x<ld.width; x++)
+					{
+						int TileNumber=ld.data[x, y];
+
+						TMX.TilesetData ts=GetTileset(TileNumber);
+						ld.tilesetmap[x, y]=ts;
+
+						int tilesetNumber=TileNumber-ts.firstgid;
+						ld.data[x, y]=tilesetNumber;
+					}
+				}
+			}
+		}
+
+		public void AddsGidsToLayerData()
+		{
+			foreach(TMX.LayerData ld in Layers)
+			{
+				for(int y=0; y<ld.height; y++)
+				{
+					for(int x=0; x<ld.width; x++)
+					{
+						int TileNumber=ld.data[x, y];
+
+						TMX.TilesetData ts=ld.tilesetmap[x, y];
+	
+						int tilesetNumber=TileNumber+ts.firstgid;
+						ld.data[x, y]=tilesetNumber;
+					}
+				}
+			}
+		}
 
 		public void Open(string filename)
 		{
@@ -264,20 +325,19 @@ namespace CSCL.FileFormats.TMX
 			foreach(XmlNode j in xnl)
 			{
 				//Tilesets
-				TilesetData ts=new TilesetData();
-
-				ts.imgsource=j.SelectNodes("child::image")[0].Attributes[0].Value; //Image Source für den Layer
-				string imgsourceComplete=FileSystem.GetPath(filename)+ts.imgsource;
+				string name=j.Attributes["name"].Value;
 
 				foreach(TilesetData td in Tilesets)
 				{
-					if(ts.imgsource==td.imgsource)
+					if(name==td.name)
 					{
 						//Attrribute
-						j.Attributes["name"].Value=td.name;
 						j.Attributes["firstgid"].Value=td.firstgid.ToString();
 						j.Attributes["tilewidth"].Value=td.tilewidth.ToString();
 						j.Attributes["tileheight"].Value=td.tileheight.ToString();
+						
+						//Image Source
+						j.SelectNodes("child::image")[0].Attributes[0].Value=td.imgsource;
 
 						break;
 					}
