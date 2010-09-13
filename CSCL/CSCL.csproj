@@ -169,6 +169,7 @@
     <Compile Include="Games\Manasource\Animation.cs" />
     <Compile Include="Games\Manasource\Frame.cs" />
     <Compile Include="Games\Manasource\Imageset.cs" />
+    <Compile Include="Games\Manasource\Include.cs" />
     <Compile Include="Games\Manasource\Map.cs" />
     <Compile Include="Games\Manasource\TilesetInfo.cs" />
     <Compile Include="Games\Manasource\Sequence.cs" />

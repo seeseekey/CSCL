@@ -20,16 +20,30 @@ namespace CSCL.Games.Manasource
 
 		public List<Imageset> Imagesets { get; private set; }
 		public List<Action> Actions { get; private set; }
+		public List<Include> Includes { get; private set; }
+		public string Name { get; private set; }
+		public string Action { get; private set; }
 
 		public Sprite(XmlNode node)
 		{
 			Actions=new List<Action>();
 			Imagesets=new List<Imageset>();
+			Includes=new List<Include>();
 
 			foreach(XmlAttribute i in node.Attributes)
 			{
 				switch(i.Name.ToLower())
 				{
+					case "name":
+						{
+							Name=i.Value;
+							break;
+						}
+					case "action":
+						{
+							Action=i.Value;
+							break;
+						}
 					default:
 						{
 							throw new NotImplementedException();
@@ -49,6 +63,11 @@ namespace CSCL.Games.Manasource
 					case "imageset":
 						{
 							Imagesets.Add(new Imageset(i));
+							break;
+						}
+					case "include":
+						{
+							Includes.Add(new Include(i));
 							break;
 						}
 					default:
