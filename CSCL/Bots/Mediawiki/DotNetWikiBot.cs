@@ -4303,7 +4303,7 @@ namespace CSCL.Bots.Mediawiki
 		/// <summary>Just overriding constructor.</summary>
 		/// <returns>Returns Exception object.</returns>
 		public WikiBotException(string message)
-			: base (message) { Console.Beep(); /*Console.ForegroundColor = ConsoleColor.Red;*/ }
+			: base (message) { /*Console.ForegroundColor = ConsoleColor.Red;*/ }
 		/// <summary>Just overriding constructor.</summary>
 		/// <returns>Returns Exception object.</returns>
 		public WikiBotException(string message, System.Exception inner)
