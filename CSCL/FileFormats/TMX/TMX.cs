@@ -320,7 +320,14 @@ namespace CSCL.FileFormats.TMX
 
 			//gtImage ret=new gtImage(TileWidth, TileHeight);
 
-			return ts.img.GetSubImage((uint)tilesetPixelStartX, (uint)tilesetPixelStartY, (uint)ts.tilewidth, (uint)ts.tileheight);
+			try
+			{
+				return ts.img.GetSubImage((uint)tilesetPixelStartX, (uint)tilesetPixelStartY, (uint)ts.tilewidth, (uint)ts.tileheight);
+			}
+			catch
+			{
+				return new gtImage((uint)ts.tilewidth, (uint)ts.tileheight, gtImage.Format.RGBA);
+			}
 		}
 
 		public void Save(string filename)
