@@ -46,6 +46,8 @@ namespace CSCL.Games.Manasource
 		public string Script { get; private set; }
 		public string MissileParticle { get; private set; }
 		public int View { get; private set; }
+		public int Lifetime { get; private set; }
+		public int Intelligence { get; private set; }
 
 		public Item(XmlNode node)
 		{
@@ -159,6 +161,16 @@ namespace CSCL.Games.Manasource
 					case "view":
 						{
 							View=Convert.ToInt32(i.Value);
+							break;
+						}
+					case "lifetime":
+						{
+							Lifetime=Convert.ToInt32(i.Value);
+							break;
+						}
+					case "intelligence":
+						{
+							Intelligence=Convert.ToInt32(i.Value);
 							break;
 						}
 					default:
