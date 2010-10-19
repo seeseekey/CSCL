@@ -38,6 +38,7 @@ namespace CSCL.Games.Manasource
 		public int AttackAngle { get; private set; }
 		public string AttackShape { get; private set; }
 		public string AttackTarget { get; private set; }
+		public string AttackAction { get; private set; }
 		public string Image { get; private set; }
 		public string Effect { get; private set; }
 		public string Description { get; private set; }
@@ -105,6 +106,12 @@ namespace CSCL.Games.Manasource
 						{
 							//TODO Objekt bzw enum drauß machen
 							AttackTarget=i.Value.ToString();
+							break;
+						}
+					case "attack-action":
+						{
+							//TODO Objekt bzw enum drauß machen
+							AttackAction=i.Value.ToString();
 							break;
 						}
 					case "name":
