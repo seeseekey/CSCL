@@ -10,6 +10,7 @@ namespace CSCL.Games.Manasource
 		public List<Sequence> Sequences { get; private set; }
 		public List<Frame> Frames { get; private set; }
 		public string Direction { get; private set; }
+		public string Stand { get; private set; }
 
 		public Animation(XmlNode node)
 		{
@@ -24,6 +25,12 @@ namespace CSCL.Games.Manasource
 						{
 							//TODO In Enum überführen
 							Direction=i.Value.ToString();
+							break;
+						}
+					case "stand":
+						{
+							//TODO In Enum überführen
+							Stand=i.Value.ToString();
 							break;
 						}
 					default:
@@ -50,6 +57,11 @@ namespace CSCL.Games.Manasource
 					case "end":
 						{
 							//TODO wird zur zeit ignoriert, sollte geschaut werden ob der Tag Parameter enthält
+							break;
+						}
+					case "#comment": //wird ignoriert
+					case "#text":
+						{
 							break;
 						}
 					default:

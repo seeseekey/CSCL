@@ -23,6 +23,8 @@ namespace CSCL.Games.Manasource
 		public List<Include> Includes { get; private set; }
 		public string Name { get; private set; }
 		public string Action { get; private set; }
+		public int Variants { get; private set; }
+		public int VariantOffset { get; private set; }
 
 		public Sprite(XmlNode node)
 		{
@@ -42,6 +44,16 @@ namespace CSCL.Games.Manasource
 					case "action":
 						{
 							Action=i.Value;
+							break;
+						}
+					case "variants":
+						{
+							Variants=Convert.ToInt32(i.Value);
+							break;
+						}
+					case "variant_offset":
+						{
+							VariantOffset=Convert.ToInt32(i.Value);
 							break;
 						}
 					default:
@@ -68,6 +80,10 @@ namespace CSCL.Games.Manasource
 					case "include":
 						{
 							Includes.Add(new Include(i));
+							break;
+						}
+					case "#text": //wird ignoriert
+						{
 							break;
 						}
 					default:
