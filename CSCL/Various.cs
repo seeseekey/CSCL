@@ -21,6 +21,7 @@ namespace CSCL
 		public static string GetUniqueID()
 		{
 			if(TmpCounter>4294967200) TmpCounter=0;
+			TmpCounter++;
 
 			DateTime TmpDateTime=DateTime.Now;
 
