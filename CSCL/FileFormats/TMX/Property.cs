@@ -9,7 +9,7 @@ namespace CSCL.FileFormats.TMX
 	{
 		public string Name { get; private set; }
 		public string Value { get; private set; }
-
+	
 		public Property(XmlNode node)
 		{
 			foreach(XmlAttribute i in node.Attributes)

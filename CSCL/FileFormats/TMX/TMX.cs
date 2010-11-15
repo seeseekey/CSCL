@@ -91,6 +91,20 @@ namespace CSCL.FileFormats.TMX
 		public List<TilesetData> Tilesets { get; private set; }
 		public List<LayerData> Layers { get; private set; }
 		public List<Objectgroup> ObjectLayers { get; private set; }
+		public List<Property> Properties { get; private set; }
+
+		public Property GetProperty(string name)
+		{
+			foreach(Property i in Properties)
+			{
+				if(i.Name==name)
+				{
+					return i;
+				}
+			}
+
+			return null;
+		}
 
 		public void RemoveGidsFromLayerData()
 		{
@@ -163,6 +177,7 @@ namespace CSCL.FileFormats.TMX
 			Tilesets=new List<TilesetData>();
 			Layers=new List<LayerData>();
 			ObjectLayers=new List<Objectgroup>();
+			Properties=new List<Property>();
 
 			//XMLdata öffnen
             FileData=new XmlData(filename);
@@ -178,6 +193,23 @@ namespace CSCL.FileFormats.TMX
 
 			TileWidth=Convert.ToInt32(xnl[0].Attributes["tilewidth"].Value);
 			TileHeight=Convert.ToInt32(xnl[0].Attributes["tileheight"].Value);
+			#endregion
+
+			#region Properties auslesen
+			xnl=FileData.Document.SelectNodes("/map/properties");
+
+			foreach (XmlNode j in xnl)
+			{
+				XmlNodeList subnodes=j.SelectNodes("child::property");
+
+				foreach(XmlNode pNode in subnodes)
+				{
+					string name=pNode.Attributes[0].Name;
+					string value=pNode.Attributes[0].Value;
+
+					Properties.Add(new Property(pNode));
+				}
+			}
 			#endregion
 
 			#region Tilesets ermitteln
