@@ -338,7 +338,6 @@
     <Compile Include="Network\smartirc4net\IrcConnection\IrcConnection.cs" />
     <Compile Include="Network\smartirc4net\IrcConnection\IrcProperties.cs" />
     <Compile Include="Network\smartirc4net\IrcConnection\IrcTcpClient.cs" />
-    <Compile Include="Network\smartirc4net\Logger.cs" />
     <Compile Include="Network\SMTP.cs" />
     <Compile Include="Helpers\ProcessHelpers.cs" />
     <Compile Include="Parameters.cs" />
