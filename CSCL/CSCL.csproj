@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -20,12 +20,25 @@
     </SccProvider>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>2.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <TargetFrameworkSubset>
-    </TargetFrameworkSubset>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -306,6 +319,26 @@
     <Compile Include="Network\edtftpnet\VMSFileParser.cs" />
     <Compile Include="Network\edtftpnet\WindowsFileParser.cs" />
     <Compile Include="Network\Ping.cs" />
+    <Compile Include="Network\smartirc4net\Consts.cs" />
+    <Compile Include="Network\smartirc4net\EventArgs.cs" />
+    <Compile Include="Network\smartirc4net\Exceptions.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\Channel.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\ChannelUser.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\Delegates.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\EventArgs.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\IrcClient.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\IrcMessageData.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\IrcUser.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\NonRfcChannel.cs" />
+    <Compile Include="Network\smartirc4net\IrcClient\NonRfcChannelUser.cs" />
+    <Compile Include="Network\smartirc4net\IrcCommands\IrcCommands.cs" />
+    <Compile Include="Network\smartirc4net\IrcCommands\Rfc2812.cs" />
+    <Compile Include="Network\smartirc4net\IrcConnection\Delegates.cs" />
+    <Compile Include="Network\smartirc4net\IrcConnection\EventArgs.cs" />
+    <Compile Include="Network\smartirc4net\IrcConnection\IrcConnection.cs" />
+    <Compile Include="Network\smartirc4net\IrcConnection\IrcProperties.cs" />
+    <Compile Include="Network\smartirc4net\IrcConnection\IrcTcpClient.cs" />
+    <Compile Include="Network\smartirc4net\Logger.cs" />
     <Compile Include="Network\SMTP.cs" />
     <Compile Include="Helpers\ProcessHelpers.cs" />
     <Compile Include="Parameters.cs" />
@@ -343,7 +376,21 @@
     <None Include="Games\OnlineHighscore.php" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
