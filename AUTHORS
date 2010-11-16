@@ -5,6 +5,11 @@ seeseekey <seeseekey googlemail.com>
 -
 
 == Integrated libs ==
-Sourcegrid -> MIT License -> http://sourcegrid.codeplex.com/
 csharp-sqlite -> Public domain -> http://code.google.com/p/csharp-sqlite/
-edtftpnet -> LGPL -> http://www.enterprisedt.com/products/edtftpnet/overview.html
+DotNetWikiBot -> MIT License -> http://sourceforge.net/projects/dotnetwikibot/
+edtftpnet -> LGPL -> http://www.enterprisedt.com/products/edtftpnet/overview.html -> Enterprise Distributed Technologies Pty Ltd
+
+=== SmartIrc4net ===
+Original Licence: LGPL
+Website: http://smartirc4net.meebey.net/ / http://sourceforge.net/projects/smartirc4net/
+Authors: Mirco Bauer <meebey meebey.net> /  Benjamin Hall <Benjamin.Hall orcon.net.nz>
