@@ -376,7 +376,7 @@ namespace CSCL.Network.IRC
             AssemblyProductAttribute pr = (AssemblyProductAttribute)assm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
 
             _VersionNumber = assm_name.Version.ToString();
-            _VersionString = pr.Product+" "+_VersionNumber;
+            _VersionString = _VersionNumber;
         }
         
 #if LOG4NET
