@@ -125,42 +125,80 @@ namespace CSCL
         /// </summary>
         /// <param name="dir">Path des anzulegenden Verzeichnisses</param>
         /// <returns>True, wenn erfolgreich.</returns>
-        public static bool CreateDirectory(string dir)
+		public static bool CreateDirectory(string dir)
         {
-            try { Directory.CreateDirectory(dir); }
-            catch(Exception) { return false; }
-            return true;
+			return CreateDirectory(dir, false);
         }
 
         /// <summary>
-        /// Legt ein Verzeichniss und sämtliche Unterverzeichnisse an
+        /// Legt ein Verzeichnis und sämtliche Unterverzeichnisse an
         /// </summary>
         /// <param name="dir">Path des anzulegenden Verzeichnisses</param>
         /// <param name="force">Erzwingt das Anlegen des Verzeichnisses</param>
         /// <returns>True, wenn erfolgreich.</returns>
-        public static bool CreateDirectory(string dir, bool force)
-        {
-            if(force==false) return CreateDirectory(dir);
-
-            bool ret=true;
+		public static bool CreateDirectory(string dir, bool throwException)
+		{
+			bool ret=true;
 
 			char[] sep=new char[] { pathDelimiter };
-            string[] pathParts=dir.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+			string[] pathParts=dir.Split(sep, StringSplitOptions.RemoveEmptyEntries);
 
-            string path="";
-            foreach(string i in pathParts)
-            {
-				path+=i+pathDelimiter;
-                if(IsRoot(i)) continue;
+			string path="";
 
-                if(!Directory.Exists(path))
-                {
-                    if(!CreateDirectory(path)) ret=false;
-                }
-            }
+			foreach(string i in pathParts)
+			{
+				switch(Environment.OSVersion.Platform)
+				{
+					case PlatformID.Win32NT:
+					case PlatformID.Win32S:
+					case PlatformID.Win32Windows:
+						{
+							path+=i+pathDelimiter;
+							if(IsRoot(i)) continue;
+							break;
+						}
+					case PlatformID.MacOSX:
+					case PlatformID.Unix:
+						{
+							if(dir.Length>0&&dir[0]=='/') //Root
+							{
+								if(path.Length>0)
+								{
+									path+=i+pathDelimiter;
+								}
+								else
+								{
+									path+=pathDelimiter+i+pathDelimiter;
+								}
+							}
+							else
+							{
+								path+=i+pathDelimiter; //Relativ
+							}
+							break;
+						}
+					default:
+						{
+							throw new NotImplementedException();
+						}
+				}
 
-            return ret;
-        }
+				if(!Directory.Exists(path))
+				{
+					try
+					{
+						Directory.CreateDirectory(path);
+					}
+					catch(Exception e)
+					{
+						if(throwException) throw e;
+						return false;
+					}
+				}
+			}
+
+			return ret;
+		}
 
         public static bool CopyDirectory(string source, string dest)
         {
@@ -266,8 +304,13 @@ namespace CSCL
         /// <returns></returns>
         public static bool RemoveDirectory(string dir)
         {
-            return RemoveDirectory(dir, false);
+            return RemoveDirectory(dir, false, false);
         }
+
+		public static bool RemoveDirectory(string dir, bool recursive)
+		{
+			return RemoveDirectory(dir, recursive, false);
+		}
 
         /// <summary>
         /// Löscht ein leeres (recursive=false)
@@ -276,12 +319,19 @@ namespace CSCL
         /// <param name="dir"></param>
         /// <param name="recursive"></param>
         /// <returns></returns>
-        public static bool RemoveDirectory(string dir, bool recursive)
-        {
-            try { Directory.Delete(dir, recursive); }
-            catch(Exception) { return false; }
-            return true;
-        }
+		public static bool RemoveDirectory(string dir, bool recursive, bool throwException)
+		{
+			try
+			{ 
+				Directory.Delete(dir, recursive);
+			}
+			catch(Exception e) 
+			{
+				if(throwException) throw e;
+				else return false;
+			}
+			return true;
+		}
 
         /// <summary>
         /// Gibt das aktuelle Verzeichnis zurück
@@ -394,7 +444,12 @@ namespace CSCL
 
 		public static bool CopyFiles(string source, string target, string filter)
 		{
-			return CopyFiles(source, target, filter, new List<string>());
+			return CopyFiles(source, target, filter, new List<string>(), false);
+		}
+
+		public static bool CopyFiles(string source, string target, string filter, List<string> ExcludeFiles)
+		{
+			return CopyFiles(source, target, filter, ExcludeFiles, false);
 		}
 
         /// <summary>
@@ -404,7 +459,7 @@ namespace CSCL
         /// <param name="target"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-		public static bool CopyFiles(string source, string target, string filter, List<string> ExcludeFiles)
+		public static bool CopyFiles(string source, string target, string filter, List<string> ExcludeFiles, bool throwException)
 		{
 			List<string> files=GetFiles(source, false, filter);
 
@@ -429,9 +484,10 @@ namespace CSCL
 
 					File.Copy(i, target+fn);
 				}
-				catch(Exception)
+				catch(Exception e)
 				{
-					return false;
+					if(throwException) throw e;
+					else return false;
 				}
 			}
 
@@ -591,31 +647,70 @@ namespace CSCL
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool IsRoot(string path)
-        {
-            path=path.TrimEnd(pathDelimiter).ToLower();
-            if(path.Length==2&&path[0]>='a'&&path[0]<='z'&&path[1]==':') return true;
-            return false;
-        }
+		public static bool IsRoot(string path)
+		{
+			path=path.TrimEnd(pathDelimiter).ToLower();
+
+			switch(Environment.OSVersion.Platform)
+			{
+				case PlatformID.Win32NT:
+				case PlatformID.Win32S:
+				case PlatformID.Win32Windows:
+					{
+						if(path.Length==2&&path[0]>='a'&&path[0]<='z'&&path[1]==':') return true;
+						break;
+					}
+				case PlatformID.MacOSX:
+				case PlatformID.Unix:
+					{
+						if(path.Length>0&&path[0]=='/') return true;
+						break;
+					}
+				default:
+					{
+						throw new NotImplementedException();
+					}
+			}
+
+			return false;
+		}
 
         /// <summary>
         /// Überprüft ob der übergebende Pfad Absolut ist
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool IsAbsolute(string path)
-        {
-            if(path.Length<3) return false;	// kein "c:\" oder ähnliches
-            if(!Char.IsLetter(path[0]))
-            {	//Test auf UNC Pfad
-                if(path[0]!='\\') return false;	// z.B. "\\FOO\myMusic"
-                if(path[1]!='\\') return false;
-                return true;
-            }
-            if(path[1]!=':') return false;
-            if(path[2]!='\\'&&path[2]!='/') return false;
-            return true;
-        }
+		public static bool IsAbsolute(string path)
+		{
+			switch(Environment.OSVersion.Platform)
+			{
+				case PlatformID.Win32NT:
+				case PlatformID.Win32S:
+				case PlatformID.Win32Windows:
+					{
+						if(path.Length<3) return false;	// kein "c:\" oder ähnliches
+						if(!Char.IsLetter(path[0]))
+						{	//Test auf UNC Pfad
+							if(path[0]!='\\') return false;	// z.B. "\\FOO\myMusic"
+							if(path[1]!='\\') return false;
+							return true;
+						}
+						if(path[1]!=':') return false;
+						if(path[2]!='\\'&&path[2]!='/') return false;
+						return true;
+					}
+				case PlatformID.MacOSX:
+				case PlatformID.Unix:
+					{
+						if(path.Length>0&&path[0]=='/') return true;
+						else return false;
+					}
+				default:
+					{
+						throw new NotImplementedException();
+					}
+			}
+		}
 
         /// <summary>
         /// Überprüftob es sich bei dem filename um einen Pfad handelt
