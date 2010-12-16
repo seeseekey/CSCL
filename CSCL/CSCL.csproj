@@ -83,17 +83,8 @@
     <Compile Include="API\Win32\User32.cs" />
     <Compile Include="Bots\Mediawiki\DotNetWikiBot.cs" />
     <Compile Include="Compression\gzip.cs" />
-    <Compile Include="Controls\ColorEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Controls\MultiView.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ShapeControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ShapeTypeEditor.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
@@ -226,7 +217,6 @@
     <Compile Include="Games\OnlineHighscore.cs" />
     <Compile Include="Games\PlayCube.cs" />
     <Compile Include="Games\Manasource\Helper.cs" />
-    <Compile Include="GenericTree.cs" />
     <Compile Include="Graphic\gtImage\Channels.cs" />
     <Compile Include="Graphic\gtImage\DownSampling.cs" />
     <Compile Include="Graphic\gtImage\DrawMethodes.cs" />
@@ -358,6 +348,7 @@
     <Compile Include="Serialization.cs" />
     <Compile Include="Helpers\StringHelpers.Tokenizer.cs" />
     <Compile Include="StopTimer.cs" />
+    <Compile Include="Treenode.cs" />
     <Compile Include="UpdateSystem.cs" />
     <Compile Include="Various.cs" />
     <Compile Include="TextInputbox.cs">
@@ -367,15 +358,6 @@
     <Compile Include="XmlData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ColorEditor.resx">
-      <DependentUpon>ColorEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ShapeControl.resx">
-      <DependentUpon>ShapeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ShapeTypeEditor.resx">
-      <DependentUpon>ShapeTypeEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ExceptionHandler.resx">
       <DependentUpon>ExceptionHandler.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -409,9 +391,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Controls\ShapeControl.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Games\Invertika\" />
