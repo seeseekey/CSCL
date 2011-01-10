@@ -28,7 +28,7 @@ namespace CSCL.Graphic
 				ret=new gtImage(width, height, Format.RGBA);
 
 				Bitmap bmp=new Bitmap(img);
-				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
 				Marshal.Copy(data.Scan0, ret.imageData, 0, (int)(width*height*4));
 				bmp.UnlockBits(data);
 			}
@@ -37,7 +37,7 @@ namespace CSCL.Graphic
 				ret=new gtImage(width, height, Format.RGB);
 
 				Bitmap bmp=new Bitmap(img);
-				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 				if (((int)width*3)==data.Stride)
 				{
 					Marshal.Copy(data.Scan0, ret.imageData, 0, (int)(width*height*3));

@@ -86,7 +86,7 @@ namespace CSCL.Graphic
 
 			Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
 
-			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 			if(((int)width*3)==data.Stride)
 			{
@@ -155,7 +155,7 @@ namespace CSCL.Graphic
 
 			Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
 
-			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 			if(((int)width*3)==data.Stride)
 			{
@@ -233,7 +233,7 @@ namespace CSCL.Graphic
 			if(channelFormat==Format.RGBA)
 			{
 				Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format32bppArgb);
-				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
 
 				Marshal.Copy(imageData, 0, data.Scan0, (int)(width*height*4));
 
@@ -247,7 +247,7 @@ namespace CSCL.Graphic
 			else
 			{
 				Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
-				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 				if(((int)width*3)==data.Stride)
 				{
@@ -338,7 +338,7 @@ namespace CSCL.Graphic
 				throw new Exception("Only rgb images can be saved by SaveToBMP.");
 
 			Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
-			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 			if(((int)width*3)==data.Stride)
 			{
@@ -385,7 +385,7 @@ namespace CSCL.Graphic
 			if(channelFormat==Format.RGBA)
 			{
 				Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format32bppArgb);
-				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
 
 				Marshal.Copy(imageData, 0, data.Scan0, (int)(width*height*4));
 
@@ -399,7 +399,7 @@ namespace CSCL.Graphic
 			else
 			{
 				Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
-				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
 				if(((int)width*3)==data.Stride)
 				{
