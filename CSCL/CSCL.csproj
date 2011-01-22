@@ -174,6 +174,7 @@
     <Compile Include="Database\SQLite\csharp-sqlite\where_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
     <Compile Include="Database\SQLite\SQLiteMisc.cs" />
+    <Compile Include="Exceptions\NotSupportedCompression.cs" />
     <Compile Include="FileFormats\INI\INI.cs" />
     <Compile Include="FileFormats\TMX\Object.cs" />
     <Compile Include="FileFormats\TMX\Objectgroup.cs" />

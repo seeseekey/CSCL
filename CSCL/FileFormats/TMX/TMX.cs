@@ -9,6 +9,7 @@ using System.IO.Compression;
 using CSCL.Crypto;
 using CSCL.Compression;
 using CSCL.Graphic;
+using CSCL.Exceptions;
 
 namespace CSCL.FileFormats.TMX
 {
@@ -256,9 +257,14 @@ namespace CSCL.FileFormats.TMX
 				string encoding=j["data"].Attributes["encoding"].Value;
 				string compression=j["data"].Attributes["compression"].Value;
 
-				if (encoding!="base64"||compression!="gzip")
+				if(encoding!="base64")
 				{
-					throw(new NotImplementedException("Weitere Codierungsarten sind noch nicht implementiert!"));
+					throw (new NotImplementedException("Weitere Codierungsarten sind noch nicht implementiert!"));
+				}
+
+				if(compression!="gzip")
+				{
+					throw (new NotSupportedCompressionException("Weitere kompressionsverfahren sind noch nicht implementiert!"));
 				}
 
 				//Base64 Encodierung
