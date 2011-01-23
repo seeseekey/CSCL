@@ -64,7 +64,7 @@ namespace CSCL.Games.Manasource
 
 				if(dropitem==null) throw new Exception("Item not found!");
 
-				ret+=dropitem.Value*drop.Percent;
+				ret+=dropitem.Value*(drop.Percent/100.0);
 			}
 
 			return ret;
