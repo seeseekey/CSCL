@@ -185,6 +185,8 @@
     <Compile Include="Games\Manasource\Imageset.cs" />
     <Compile Include="Games\Manasource\Include.cs" />
     <Compile Include="Games\Manasource\Map.cs" />
+    <Compile Include="Games\Manasource\Npc.cs" />
+    <Compile Include="Games\Manasource\Particle.cs" />
     <Compile Include="Games\Manasource\TilesetInfo.cs" />
     <Compile Include="Games\Manasource\Sequence.cs" />
     <Compile Include="Games\Manasource\Sprite.cs" />
