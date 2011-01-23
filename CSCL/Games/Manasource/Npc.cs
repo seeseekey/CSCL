@@ -51,12 +51,12 @@ namespace CSCL.Games.Manasource
 				{
 					case "sprite":
 						{
-							SpriteFilename=i.Value;
+							SpriteFilename=i.ChildNodes[0].Value;
 							break;
 						}
 					case "particlefx":
 						{
-							ParticleFxFilename=i.Value;
+							ParticleFxFilename=i.ChildNodes[0].Value;
 							break;
 						}
 					default:
