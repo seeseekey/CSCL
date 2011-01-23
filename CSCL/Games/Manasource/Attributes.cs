@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Globalization;
+using System.Threading;
 
 namespace CSCL.Games.Manasource
 {
@@ -21,6 +23,10 @@ namespace CSCL.Games.Manasource
 
 		public Attributes(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+
 			foreach(XmlAttribute i in node.Attributes)
 			{
 				switch(i.Name.ToLower())
@@ -86,6 +92,8 @@ namespace CSCL.Games.Manasource
 						}
 				}
 			}
+
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }
