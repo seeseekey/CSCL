@@ -197,6 +197,7 @@ namespace CSCL.Games.Manasource
 			ret+=String.Format("| id = {0}", ID);
 			ret+=String.Format("| exp = {0}", Exp);
 			ret+=String.Format("| hp = {0}", Attributes.HP);
+			ret+=String.Format("| fighting-strength = {0}", FightingStrength);
 
 			ret+=String.Format("| aggressive = {0}", agressive);
 			ret+=String.Format("| attack = {0}-{1}", Attributes.AttackMin-Attributes.AttackDelta, Attributes.AttackMin+Attributes.AttackDelta);
