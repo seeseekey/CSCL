@@ -244,7 +244,7 @@ namespace CSCL.Games.Manasource
 			ret+=String.Format("| description = {0}", Description);
 			ret+=String.Format("| weight = {0}", Weight);
 			ret+=String.Format("| effect = {0}", Effect);
-			ret+=String.Format("| salevalue = {0}", Value);
+			ret+=String.Format("| salevalue = {0} Aki", Value);
 			ret+=String.Format("| maxperslot = {0}", MaxPerSlot);
 			ret+=String.Format("}}}}");
 
