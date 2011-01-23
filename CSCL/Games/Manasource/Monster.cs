@@ -181,7 +181,7 @@ namespace CSCL.Games.Manasource
 		}
 		#endregion
 
-		public string ToMediaWikiInfobox()
+		public string ToMediaWikiInfobox(List<Item> items)
 		{
 			string agressive="nicht definiert";
 
@@ -204,6 +204,7 @@ namespace CSCL.Games.Manasource
 			ret+=String.Format("| defense-magical = {0}", Attributes.MagicalDefence);
 			ret+=String.Format("| mutation = {0}", Attributes.Mutation);
 			ret+=String.Format("| speed = {0}", Attributes.Speed);
+			ret+=String.Format("| sale-drop-money-value = {0} Aki", GetSaleDropMoneyValue(items));
 			ret+=String.Format("}}}}");
 
 			return ret;
