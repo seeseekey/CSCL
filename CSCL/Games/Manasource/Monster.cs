@@ -45,6 +45,31 @@ namespace CSCL.Games.Manasource
 			}
 		}
 
+		public double GetSaleDropMoneyValue(List<Item> items)
+		{
+			double ret=0;
+
+			foreach(Drop drop in Drops)
+			{
+				Item dropitem=null;
+
+				foreach(Item i in items)
+				{
+					if(drop.Item==i.ID)
+					{
+						dropitem=i;
+						break;
+					}
+				}
+
+				if(dropitem==null) throw new Exception("Item not found!");
+
+				ret+=dropitem.Value*drop.Percent;
+			}
+
+			return ret;
+		}
+
 		public Monster(XmlNode node)
 		{
 			Sounds=new List<Sound>();
