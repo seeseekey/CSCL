@@ -82,12 +82,41 @@ namespace CSCL.FileFormats.TMX
 
 		XmlData FileData;
 
-		string MapVersion;
-		string Orientation;
-		int Width;
-		int Height;
-		int TileWidth;
-		int TileHeight;
+		public string MapVersion
+		{
+			get;
+			private set;
+		}
+
+		public string Orientation
+		{
+			get;
+			private set;
+		}
+
+		public int Width
+		{
+			get;
+			private set;
+		}
+
+		public int Height
+		{
+			get;
+			private set;
+		}
+
+		public int TileWidth
+		{
+			get;
+			private set;
+		}
+
+		public int TileHeight
+		{
+			get;
+			private set;
+		}
 
 		public List<TilesetData> Tilesets { get; private set; }
 		public List<LayerData> Layers { get; private set; }
