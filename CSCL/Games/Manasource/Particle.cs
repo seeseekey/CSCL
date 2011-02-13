@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Globalization;
+using System.Threading;
 
 namespace CSCL.Games.Manasource
 {
@@ -17,14 +19,6 @@ namespace CSCL.Games.Manasource
 		//    return new Particle(sprite[0]);
 		//}
 		#endregion
-
-		//public List<Imageset> Imagesets { get; private set; }
-		//public List<Action> Actions { get; private set; }
-		//public List<Include> Includes { get; private set; }
-		//public string Name { get; private set; }
-		//public string Action { get; private set; }
-		//public int Variants { get; private set; }
-		//public int VariantOffset { get; private set; }
 
 		public Particle(XmlNode node)
 		{
