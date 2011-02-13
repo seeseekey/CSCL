@@ -28,34 +28,14 @@ namespace CSCL.Games.Manasource
 
 		public Particle(XmlNode node)
 		{
-			//Actions=new List<Action>();
-			//Imagesets=new List<Imageset>();
-			//Includes=new List<Include>();
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
 
 			foreach(XmlAttribute i in node.Attributes)
 			{
 				switch(i.Name.ToLower())
 				{
-					//case "name":
-					//    {
-					//        Name=i.Value;
-					//        break;
-					//    }
-					//case "action":
-					//    {
-					//        Action=i.Value;
-					//        break;
-					//    }
-					//case "variants":
-					//    {
-					//        Variants=Convert.ToInt32(i.Value);
-					//        break;
-					//    }
-					//case "variant_offset":
-					//    {
-					//        VariantOffset=Convert.ToInt32(i.Value);
-					//        break;
-					//    }
 					default:
 						{
 							throw new NotImplementedException();
@@ -67,32 +47,14 @@ namespace CSCL.Games.Manasource
 			{
 				switch(i.Name.ToLower())
 				{
-					//case "action":
-					//    {
-					//        Actions.Add(new Action(i));
-					//        break;
-					//    }
-					//case "imageset":
-					//    {
-					//        Imagesets.Add(new Imageset(i));
-					//        break;
-					//    }
-					//case "include":
-					//    {
-					//        Includes.Add(new Include(i));
-					//        break;
-					//    }
-					//case "#text": //wird ignoriert
-					//    {
-					//        i.Value
-					//        break;
-					//    }
 					default:
 						{
 							throw new NotImplementedException();
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }

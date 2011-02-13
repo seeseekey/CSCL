@@ -13,6 +13,10 @@ namespace CSCL.Games.Manasource
 
 		public Action(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+			
 			Animations=new List<Animation>();
 
 			foreach(XmlAttribute i in node.Attributes)
@@ -51,6 +55,8 @@ namespace CSCL.Games.Manasource
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }

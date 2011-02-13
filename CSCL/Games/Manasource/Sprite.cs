@@ -28,6 +28,10 @@ namespace CSCL.Games.Manasource
 
 		public Sprite(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+			
 			Actions=new List<Action>();
 			Imagesets=new List<Imageset>();
 			Includes=new List<Include>();
@@ -92,6 +96,8 @@ namespace CSCL.Games.Manasource
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }

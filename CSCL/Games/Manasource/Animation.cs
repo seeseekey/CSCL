@@ -14,6 +14,10 @@ namespace CSCL.Games.Manasource
 
 		public Animation(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+			
 			Sequences=new List<Sequence>();
 			Frames=new List<Frame>();
 
@@ -70,6 +74,8 @@ namespace CSCL.Games.Manasource
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }

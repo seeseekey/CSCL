@@ -53,6 +53,10 @@ namespace CSCL.Games.Manasource
 
 		public Item(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+			
 			Sounds=new List<Sound>();
 
 			foreach(XmlAttribute i in node.Attributes)
@@ -214,6 +218,8 @@ namespace CSCL.Games.Manasource
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 
 		#region IComparable Members

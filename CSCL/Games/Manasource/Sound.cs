@@ -12,6 +12,10 @@ namespace CSCL.Games.Manasource
 
 		public Sound(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+			
 			foreach(XmlAttribute i in node.Attributes)
 			{
 				switch(i.Name.ToLower())
@@ -30,6 +34,8 @@ namespace CSCL.Games.Manasource
 			}
 
 			Filename=node.InnerText;
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }

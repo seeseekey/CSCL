@@ -72,6 +72,10 @@ namespace CSCL.Games.Manasource
 
 		public Monster(XmlNode node)
 		{
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
+			
 			Sounds=new List<Sound>();
 			Attacks=new List<Attack>();
 			Drops=new List<Drop>();
@@ -160,6 +164,8 @@ namespace CSCL.Games.Manasource
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 
 		#region IComparable Members

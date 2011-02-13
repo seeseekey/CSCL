@@ -14,8 +14,9 @@ namespace CSCL.Games.Manasource
 
 		public Include(XmlNode node)
 		{
-			//Actions=new List<Action>();
-			//Imagesets=new List<Imageset>();
+			CultureInfo nc=new CultureInfo("");
+			CultureInfo oldCult=Thread.CurrentThread.CurrentCulture;
+			Thread.CurrentThread.CurrentCulture=nc;
 
 			foreach(XmlAttribute i in node.Attributes)
 			{
@@ -26,11 +27,6 @@ namespace CSCL.Games.Manasource
 							File=i.Value;
 							break;
 						}
-					//case "action":
-					//    {
-					//        Action=i.Value;
-					//        break;
-					//    }
 					default:
 						{
 							throw new NotImplementedException();
@@ -42,22 +38,14 @@ namespace CSCL.Games.Manasource
 			{
 				switch(i.Name.ToLower())
 				{
-					//case "action":
-					//    {
-					//        Actions.Add(new Action(i));
-					//        break;
-					//    }
-					//case "imageset":
-					//    {
-					//        Imagesets.Add(new Imageset(i));
-					//        break;
-					//    }
 					default:
 						{
 							throw new NotImplementedException();
 						}
 				}
 			}
+			
+			Thread.CurrentThread.CurrentCulture=oldCult;
 		}
 	}
 }
