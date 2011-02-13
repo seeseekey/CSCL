@@ -42,5 +42,11 @@ namespace CSCL
 		{
 			return DateTime.Now.Ticks.ToString().PadLeft(20, '0');
 		}
+
+		public static string GetReadableTimeID()
+		{
+			DateTime now=DateTime.Now;
+			return String.Format("[{0:D4}.{1:D2}.{2:D2}] -> [{3:D2}:{4:D2}:{5:D2}:{6:D3}]", now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
+		}
 	}
 }
