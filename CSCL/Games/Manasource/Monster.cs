@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Globalization;
 using System.Threading;
+using CSCL.Exceptions;
 
 namespace CSCL.Games.Manasource
 {
@@ -64,7 +65,7 @@ namespace CSCL.Games.Manasource
 					}
 				}
 
-				if(dropitem==null) throw new Exception("Item not found!");
+				if(dropitem==null) throw new ItemNotFoundException();
 
 				ret+=dropitem.Value*(drop.Percent/100.0);
 			}
