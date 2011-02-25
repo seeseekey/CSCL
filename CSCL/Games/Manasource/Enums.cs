@@ -18,6 +18,10 @@ namespace CSCL.Games.Manasource
 					{
 						return Elements.Earth;
 					}
+				case "ice":
+					{
+						return Elements.Ice;
+					}
 				default:
 					{
 						throw new NotImplementedException();
@@ -29,6 +33,7 @@ namespace CSCL.Games.Manasource
 	public enum Elements
 	{
 		Fire,
-		Earth
+		Earth,
+		Ice
 	}
 }
