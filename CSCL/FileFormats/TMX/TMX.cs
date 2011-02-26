@@ -293,7 +293,7 @@ namespace CSCL.FileFormats.TMX
 
 				if(compression!="gzip")
 				{
-					throw (new NotSupportedCompressionException("Weitere kompressionsverfahren sind noch nicht implementiert!"));
+					throw (new NotSupportedCompressionException("Weitere Kompressionsverfahren sind noch nicht implementiert!"));
 				}
 
 				//Base64 Encodierung
