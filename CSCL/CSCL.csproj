@@ -351,6 +351,7 @@
     <Compile Include="Scripting\IScript.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="Helpers\StringHelpers.Tokenizer.cs" />
+    <Compile Include="Services\Google\Translate\Translator.cs" />
     <Compile Include="StopTimer.cs" />
     <Compile Include="Treenode.cs" />
     <Compile Include="UpdateSystem.cs" />
