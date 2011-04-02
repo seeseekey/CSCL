@@ -397,7 +397,18 @@ namespace CSCL.FileFormats.TMX
 			}
 		}
 
+		public enum TilesetVMode
+		{
+			Name,
+			Filename
+		}
+
 		public void Save(string filename)
+		{
+			Save(filename, TilesetVMode.Name);
+		}
+
+		public void Save(string filename, TilesetVMode vmode)
 		{
 			#region MapsInfo speichern
 			XmlNodeList xnl=FileData.Document.SelectNodes("/map");
@@ -421,24 +432,46 @@ namespace CSCL.FileFormats.TMX
 			{
 				//Tilesets
 				string name=j.Attributes["name"].Value;
+				string filenameTS=j.SelectNodes("child::image")[0].Attributes[0].Value;
 
 				bool exist=false;
 
 				foreach(TilesetData td in Tilesets)
 				{
-					if(name==td.name)
+					if(vmode==TilesetVMode.Name)
 					{
-						//Attrribute
-						j.Attributes["firstgid"].Value=td.firstgid.ToString();
-						j.Attributes["tilewidth"].Value=td.tilewidth.ToString();
-						j.Attributes["tileheight"].Value=td.tileheight.ToString();
-						
-						//Image Source
-						j.SelectNodes("child::image")[0].Attributes[0].Value=td.imgsource;
+						if(name==td.name)
+						{
+							//Attrribute
+							j.Attributes["firstgid"].Value=td.firstgid.ToString();
+							j.Attributes["tilewidth"].Value=td.tilewidth.ToString();
+							j.Attributes["tileheight"].Value=td.tileheight.ToString();
 
-						exist=true;
+							//Image Source
+							j.SelectNodes("child::image")[0].Attributes[0].Value=td.imgsource;
 
-						break;
+							exist=true;
+
+							break;
+						}
+					}
+					else //Filename
+					{
+						if(filenameTS==td.imgsource)
+						{
+							//Attrribute
+							j.Attributes["name"].Value=td.name;
+							j.Attributes["firstgid"].Value=td.firstgid.ToString();
+							j.Attributes["tilewidth"].Value=td.tilewidth.ToString();
+							j.Attributes["tileheight"].Value=td.tileheight.ToString();
+
+							//Image Source
+							//j.SelectNodes("child::image")[0].Attributes[0].Value=td.imgsource;
+
+							exist=true;
+
+							break;
+						}
 					}
 				}
 
