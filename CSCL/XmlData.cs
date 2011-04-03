@@ -116,13 +116,6 @@ namespace CSCL
 			InternalXmlDeclaration=InternalXmlDocument.CreateXmlDeclaration("1.0", "utf-8", "yes");
 			InternalXmlDocument.InsertBefore(InternalXmlDeclaration, InternalXmlDocument.DocumentElement);
 
-			//if(!FileSystem.ExistsFile(filename))
-			//{
-			//    //throw new Exception("File don't exist!");
-			//    //InternalXmlDocument.AppendChild(InternalXmlDocument.CreateElement("xml"));
-			//    //Save(filename);
-			//}
-
 			InternalFilename=filename;
 			InternalXmlDocument.XmlResolver=null;
 
