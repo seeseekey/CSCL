@@ -191,6 +191,13 @@ namespace CSCL
 			return node.AppendChild(AddNode);
 		}
 
+		public XmlNode AddElement(XmlNode node, string name)
+		{
+			XmlNode AddNode=InternalXmlDocument.CreateElement(name);
+
+			return node.AppendChild(AddNode);
+		}
+
 		public XmlNode WriteElement(string path, string content)
 		{
 			if(ExistElement(path)) //Pfad existiert

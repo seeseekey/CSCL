@@ -55,7 +55,7 @@ namespace CSCL.Games.Manasource
 
 			foreach(Map i in maps)
 			{
-				XmlNode mapNode=xml.AddElement(mapsnode, "map", "");
+				XmlNode mapNode=xml.AddElement(mapsnode, "map");
 				xml.AddAttribute(mapNode, "id", i.ID);
 				xml.AddAttribute(mapNode, "name", i.Name);
 			}

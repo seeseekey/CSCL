@@ -428,11 +428,11 @@ namespace CSCL.FileFormats.TMX
 			#region Properties speichern
 			if(Properties.Count>0)
 			{
-				XmlNode properties=fileData.AddElement(root, "properties", "");
+				XmlNode properties=fileData.AddElement(root, "properties");
 
 				foreach(Property prop in Properties)
 				{
-					XmlNode propertyXml=fileData.AddElement(properties, "property", "");
+					XmlNode propertyXml=fileData.AddElement(properties, "property");
 					fileData.AddAttribute(propertyXml, "name", prop.Name);
 					fileData.AddAttribute(propertyXml, "value", prop.Value);
 				}
@@ -442,13 +442,13 @@ namespace CSCL.FileFormats.TMX
 			#region Tilesets
 			foreach(TilesetData tileset in Tilesets)
 			{
-				XmlNode tilesetXml=fileData.AddElement(root, "tileset", "");
+				XmlNode tilesetXml=fileData.AddElement(root, "tileset");
 				fileData.AddAttribute(tilesetXml, "firstgid", tileset.firstgid);
 				fileData.AddAttribute(tilesetXml, "name", tileset.name);
 				fileData.AddAttribute(tilesetXml, "tilewidth", tileset.tilewidth);
 				fileData.AddAttribute(tilesetXml, "tileheight", tileset.tileheight);
 
-				XmlNode imageTag=fileData.AddElement(tilesetXml, "image", "");
+				XmlNode imageTag=fileData.AddElement(tilesetXml, "image");
 				fileData.AddAttribute(imageTag, "source", tileset.imgsource);
 			}
 			#endregion
@@ -456,7 +456,7 @@ namespace CSCL.FileFormats.TMX
 			#region Layer
 			foreach(LayerData layer in Layers)
 			{
-				XmlNode layerXml=fileData.AddElement(root, "layer", "");
+				XmlNode layerXml=fileData.AddElement(root, "layer");
 				fileData.AddAttribute(layerXml, "name", layer.name);
 				fileData.AddAttribute(layerXml, "width", layer.width);
 				fileData.AddAttribute(layerXml, "height", layer.height);
@@ -468,6 +468,33 @@ namespace CSCL.FileFormats.TMX
 			#endregion
 
 			#region Objectlayer
+			foreach(Objectgroup objGroup in ObjectLayers)
+			{
+				XmlNode objGroupXml=fileData.AddElement(root, "objectgroup");
+				fileData.AddAttribute(objGroupXml, "name", objGroup.Name);
+				fileData.AddAttribute(objGroupXml, "width", objGroup.Width);
+				fileData.AddAttribute(objGroupXml, "height", objGroup.Height);
+				fileData.AddAttribute(objGroupXml, "x", objGroup.X);
+				fileData.AddAttribute(objGroupXml, "y", objGroup.Y);
+
+				foreach(Object obj in objGroup.Objects)
+				{
+					XmlNode objXml=fileData.AddElement(objGroupXml, "object");
+					fileData.AddAttribute(objXml, "name", obj.Name);
+					fileData.AddAttribute(objXml, "type", obj.Type);
+					fileData.AddAttribute(objXml, "x", obj.X);
+					fileData.AddAttribute(objXml, "y", obj.Y);
+
+					XmlNode objPropertiesXml=fileData.AddElement(objXml, "properties");
+
+					foreach(Property objProp in obj.Properties)
+					{
+						XmlNode propertyXml=fileData.AddElement(objPropertiesXml, "property");
+						fileData.AddAttribute(propertyXml, "name", objProp.Name);
+						fileData.AddAttribute(propertyXml, "value", objProp.Value);
+					}
+				}
+			}
 			#endregion
 
 			fileData.Save(filename);
