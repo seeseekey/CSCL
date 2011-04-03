@@ -23,6 +23,12 @@ namespace CSCL.FileFormats.TMX
 		static gtImage.PooledLoader pooledLoader=new gtImage.PooledLoader(100);
 
 		#region Datenstrukturen
+		public class Tile
+		{
+			public string ID;
+			public List<Property> Properties;
+		}
+
 		public class TilesetData: IComparable
 		{
 			public string name;
@@ -32,6 +38,8 @@ namespace CSCL.FileFormats.TMX
 
 			public string imgsource;
 			public gtImage img;
+
+			public List<Tile> Tiles;
 
 			#region IComparable Members
 			public int CompareTo(object obj)
@@ -255,6 +263,34 @@ namespace CSCL.FileFormats.TMX
 				ts.imgsource=j.SelectNodes("child::image")[0].Attributes[0].Value; //Image Source für den Layer
 				string imgsourceComplete=FileSystem.GetPath(filename)+ts.imgsource;
 
+				//Tiles laden, wenn vorhanden
+				XmlNodeList nodelist=j.SelectNodes("child::tile");
+
+				ts.Tiles=new List<Tile>();
+
+				foreach(XmlNode tileXml in nodelist)
+				{
+					Tile tile=new Tile();
+					tile.ID=tileXml.Attributes["id"].Value.ToString();
+
+					tile.Properties=new List<Property>();
+
+					xnl=tileXml.SelectNodes("child::properties");
+
+					foreach(XmlNode jProp in xnl)
+					{
+						XmlNodeList subnodes=jProp.SelectNodes("child::property");
+
+						foreach(XmlNode pNode in subnodes)
+						{
+							tile.Properties.Add(new Property(pNode));
+						}
+					}
+
+					ts.Tiles.Add(tile);
+				}
+
+				//Tilebildl laden
 				if(loadTilesets)
 				{
 					ts.img=pooledLoader.FromFile(imgsourceComplete);
@@ -438,6 +474,25 @@ namespace CSCL.FileFormats.TMX
 
 				XmlNode imageTag=fileData.AddElement(tilesetXml, "image");
 				fileData.AddAttribute(imageTag, "source", tileset.imgsource);
+
+				foreach(Tile tile in tileset.Tiles)
+				{
+					XmlNode tileTag=fileData.AddElement(tilesetXml, "tile");
+					fileData.AddAttribute(tileTag, "id", tile.ID);
+
+					if(tile.Properties.Count>0)
+					{
+						XmlNode properties=fileData.AddElement(tileTag, "properties");
+
+						foreach(Property prop in tile.Properties)
+						{
+							XmlNode propertyXml=fileData.AddElement(properties, "property");
+							fileData.AddAttribute(propertyXml, "name", prop.Name);
+							fileData.AddAttribute(propertyXml, "value", prop.Value);
+						}
+					}
+				}
+
 			}
 			#endregion
 
