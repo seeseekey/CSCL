@@ -25,12 +25,22 @@ namespace CSCL.FileFormats.TMX
 		#region Datenstrukturen
 		public class Tile
 		{
+			public Tile()
+			{
+				Properties=new List<Property>();
+			}
+
 			public string ID;
 			public List<Property> Properties;
 		}
 
 		public class TilesetData: IComparable
 		{
+			public TilesetData()
+			{
+				Tiles=new List<Tile>();
+			}
+
 			public string name;
 			public int firstgid;
 			public int tilewidth;
@@ -266,14 +276,10 @@ namespace CSCL.FileFormats.TMX
 				//Tiles laden, wenn vorhanden
 				XmlNodeList nodelist=j.SelectNodes("child::tile");
 
-				ts.Tiles=new List<Tile>();
-
 				foreach(XmlNode tileXml in nodelist)
 				{
 					Tile tile=new Tile();
 					tile.ID=tileXml.Attributes["id"].Value.ToString();
-
-					tile.Properties=new List<Property>();
 
 					xnl=tileXml.SelectNodes("child::properties");
 
