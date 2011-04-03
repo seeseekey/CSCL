@@ -20,6 +20,8 @@ namespace CSCL.FileFormats.TMX
 	/// </summary>
 	public class TMX
 	{
+		static gtImage.PooledLoader pooledLoader=new gtImage.PooledLoader(100);
+
 		#region Datenstrukturen
 		public class TilesetData: IComparable
 		{
@@ -255,7 +257,7 @@ namespace CSCL.FileFormats.TMX
 
 				if(loadTilesets)
 				{
-					ts.img=gtImage.FromFile(imgsourceComplete);
+					ts.img=pooledLoader.FromFile(imgsourceComplete);
 				}
 
 				//Attrribute
@@ -377,15 +379,12 @@ namespace CSCL.FileFormats.TMX
 			int tilesetNumber=number-ts.firstgid;
 
 			int tilesPerLine=(int)(ts.img.Width/TileWidth);
-			//int tilesPerCol=ts.img.Height/TileHeight;
 
 			int tsPosX=tilesetNumber%tilesPerLine;
 			int tsPosY=tilesetNumber/tilesPerLine;
 
 			int tilesetPixelStartX=tsPosX*TileWidth;
 			int tilesetPixelStartY=tsPosY*TileHeight;
-
-			//gtImage ret=new gtImage(TileWidth, TileHeight);
 
 			try
 			{
