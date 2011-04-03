@@ -408,6 +408,93 @@ namespace CSCL.FileFormats.TMX
 			Save(filename, TilesetVMode.Name);
 		}
 
+		public void SaveReal(string filename)
+		{
+			XmlData fileData=new XmlData();
+
+			#region Root speichern und Attribute anhängen
+			XmlNode root=fileData.AddRoot("map");
+
+			fileData.AddAttribute(root, "version", MapVersion);
+			fileData.AddAttribute(root, "orientation", Orientation);
+
+			fileData.AddAttribute(root, "width", Width);
+			fileData.AddAttribute(root, "height", Height);
+
+			fileData.AddAttribute(root, "tilewidth", TileWidth);
+			fileData.AddAttribute(root, "tileheight", TileHeight);
+			#endregion
+
+			#region Properties speichern
+			if(Properties.Count>0)
+			{
+				XmlNode properties=fileData.AddElement(root, "properties", "");
+
+				foreach(Property prop in Properties)
+				{
+					XmlNode propertyXml=fileData.AddElement(properties, "property", "");
+					fileData.AddAttribute(propertyXml, "name", prop.Name);
+					fileData.AddAttribute(propertyXml, "value", prop.Value);
+				}
+			}
+			#endregion
+
+			#region Tilesets
+			foreach(TilesetData tileset in Tilesets)
+			{
+				XmlNode tilesetXml=fileData.AddElement(root, "tileset", "");
+				fileData.AddAttribute(tilesetXml, "firstgid", tileset.firstgid);
+				fileData.AddAttribute(tilesetXml, "name", tileset.name);
+				fileData.AddAttribute(tilesetXml, "tilewidth", tileset.tilewidth);
+				fileData.AddAttribute(tilesetXml, "tileheight", tileset.tileheight);
+
+				XmlNode imageTag=fileData.AddElement(tilesetXml, "image", "");
+				fileData.AddAttribute(imageTag, "source", tileset.imgsource);
+			}
+			#endregion
+
+			#region Layer
+			foreach(LayerData layer in Layers)
+			{
+				XmlNode layerXml=fileData.AddElement(root, "layer", "");
+				fileData.AddAttribute(layerXml, "name", layer.name);
+				fileData.AddAttribute(layerXml, "width", layer.width);
+				fileData.AddAttribute(layerXml, "height", layer.height);
+
+				XmlNode dataTag=fileData.AddElement(layerXml, "data", ConvertLayerDataToString(layer));
+				fileData.AddAttribute(dataTag, "encoding", "base64");
+				fileData.AddAttribute(dataTag, "compression", "gzip");
+			}
+			#endregion
+
+			#region Objectlayer
+			#endregion
+
+			fileData.Save(filename);
+		}
+
+		private string ConvertLayerDataToString(LayerData layer)
+		{
+			//
+			MemoryStream ms=new MemoryStream();
+			BinaryWriter bw=new BinaryWriter(ms);
+
+			for(int y=0; y<layer.height; y++)
+			{
+				for(int x=0; x<layer.width; x++)
+				{
+					bw.Write(layer.data[x, y]);
+				}
+			}
+
+			//Gzip Decodierung
+			byte[] layerdataCompressed=gzip.Compress(ms.ToArray());
+
+			//Base64 Encodierung
+			string layerdataEncoded=CSCL.Crypto.Encoding.Base64.Encode(layerdataCompressed);
+			return layerdataEncoded;
+		}
+
 		public void Save(string filename, TilesetVMode vmode)
 		{
 			#region MapsInfo speichern
