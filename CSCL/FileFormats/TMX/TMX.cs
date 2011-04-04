@@ -533,6 +533,8 @@ namespace CSCL.FileFormats.TMX
 					fileData.AddAttribute(objXml, "type", obj.Type);
 					fileData.AddAttribute(objXml, "x", obj.X);
 					fileData.AddAttribute(objXml, "y", obj.Y);
+					fileData.AddAttribute(objXml, "width", obj.Width);
+					fileData.AddAttribute(objXml, "height", obj.Height);
 
 					XmlNode objPropertiesXml=fileData.AddElement(objXml, "properties");
 
