@@ -614,7 +614,6 @@ namespace CSCL.FileFormats.TMX
 						int number = i.data[x,y];
 						if(number==0) continue; //Kein Tile zugewiesen
 						gtImage Tile=GetTile(number);
-						Tile.SaveToBMP(@"D:\tile.bmp");
 
 						//Korrekturfaktor für Tiles welche breiter bzw. 
 						//höher sind als normal
