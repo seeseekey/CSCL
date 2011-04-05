@@ -425,8 +425,8 @@ namespace CSCL.FileFormats.TMX
 			int tsPosX=tilesetNumber%tilesPerLine;
 			int tsPosY=tilesetNumber/tilesPerLine;
 
-			int tilesetPixelStartX=tsPosX*TileWidth;
-			int tilesetPixelStartY=tsPosY*TileHeight;
+			int tilesetPixelStartX=tsPosX*ts.tilewidth;
+			int tilesetPixelStartY=tsPosY*ts.tileheight;
 
 			try
 			{
@@ -614,6 +614,7 @@ namespace CSCL.FileFormats.TMX
 						int number = i.data[x,y];
 						if(number==0) continue; //Kein Tile zugewiesen
 						gtImage Tile=GetTile(number);
+						Tile.SaveToBMP(@"D:\tile.bmp");
 
 						//Korrekturfaktor für Tiles welche breiter bzw. 
 						//höher sind als normal
