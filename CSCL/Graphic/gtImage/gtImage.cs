@@ -392,6 +392,7 @@ namespace CSCL.Graphic
 			long r=0;
 			long g=0;
 			long b=0;
+			long a=0;
 
 			for(int y=0;y<width;y++)
 			{
@@ -401,14 +402,16 @@ namespace CSCL.Graphic
 					r+=pix.R;
 					g+=pix.G;
 					b+=pix.B;
+					a+=pix.A;
 				}
 			}
 
 			r=r/(width*height);
 			g=g/(width*height);
 			b=b/(width*height);
+			a=a/(width*height);
 
-			return Color.FromArgb((int)r, (int)g, (int)b);
+			return Color.FromArgb((int)a, (int)r, (int)g, (int)b);
 		}
 		#endregion
 
