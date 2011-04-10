@@ -394,7 +394,7 @@ namespace CSCL.Graphic
 			long b=0;
 			long a=0;
 
-			for(int y=0;y<width;y++)
+			for(int y=0;y<height;y++)
 			{
 				for(int x=0;x<width;x++)
 				{
