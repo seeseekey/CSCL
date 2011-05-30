@@ -14,6 +14,10 @@ namespace CSCL.Games.Manasource
 					{
 						return Elements.Fire;
 					}
+				case "metal":
+					{
+						return Elements.Metal; //TODO: Existiert dieses Element?
+					}
 				case "earth":
 					{
 						return Elements.Earth;
@@ -34,6 +38,7 @@ namespace CSCL.Games.Manasource
 	{
 		Fire,
 		Earth,
-		Ice
+		Ice,
+		Metal
 	}
 }
