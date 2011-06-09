@@ -7,7 +7,7 @@ seeseekey <seeseekey googlemail.com>
 == Integrated libs ==
 csharp-sqlite -> Public domain -> http://code.google.com/p/csharp-sqlite/
 DotNetWikiBot -> MIT License -> http://sourceforge.net/projects/dotnetwikibot/
-edtftpnet -> LGPL -> http://www.enterprisedt.com/products/edtftpnet/overview.html -> Enterprise Distributed Technologies Pty Ltd
+FTPS -> LGPL -> http://ftps.codeplex.com/ -> Alessandro Pilotti
 
 === SmartIrc4net ===
 Original Licence: LGPL
