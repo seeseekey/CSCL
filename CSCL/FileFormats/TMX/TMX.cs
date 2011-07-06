@@ -617,7 +617,8 @@ namespace CSCL.FileFormats.TMX
 
 						//Korrekturfaktor für Tiles welche breiter bzw. 
 						//höher sind als normal
-						int CorFactorX=(int)(Tile.Width-TileWidth);
+						int CorFactorX=0; //Korrekturfaktor für x wird nicht benötigt (denke ich)
+						//int CorFactorX=(int)(Tile.Width-TileWidth);
 						int CorFactorY=(int)(Tile.Height-TileHeight);
 
 						ret.Draw(x*TileWidth-CorFactorX, y*TileHeight-CorFactorY, Tile, true);
