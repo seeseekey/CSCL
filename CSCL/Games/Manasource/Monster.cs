@@ -40,7 +40,7 @@ namespace CSCL.Games.Manasource
 		public List<Drop> Drops { get; private set; }
 		public List<Vulnerability> Vulnerabilities { get; private set; }
 
-		public int FightingStrength
+		public Int64 FightingStrength
 		{
 			get
 			{
