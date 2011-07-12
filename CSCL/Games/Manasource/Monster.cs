@@ -44,7 +44,7 @@ namespace CSCL.Games.Manasource
 		{
 			get
 			{
-				return Attributes.HP*(Attributes.AttackMin+(Attributes.AttackMin+Attributes.AttackDelta));
+				return (Int64)Attributes.HP*(Attributes.AttackMin+(Attributes.AttackMin+Attributes.AttackDelta));
 			}
 		}
 
