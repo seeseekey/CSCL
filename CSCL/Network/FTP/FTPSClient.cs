@@ -548,7 +548,7 @@ namespace CSCL.Network.FTP.Client
 			}
 		}
 
-		public void CreateDirectoryForced(string remoteDirectory)
+		public void EnsureDirectory(string remoteDirectory)
 		{
 			EnsureDir(remoteDirectory, null);
 		}
