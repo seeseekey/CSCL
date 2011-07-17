@@ -830,12 +830,17 @@ namespace CSCL
             return GetPath(filename, false);
         }
 
+		public static string GetPath(string filename, bool stringMethod)
+		{
+			return GetPath(filename, stringMethod, true);
+		}
+
         /// <summary>
         /// Gibt Verzeichnisanteil des Strings zurück (incl. \)
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static string GetPath(string filename, bool stringMethod)
+        public static string GetPath(string filename, bool stringMethod, bool pathDelimiterAtEnd)
         {
             if(stringMethod)
             {
@@ -855,13 +860,16 @@ namespace CSCL
                 if(idx==-1) return "";
                 string path=filename.Substring(0, idx);
 
-				return path+pathDelimiter;
+				if(pathDelimiterAtEnd) return path+pathDelimiter;
+				else return path;
             }
             else
             {
                 FileInfo ret=new FileInfo(filename);
                 if(ret.DirectoryName.Length==3) return ret.DirectoryName;
-				return ret.DirectoryName+pathDelimiter;
+
+				if(pathDelimiterAtEnd) return ret.DirectoryName+pathDelimiter;
+				else return ret.DirectoryName;
             }
         }
 

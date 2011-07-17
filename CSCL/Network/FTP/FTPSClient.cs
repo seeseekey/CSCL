@@ -548,6 +548,27 @@ namespace CSCL.Network.FTP.Client
 			}
 		}
 
+		public void CreateDirectoryForced(string remoteDirectory)
+		{
+			EnsureDir(remoteDirectory, null);
+		}
+
+		//public bool ExistsDirectory(string remoteFile)
+		//{
+		//    try
+		//    {
+		//        ulong? size=GetFileTransferSize(remoteFile);
+
+		//        if(size==null) return false;
+		//        else if(size>=0) return true;
+		//        else return false;
+		//    }
+		//    catch
+		//    {
+		//        return false;
+		//    }
+		//}
+
         /// <summary>
         /// Features returned from the FEAT command
         /// </summary>
