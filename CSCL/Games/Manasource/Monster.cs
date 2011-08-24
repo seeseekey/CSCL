@@ -29,6 +29,7 @@ namespace CSCL.Games.Manasource
 
 		public int ID { get; private set; }
 		public string Name { get; private set; }
+		public string Script { get; private set; }
 		public string TargetCursor { get; private set; }
 		//public string SpriteFilename { get; private set; }
 		public string Sprite { get; private set; }
@@ -159,6 +160,12 @@ namespace CSCL.Games.Manasource
 					case "#comment":
 						{
 							//Diese Tags werden ignoriert
+							break;
+						}
+					case "script":
+						{
+							//SpriteFilename=i.InnerText;
+							Script=i.InnerText;
 							break;
 						}
 					default:
