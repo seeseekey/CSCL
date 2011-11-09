@@ -262,7 +262,6 @@
     <Compile Include="Helpers\RandomHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.Tokenizer.cs" />
     <Compile Include="StopTimer.cs" />
-    <Compile Include="Treenode.cs" />
     <Compile Include="UpdateSystem.cs" />
     <Compile Include="Various.cs" />
     <Compile Include="XmlData.cs" />
