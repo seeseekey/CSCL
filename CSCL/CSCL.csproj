@@ -193,10 +193,6 @@
     </Compile>
     <Compile Include="ExceptionInfo.cs" />
     <Compile Include="FileFormats\TMX\TMX.cs" />
-    <Compile Include="FileFormats\VegaStrike\Constances.cs" />
-    <Compile Include="FileFormats\VegaStrike\Position.cs" />
-    <Compile Include="FileFormats\VegaStrike\Savegame.cs" />
-    <Compile Include="FileFormats\VegaStrike\Ship.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="Games\Highscore.cs" />
     <Compile Include="Games\Manasource\Attack.cs" />
