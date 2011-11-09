@@ -1041,6 +1041,22 @@ namespace CSCL.Network.FTP.Client
             return DirectoryListParser.GetDirectoryList(listData);
         }
 
+		public List<string> GetDirectoryFiles(string remoteDirName)
+		{
+			List<string> ret=new List<string>();
+			IList<DirectoryListItem> dirList=GetDirectoryList(remoteDirName);
+
+			foreach(DirectoryListItem item in dirList)
+			{
+				if(!item.IsDirectory)
+				{
+					ret.Add(item.Name);
+				}
+			}
+
+			return ret;
+		}
+
         public string GetDirectoryListUnparsed()
         {
             return GetDirectoryListUnparsed(null);
