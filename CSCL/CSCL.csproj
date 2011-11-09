@@ -265,7 +265,6 @@
     <Compile Include="Treenode.cs" />
     <Compile Include="UpdateSystem.cs" />
     <Compile Include="Various.cs" />
-    <Compile Include="TrayIcon.cs" />
     <Compile Include="XmlData.cs" />
   </ItemGroup>
   <ItemGroup>
