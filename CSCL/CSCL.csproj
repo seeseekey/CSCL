@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -74,12 +74,6 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\Win32\ComCtl32.cs" />
-    <Compile Include="API\Win32\Enums.cs" />
-    <Compile Include="API\Win32\Gdi32.cs" />
-    <Compile Include="API\Win32\Kernel32.cs" />
-    <Compile Include="API\Win32\Structs.cs" />
-    <Compile Include="API\Win32\User32.cs" />
     <Compile Include="Bots\Mediawiki\DotNetWikiBot.cs" />
     <Compile Include="Compression\gzip.cs" />
     <Compile Include="Controls\MultiView.cs">
@@ -234,39 +228,6 @@
     <Compile Include="Graphic\gtImage\Statics.cs" />
     <Compile Include="Graphic\gtImage\Text.cs" />
     <Compile Include="Graphic\gtImage\Transform.cs" />
-    <Compile Include="Graphic\TWAIN\Capabilities.cs" />
-    <Compile Include="Graphic\TWAIN\Capability.cs" />
-    <Compile Include="Graphic\TWAIN\ConditionCodes.cs" />
-    <Compile Include="Graphic\TWAIN\ContainerTypes.cs" />
-    <Compile Include="Graphic\TWAIN\DataAttributeTypes.cs" />
-    <Compile Include="Graphic\TWAIN\DataGroups.cs" />
-    <Compile Include="Graphic\TWAIN\DataSource.cs" />
-    <Compile Include="Graphic\TWAIN\DataSourceManager.cs" />
-    <Compile Include="Graphic\TWAIN\Event.cs" />
-    <Compile Include="Graphic\TWAIN\Fix32.cs" />
-    <Compile Include="Graphic\TWAIN\Identity.cs" />
-    <Compile Include="Graphic\TWAIN\ImageInfo.cs" />
-    <Compile Include="Graphic\TWAIN\InternalTwainController.cs" />
-    <Compile Include="Graphic\TWAIN\ItemTypes.cs" />
-    <Compile Include="Graphic\TWAIN\Messages.cs" />
-    <Compile Include="Graphic\TWAIN\PendingXfers.cs" />
-    <Compile Include="Graphic\TWAIN\Protocols.cs" />
-    <Compile Include="Graphic\TWAIN\ReturnCodes.cs" />
-    <Compile Include="Graphic\TWAIN\ScannedAllEventArgs.cs" />
-    <Compile Include="Graphic\TWAIN\ScannedOneEventArgs.cs" />
-    <Compile Include="Graphic\TWAIN\Status.cs" />
-    <Compile Include="Graphic\TWAIN\Twain32.cs" />
-    <Compile Include="Graphic\TWAIN\TwainCommands.cs" />
-    <Compile Include="Graphic\TWAIN\TwainController.cs" />
-    <Compile Include="Graphic\TWAIN\TwainException.cs" />
-    <Compile Include="Graphic\TWAIN\TwainExceptions.Designer.cs" />
-    <Compile Include="Graphic\TWAIN\TwainPreviewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Graphic\TWAIN\TwainPreviewForm.Designer.cs" />
-    <Compile Include="Graphic\TWAIN\UserInterface.cs" />
-    <Compile Include="Graphic\TWAIN\Version.cs" />
-    <Compile Include="Graphic\TWAIN\Xfer.cs" />
     <Compile Include="Helpers\DateTimeHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\ListHelpers.cs" />
@@ -331,8 +292,6 @@
       <DependentUpon>ExceptionHandler.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graphic\TWAIN\TwainExceptions.resx" />
-    <EmbeddedResource Include="Graphic\TWAIN\TwainPreviewForm.resx" />
     <EmbeddedResource Include="TextInputbox.resx">
       <DependentUpon>TextInputbox.cs</DependentUpon>
       <SubType>Designer</SubType>
