@@ -76,9 +76,6 @@
   <ItemGroup>
     <Compile Include="Bots\Mediawiki\DotNetWikiBot.cs" />
     <Compile Include="Compression\gzip.cs" />
-    <Compile Include="Controls\MultiView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\alter_c.cs" />
