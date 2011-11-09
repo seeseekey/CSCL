@@ -260,8 +260,6 @@
     <Compile Include="Progress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\RandomHelpers.cs" />
-    <Compile Include="Scripting\ScriptingHost.cs" />
-    <Compile Include="Scripting\IScript.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="Helpers\StringHelpers.Tokenizer.cs" />
     <Compile Include="Services\Google\Translate\Translator.cs" />
