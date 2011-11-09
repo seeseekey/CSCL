@@ -226,7 +226,6 @@
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\TreeViewHelpers.cs" />
     <Compile Include="Maths\Arithmetic.cs" />
-    <Compile Include="Maths\Collision.cs" />
     <Compile Include="Maths\Geometry.cs" />
     <Compile Include="Maths\NumberSystem.cs" />
     <Compile Include="Maths\PrimeNumbers.cs" />
