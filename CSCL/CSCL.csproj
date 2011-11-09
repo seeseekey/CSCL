@@ -166,7 +166,6 @@
     <Compile Include="Database\SQLite\SQLiteMisc.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Exceptions\NotSupportedCompression.cs" />
-    <Compile Include="FileFormats\INI\INI.cs" />
     <Compile Include="FileFormats\TMX\Object.cs" />
     <Compile Include="FileFormats\TMX\Objectgroup.cs" />
     <Compile Include="FileFormats\TMX\Property.cs" />
