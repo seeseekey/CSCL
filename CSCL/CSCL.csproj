@@ -228,7 +228,6 @@
     <Compile Include="Maths\Arithmetic.cs" />
     <Compile Include="Maths\Geometry.cs" />
     <Compile Include="Maths\NumberSystem.cs" />
-    <Compile Include="Maths\PrimeNumbers.cs" />
     <Compile Include="Maths\Various.cs" />
     <Compile Include="Network\FTP\Common.cs" />
     <Compile Include="Network\FTP\DirectoryListParser.cs" />
