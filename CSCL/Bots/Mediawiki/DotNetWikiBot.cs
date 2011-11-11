@@ -1,6 +1,6 @@
-﻿// DotNetWikiBot Framework 2.94 - bot framework based on Microsoft .NET Framework 2.0 for wiki projects
+﻿// DotNetWikiBot Framework 2.97 - bot framework based on Microsoft .NET Framework 2.0 for wiki projects
 // Distributed under the terms of the MIT (X11) license: http://www.opensource.org/licenses/mit-license.php
-// Copyright (c) Iaroslav Vassiliev (2006-2010) codedriller@gmail.com
+// Copyright (c) Iaroslav Vassiliev (2006-2011) codedriller@gmail.com
 
 using System;
 using System.IO;
@@ -23,6 +23,7 @@ namespace CSCL.Bots.Mediawiki
 {
 	/// <summary>Class defines wiki site object.</summary>
 	[ClassInterface(ClassInterfaceType.AutoDispatch)]
+	[Serializable]
 	public class Site
 	{
 		/// <summary>Wiki site URL.</summary>
@@ -339,7 +340,8 @@ namespace CSCL.Bots.Mediawiki
 				xhtmlNSUri = "http://www.w3.org/1999/xhtml";
 			language = xhtmlOptionsRE.Match(src).Groups["lang"].ToString();
 			langDirection = xhtmlOptionsRE.Match(src).Groups["dir"].ToString();
-			Directory.CreateDirectory("Cache");
+			if (!Directory.Exists("Cache"))
+				Directory.CreateDirectory("Cache");
 			File.WriteAllText(filePathName, wikiPath + "\r\n" + indexPath + "\r\n" + xhtmlNSUri +
 				"\r\n" + language + "\r\n" + langDirection + "\r\n" + site, Encoding.UTF8);
 		}
@@ -761,7 +763,7 @@ namespace CSCL.Bots.Mediawiki
 			botQueryProps.Add("links", "pl");				botQueryProps.Add("langlinks", "ll");
 			botQueryProps.Add("images", "im");				botQueryProps.Add("imageinfo", "ii");
 			botQueryProps.Add("templates", "tl");			botQueryProps.Add("categories", "cl");
-			botQueryProps.Add("extlinks", "el");
+			botQueryProps.Add("extlinks", "el");			botQueryLists.Add("search", "sr");
 		}
 
 		/// <summary>Logs in and retrieves cookies.</summary>
@@ -947,6 +949,9 @@ namespace CSCL.Bots.Mediawiki
 			}
 			webReq.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
 			if (!string.IsNullOrEmpty(postData)) {
+				if (Bot.isRunningOnMono)	// Mono bug 636219 evasion
+					webReq.AllowAutoRedirect = false;
+						// https://bugzilla.novell.com/show_bug.cgi?id=636219
 				webReq.Method = "POST";
 				//webReq.Timeout = 180000;
 				byte[] postBytes = Encoding.UTF8.GetBytes(postData);
@@ -963,6 +968,9 @@ namespace CSCL.Bots.Mediawiki
 				}
 				catch (WebException e) {
 					string message = e.Message;
+					if (webReq.AllowAutoRedirect == false &&
+						webResp.StatusCode == HttpStatusCode.Redirect)	// Mono bug 636219 evasion
+							return "";
 					if (Regex.IsMatch(message, ": \\(50[02349]\\) ")) {		// Remote problem
 						if (errorCounter > Bot.retryTimes)
 							throw;
@@ -994,6 +1002,59 @@ namespace CSCL.Bots.Mediawiki
 			strmReader.Close();
 			webResp.Close();
 			return respStr;
+		}
+
+		/// <summary>This internal function deletes everything before startTag and everything after
+		/// endTag. Optionally it can insert back the DOCTYPE definition and root element of
+		/// XML/XHTML documents.</summary>
+		/// <param name="text">Source text.</param>
+		/// <param name="startTag">The beginning of returned content.</param>
+		/// <param name="endTag">The end of returned content.</param>
+		/// <param name="removeTags">If true, tags will also be removed.</param>
+		/// <param name="leaveHead">If true, DOCTYPE definition and root element will be left
+		/// intact.</param>
+		/// <returns>Returns stripped content.</returns>
+		public string StripContent(string text, string startTag, string endTag,
+			bool removeTags, bool leaveHead)
+		{
+			if (string.IsNullOrEmpty(startTag))
+				startTag = "<!-- bodytext -->";
+			if (startTag == "<!-- bodytext -->" && ver < new Version(1,16))
+				startTag = "<!-- start content -->";
+
+			if (startTag == "<!-- bodytext -->" && string.IsNullOrEmpty(endTag))
+				endTag = "<!-- /bodytext -->";
+			else if (startTag == "<!-- content -->" && string.IsNullOrEmpty(endTag))
+				endTag = "<!-- /content -->";
+			else if (startTag == "<!-- bodyContent -->" && string.IsNullOrEmpty(endTag))
+				endTag = "<!-- /bodyContent -->";
+			else if (startTag == "<!-- start content -->" && string.IsNullOrEmpty(endTag))
+				endTag = "<!-- end content -->";
+
+			if (text[0] != '<')
+				text = text.Trim();
+
+			string headText = "";
+			string rootEnd = "";
+			if (leaveHead == true) {
+				int headEndPos = ((text.StartsWith("<!") || text.StartsWith("<?"))
+					&& text.IndexOf('>') != -1) ? text.IndexOf('>') + 1 : 0;
+				if (text.IndexOf('>', headEndPos) != -1)
+					headEndPos = text.IndexOf('>', headEndPos) + 1;
+				headText = text.Substring(0, headEndPos);
+				int rootEndPos = text.LastIndexOf("</");
+				if (rootEndPos == -1)
+					headText = "";
+				else
+					rootEnd = text.Substring(rootEndPos);
+			}
+
+			int startPos = text.IndexOf(startTag) + (removeTags == true ? startTag.Length : 0);
+			int endPos = text.IndexOf(endTag) + (removeTags == false ? endTag.Length : 0);
+			if (startPos == -1 || endPos == -1 || endPos < startPos)
+				return headText + text + rootEnd;
+			else
+				return headText + text.Substring(startPos, endPos - startPos) + rootEnd;
 		}
 
 		/// <summary>This internal function constructs XPathDocument, makes XPath query and
@@ -1251,6 +1312,7 @@ namespace CSCL.Bots.Mediawiki
 
 	/// <summary>Class defines wiki page object.</summary>
 	[ClassInterface(ClassInterfaceType.AutoDispatch)]
+	[Serializable]
 	public class Page
 	{
 		/// <summary>Page title.</summary>
@@ -1415,8 +1477,10 @@ namespace CSCL.Bots.Mediawiki
 				lastUser = doc.GetElementsByTagName("username")[0].InnerText;
 				lastUserID = doc.GetElementsByTagName("id")[2].InnerText;
 			}
-			else
+			else if(doc.GetElementsByTagName("ip").Count != 0)
 				lastUser = doc.GetElementsByTagName("ip")[0].InnerText;
+			else
+				lastUser = "(n/a)";
 			lastRevisionID = doc.GetElementsByTagName("id")[1].InnerText;
 			if (doc.GetElementsByTagName("comment").Count != 0)
 				comment = doc.GetElementsByTagName("comment")[0].InnerText;
@@ -1530,6 +1594,12 @@ namespace CSCL.Bots.Mediawiki
 				throw new WikiBotException(Bot.Msg("No title specified for page to save text to."));
 			if (string.IsNullOrEmpty(newText) && string.IsNullOrEmpty(text))
 				throw new WikiBotException(Bot.Msg("No text specified for page to save."));
+			if (text != null && Regex.IsMatch(text, @"(?is)\{\{(nobots|bots\|(allow=none|" +
+				@"deny=(?!none)[^\}]*(" + site.userName + @"|all)|optout=all))\}\}"))
+					throw new WikiBotException(string.Format(Bot.Msg(
+						"Bot action on \"{0}\" page is prohibited " +
+						"by \"nobots\" or \"bots|allow=none\" template."), title));
+
 			if (Bot.useBotQuery == true && site.botQuery == true &&
 				(site.ver.Major > 1 || (site.ver.Major == 1 && site.ver.Minor >= 15)))
 					GetEditSessionDataEx();
@@ -1597,11 +1667,12 @@ namespace CSCL.Bots.Mediawiki
 		}
 
 		/// <summary>Undoes all last edits of last page contributor, so page text reverts to
-		///  previous contents. The function doesn't affect other operations
+		/// previous contents. The function doesn't affect other operations
 		/// like renaming or protecting.</summary>
 		/// <param name="comment">Revert comment.</param>
 		/// <param name="isMinorEdit">Minor edit mark (pass true for minor edit).</param>
-		public void UndoLastEdits(string comment, bool isMinorEdit)
+		/// <returns>Returns true if last edits were undone.</returns>
+		public bool UndoLastEdits(string comment, bool isMinorEdit)
 		{
 			if (string.IsNullOrEmpty(title))
 				throw new WikiBotException(Bot.Msg("No title specified for page to revert."));
@@ -1621,12 +1692,15 @@ namespace CSCL.Bots.Mediawiki
 						Console.WriteLine(
 							Bot.Msg("Last edits of page \"{0}\" by user {1} were undone."),
 							title, lastEditor);
-						return;
+						return true;
 					}
+				if (pl.pages.Count < i)
+					break;
 				pl.Clear();
 			}
 			Console.Error.WriteLine(Bot.Msg("Can't undo last edits of page \"{0}\" by user {1}."),
 				title, lastEditor);
+			return false;
 		}
 
 		/// <summary>Protects or unprotects the page, so only authorized group of users can edit or
@@ -2020,6 +2094,7 @@ namespace CSCL.Bots.Mediawiki
 		public void ResolveRedirect()
 		{
 			if (IsRedirect()) {
+				lastRevisionID = null;
 				title = RedirectsTo();
 				Load();
 			}
@@ -2084,7 +2159,7 @@ namespace CSCL.Bots.Mediawiki
 		/// <summary>Finds all internal wikilinks in page text, excluding interwiki
 		/// links, links to sister projects, categories, embedded images and links in
 		/// image descriptions.</summary>
-		/// <returns>Returns the PageList object, where page titles are the wikilinks,
+		/// <returns>Returns the PageList object, in which page titles are the wikilinks,
 		/// found in text.</returns>
 		public PageList GetLinks()
 		{
@@ -2092,19 +2167,24 @@ namespace CSCL.Bots.Mediawiki
 			StringCollection exclLinks = new StringCollection();
 			exclLinks.AddRange(GetInterWikiLinks());
 			exclLinks.AddRange(GetSisterWikiLinks(true));
-			StringCollection inclLinks = new StringCollection();
 			string str;
-			for(int i = 0; i < matches.Count; i++)
-				if (exclLinks.Contains(matches[i].Groups[1].Value) == false &&
-					exclLinks.Contains(matches[i].Groups[1].Value.TrimStart(':')) == false) {
-					str = matches[i].Groups[1].Value;
-					if (str.IndexOf("#") != -1)
-						str = str.Substring(0, str.IndexOf("#"));
-					inclLinks.Add(str); }
-			PageList pl = new PageList(site, inclLinks);
-			pl.RemoveNamespaces(new int[] {6,14});
-			foreach (Page p in pl.pages)
-				p.title = p.title.TrimStart(':');
+			int fragmentPosition;
+			PageList pl = new PageList(site);
+			for(int i = 0; i < matches.Count; i++) {
+				str = matches[i].Groups[1].Value;
+				if (str.StartsWith(site.namespaces["6"] + ":", true, site.langCulture) ||
+					str.StartsWith(Site.wikiNSpaces["6"] + ":", true, site.langCulture) ||
+					str.StartsWith(site.namespaces["14"] + ":", true, site.langCulture) ||
+					str.StartsWith(Site.wikiNSpaces["14"] + ":", true, site.langCulture))
+						continue;
+				str = str.TrimStart(':');
+				if (exclLinks.Contains(str))
+					continue;
+				fragmentPosition = str.IndexOf("#");
+				if (fragmentPosition != -1)
+					str = str.Substring(0, fragmentPosition);
+				pl.Add(new Page(site, str));
+			}
 			return pl;
 		}
 
@@ -2613,8 +2693,6 @@ namespace CSCL.Bots.Mediawiki
 		/// <returns>Returns the List &lt;string&gt; object with strings, containing values of
 		/// specified parameters in all found template instances. Returns empty List &lt;string&gt;
 		/// object if no specified template parameters were found.</returns>
-		/// <remarks>Thanks to Eyal Hertzog and metacafe.com team for idea of this
-		/// function.</remarks>
 		public List<string> GetTemplateParameter(string templateTitle, string templateParameter)
 		{
 			if (string.IsNullOrEmpty(templateTitle))
@@ -2642,6 +2720,24 @@ namespace CSCL.Bots.Mediawiki
 			return parameterValues;
 		}
 
+		/// <summary>This helper method returns specified parameter of a first found instance of
+		/// specified template. If no such template or no such parameter was found,
+		/// empty string "" is returned.</summary>
+		/// <param name="templateTitle">Title of template to get parameter of.</param>
+		/// <param name="templateParameter">Title of template's parameter. If parameter is
+		/// untitled, specify it's number as string. If parameter is titled, but it's number is
+		/// specified, the function will return empty List &lt;string&gt; object.</param>
+		/// <returns>Returns parameter as string or empty string "".</returns>
+		/// <remarks>Thanks to Eyal Hertzog and metacafe.com team for idea of this
+		/// function.</remarks>
+		public string GetFirstTemplateParameter(string templateTitle, string templateParameter)
+		{
+			List<string> paramsList = GetTemplateParameter(templateTitle, templateParameter);
+			if (paramsList.Count == 0)
+				return "";
+			else return paramsList[0];
+		}
+
 		/// <summary>Sets the specified parameter of the specified template to new value.
 		/// If several instances of specified template are found in text of this page, either
 		/// first value can be set, or all values in all instances.</summary>
@@ -2666,7 +2762,6 @@ namespace CSCL.Bots.Mediawiki
 				throw new ArgumentNullException("text");
 
 			int i = 0;
-			List<string> parameterValues = new List<string>();
 			Dictionary <string, string> parameters;
 			templateTitle = templateTitle.Trim();
 			templateParameter = templateParameter.Trim();
@@ -2836,6 +2931,7 @@ namespace CSCL.Bots.Mediawiki
 
 	/// <summary>Class defines a set of wiki pages (constructed inside as List object).</summary>
 	[ClassInterface(ClassInterfaceType.AutoDispatch)]
+	[Serializable]
 	public class PageList
 	{
 		/// <summary>Internal generic List, that contains collection of pages.</summary>
@@ -3123,8 +3219,8 @@ namespace CSCL.Bots.Mediawiki
 				quantity, pageTitle);
 			string res = site.site + site.indexPath + "index.php?title=Special:" +
 				HttpUtility.UrlEncode(pageTitle) + "&limit=" + quantity.ToString();
-			XPathNodeIterator ni = site.GetXMLIterator(site.GetPageHTM(res),
-				"//ns:ol/ns:li/ns:a[@title != '']");
+			string src = site.StripContent(site.GetPageHTM(res), null, null, true, true);
+			XPathNodeIterator ni = site.GetXMLIterator(src, "//ns:ol/ns:li/ns:a[@title != '']");
 			if (ni.Count == 0)
 				throw new WikiBotException(string.Format(
 					Bot.Msg("Nothing was found on \"Special:{0}\" page."), pageTitle));
@@ -3204,7 +3300,8 @@ namespace CSCL.Bots.Mediawiki
 				throw new ArgumentOutOfRangeException("quantity",
 					Bot.Msg("Quantity must be positive."));
 			string prefix = Site.botQueryLists[listType].ToString();
-			string continueAttrTag = prefix + "continue";
+			string continueAttrTag1 = prefix + "from";
+			string continueAttrTag2 = prefix + "continue";
 			string attrTag = (listType != "allusers") ? "title" : "name";
 			string queryUri = site.indexPath + "api.php?action=query&list=" + listType +
 				"&format=xml&" + prefix + "limit=" +
@@ -3223,8 +3320,10 @@ namespace CSCL.Bots.Mediawiki
 					while (reader.Read()) {
 						if (reader.IsEmptyElement && reader[attrTag] != null)
 							pages.Add(new Page(site, HttpUtility.HtmlDecode(reader[attrTag])));
-						if (reader.IsEmptyElement && reader[continueAttrTag] != null)
-							next = reader[continueAttrTag];
+						if (reader.IsEmptyElement && reader[continueAttrTag1] != null)
+							next = reader[continueAttrTag1];
+						if (reader.IsEmptyElement && reader[continueAttrTag2] != null)
+							next = reader[continueAttrTag2];
 					}
 				}
 			}
@@ -3471,7 +3570,7 @@ namespace CSCL.Bots.Mediawiki
 			RemoveRecurring();
 		}
 
-		/// <summary>Gets page history and fills this PageList with specified number of last page
+		/// <summary>Gets page history and fills this PageList with specified number of recent page
 		/// revisions. Only revision identifiers, user names, timestamps and comments are
 		/// loaded, not the texts. Call Load() (but not LoadEx) to load the texts of page revisions.
 		/// The function combines XML (XHTML) parsing and regular expressions matching.</summary>
@@ -3500,9 +3599,10 @@ namespace CSCL.Bots.Mediawiki
 						p.lastMinorEdit = false;
 						p.comment = "";
 					}
-					else if (reader.Name == "input" && reader["type"] == "radio") {
-						p.lastRevisionID = reader["value"];
+					else if (reader.Name == "span" && reader["class"] == "mw-history-histlinks") {
 						reader.ReadToFollowing("a");
+						p.lastRevisionID = reader["href"].Substring(
+							reader["href"].IndexOf("oldid=") + 6);
 						DateTime.TryParse(reader.ReadString(),
 							site.regCulture, DateTimeStyles.AssumeLocal, out p.timestamp);
 					}
@@ -3519,7 +3619,7 @@ namespace CSCL.Bots.Mediawiki
 						p.comment = Regex.Replace(reader.ReadInnerXml().Trim(), "<.+?>", "");
 						p.comment = p.comment.Substring(1, p.comment.Length - 2);	// brackets
 					}
-					else if (reader.Name == "li" && reader.NodeType == XmlNodeType.EndElement)
+					if(reader.Name == "li" && reader.NodeType == XmlNodeType.EndElement)
 						pages.Add(p);
 				}
 			}
@@ -3550,8 +3650,9 @@ namespace CSCL.Bots.Mediawiki
 				"api.php?action=query&prop=revisions&titles=" +
 				HttpUtility.UrlEncode(pageTitle) + "&rvprop=ids|user|comment|timestamp" +
 				(loadTexts ? "|content" : "") + "&format=xml&rvlimit=" + lastRevisions.ToString();
+			string src = site.GetPageHTM(queryUri);
 			Page p;
-			using (XmlReader reader = XmlReader.Create(queryUri)) {
+			using (XmlReader reader = XmlReader.Create(new StringReader(src))) {
 				reader.ReadToFollowing("api");
 				reader.Read();
 				if (reader.Name == "error")
@@ -3952,9 +4053,10 @@ namespace CSCL.Bots.Mediawiki
 				"index.php?title=Special:Export&action=submit";
 			string postData = "curonly=True&pages=";
 			foreach (Page page in pages)
-				postData += page.title + "\r\n";
-			StringReader strReader =
-				new StringReader(site.PostDataAndGetResultHTM(res, postData));
+				postData += HttpUtility.UrlEncode(page.title + "\r\n");
+			string src = site.PostDataAndGetResultHTM(res, postData);
+			src = Bot.RemoveXMLRootAttributes(src);
+			StringReader strReader = new StringReader(src);
 			XPathDocument doc = new XPathDocument(strReader);
 			strReader.Close();
 			XPathNavigator nav = doc.CreateNavigator();
@@ -3964,39 +4066,36 @@ namespace CSCL.Bots.Mediawiki
 					page.LoadEx();
 					continue;
 				}
-				string query = "//ns:page[ns:title='" + page.title + "']/";
+				string query = "//page[title='" + page.title + "']/";
 				try {
 					page.text =
-						nav.SelectSingleNode(query + "ns:revision/ns:text", site.xmlNS).InnerXml;
+						nav.SelectSingleNode(query + "revision/text").InnerXml;
 				}
 				catch (System.NullReferenceException) {
 					continue;
 				}
 				page.text = HttpUtility.HtmlDecode(page.text);
-				page.pageID = nav.SelectSingleNode(query + "ns:id", site.xmlNS).InnerXml;
+				page.pageID = nav.SelectSingleNode(query + "id").InnerXml;
 				try {
 					page.lastUser = nav.SelectSingleNode(query +
-						"ns:revision/ns:contributor/ns:username", site.xmlNS).InnerXml;
+						"revision/contributor/username").InnerXml;
 					page.lastUserID = nav.SelectSingleNode(query +
-						"ns:revision/ns:contributor/ns:id", site.xmlNS).InnerXml;
+						"revision/contributor/id").InnerXml;
 				}
 				catch (System.NullReferenceException) {
 					page.lastUser = nav.SelectSingleNode(query +
-						"ns:revision/ns:contributor/ns:ip", site.xmlNS).InnerXml;
+						"revision/contributor/ip").InnerXml;
 				}
 				page.lastUser = HttpUtility.HtmlDecode(page.lastUser);
-				page.lastRevisionID = nav.SelectSingleNode(query +
-					"ns:revision/ns:id", site.xmlNS).InnerXml;
+				page.lastRevisionID = nav.SelectSingleNode(query + "revision/id").InnerXml;
 				page.lastMinorEdit = (nav.SelectSingleNode(query +
-					"ns:revision/ns:minor", site.xmlNS) == null) ? false : true;
+					"revision/minor") == null) ? false : true;
 				try {
-					page.comment = nav.SelectSingleNode(query +
-						"ns:revision/ns:comment", site.xmlNS).InnerXml;
+					page.comment = nav.SelectSingleNode(query + "revision/comment").InnerXml;
 					page.comment = HttpUtility.HtmlDecode(page.comment);
 				}
 				catch (System.NullReferenceException) {;}
-				page.timestamp = nav.SelectSingleNode(query +
-					"ns:revision/ns:timestamp", site.xmlNS).ValueAsDateTime;
+				page.timestamp = nav.SelectSingleNode(query + "revision/timestamp").ValueAsDateTime;
 			}
 			Console.WriteLine(Bot.Msg("Pages download completed."));
 		}
@@ -4294,7 +4393,7 @@ namespace CSCL.Bots.Mediawiki
 
 	/// <summary>Class establishes custom application exceptions.</summary>
 	[ClassInterface(ClassInterfaceType.AutoDispatch)]
-	[SerializableAttribute]
+	[Serializable]
 	public class WikiBotException : System.Exception
 	{
 		/// <summary>Just overriding default constructor.</summary>
@@ -4303,7 +4402,7 @@ namespace CSCL.Bots.Mediawiki
 		/// <summary>Just overriding constructor.</summary>
 		/// <returns>Returns Exception object.</returns>
 		public WikiBotException(string message)
-			: base (message) { /*Console.ForegroundColor = ConsoleColor.Red;*/ }
+			: base (message) { Console.Beep(); /*Console.ForegroundColor = ConsoleColor.Red;*/ }
 		/// <summary>Just overriding constructor.</summary>
 		/// <returns>Returns Exception object.</returns>
 		public WikiBotException(string message, System.Exception inner)
@@ -4321,6 +4420,7 @@ namespace CSCL.Bots.Mediawiki
 	/// <summary>Class defines custom XML URL resolver, that has a caching capability. See
 	/// http://www.w3.org/blog/systeam/2008/02/08/w3c_s_excessive_dtd_traffic for details.</summary>
 	//[PermissionSetAttribute(SecurityAction.InheritanceDemand, Name = "FullTrust")]
+	[ClassInterface(ClassInterfaceType.AutoDispatch)]
 	class XmlUrlResolverWithCache : XmlUrlResolver
 	{
 		/// <summary>List of cached files absolute URIs.</summary>
@@ -4365,7 +4465,7 @@ namespace CSCL.Bots.Mediawiki
 		/// <summary>Title and description of web agent.</summary>
 		public static readonly string botVer = "DotNetWikiBot";
 		/// <summary>Version of DotNetWikiBot Framework.</summary>
-		public static readonly Version version = new Version("2.94");
+		public static readonly Version version = new Version("2.97");
 		/// <summary>Desired bot's messages language (ISO 639-1 language code).
 		/// If not set explicitly, the language will be detected automatically.</summary>
 		/// <example><code>Bot.botMessagesLang = "fr";</code></example>
