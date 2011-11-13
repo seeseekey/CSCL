@@ -377,24 +377,6 @@ namespace CSCL.FileFormats.TMX
 		}
 
 		/// <summary>
-		/// Gibt die maximale zu erwartende Mapfläche an
-		/// </summary>
-		/// <returns></returns>
-		public Size GetMaxMapSite()
-		{
-			int w=0;
-			int h=0;
-
-			foreach(LayerData i in Layers)
-			{
-				if(i.width>w) w=i.width;
-				if(i.height>h) h=i.height;
-			}
-
-			return new Size(w, h);
-		}
-
-		/// <summary>
 		/// Gibt das Tileset zurück in welchem 
 		/// das Tile ist
 		/// </summary>
@@ -575,14 +557,12 @@ namespace CSCL.FileFormats.TMX
 
 		public gtImage Render()
 		{
-			Size size = GetMaxMapSite();
-			return Render(size.Width*TileWidth, size.Height*TileHeight);
+			return Render(Width*TileWidth, Height*TileHeight);
 		}
 
 		public gtImage Render(string onlyLayer)
 		{
-			Size size=GetMaxMapSite();
-			return Render(size.Width*TileWidth, size.Height*TileHeight, onlyLayer);
+			return Render(Width*TileWidth, Height*TileHeight, onlyLayer);
 		}
 
 		private gtImage Render(int width, int height)
