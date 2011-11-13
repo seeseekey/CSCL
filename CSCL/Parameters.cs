@@ -96,7 +96,7 @@ namespace CSCL
 				c=name[token++];
 
 				if(!(c>='a'&&c<='z')&&!(c>='A'&&c<='Z')&&
-					!(c>='0'&&c<='9')&&(c!='$')&&(c!='_'))
+					!(c>='0'&&c<='9')&&(c!='$')&&(c!='_')&&(c!='~'))
 					return false;
 			}
 			return true;
