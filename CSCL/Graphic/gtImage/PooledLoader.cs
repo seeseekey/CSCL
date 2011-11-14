@@ -28,13 +28,11 @@ namespace CSCL.Graphic
 
 			public gtImage FromFile(string filename)
 			{
-				string lower=filename.ToLower();
-
-				if (imgPool.ContainsKey(lower))
+				if (imgPool.ContainsKey(filename))
 				{
-					imgLoadOrder.Remove(lower);
-					imgLoadOrder.Add(lower);
-					return imgPool[lower];
+					imgLoadOrder.Remove(filename);
+					imgLoadOrder.Add(filename);
+					return imgPool[filename];
 				}
 
 				while (maxImages<=imgPool.Count)
@@ -44,9 +42,9 @@ namespace CSCL.Graphic
 					imgPool.Remove(del);
 				}
 
-				gtImage ret=gtImage.FromFile(lower);
-				imgPool.Add(lower, ret);
-				imgLoadOrder.Add(lower);
+				gtImage ret=gtImage.FromFile(filename);
+				imgPool.Add(filename, ret);
+				imgLoadOrder.Add(filename);
 
 				return ret;
 			}
