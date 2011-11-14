@@ -604,6 +604,7 @@ namespace CSCL
 
 			if(o is long) return (double)(long)o;
 			if(o is double) return (double)o;
+			if(o is string) return Convert.ToDouble(o);
 
 			return std;
 		}
