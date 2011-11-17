@@ -7,13 +7,22 @@ namespace CSCL.FileFormats.TMX
 {
 	public class Objectgroup
 	{
-		public List<Object> Objects { get; private set; }
+		public List<Object> Objects { get; set; }
 		public string Name { get; private set; }
 		public int Width { get; private set; }
 		public int Height { get; private set; }
 		public int X { get; private set; }
 		public int Y { get; private set; }
 		public int Visible { get; private set; }
+
+		public Objectgroup(string name, int width, int height, int x, int y)
+		{
+			Name=name;
+			Width=width;
+			Height=height;
+			X=x;
+			Y=y;
+		}
 
 		public Objectgroup(XmlNode node)
 		{

@@ -8,8 +8,14 @@ namespace CSCL.FileFormats.TMX
 	public class Property
 	{
 		public string Name { get; private set; }
-		public string Value { get; private set; }
-	
+		public string Value { get; set; }
+
+		public Property(string name, string value)
+		{
+			Name=name;
+			Value=value;
+		}
+
 		public Property(XmlNode node)
 		{
 			foreach(XmlAttribute i in node.Attributes)

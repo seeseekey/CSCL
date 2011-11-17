@@ -15,6 +15,18 @@ namespace CSCL.FileFormats.TMX
 		public int Width { get; set; }
 		public int Height { get; set; }
 
+		public Object(string name, string type, int width, int height, int x, int y)
+		{
+			Properties=new List<Property>();
+
+			Name=name;
+			Type=type;
+			Width=width;
+			Height=height;
+			X=x;
+			Y=y;
+		}
+
 		public Object(XmlNode node)
 		{
 			Properties=new List<Property>();
