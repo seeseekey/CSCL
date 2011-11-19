@@ -66,10 +66,7 @@ namespace CSCL.Crypto
             {
                 char[] data=input.ToCharArray();
                 Base64Decoder myDecoder=new Base64Decoder(data);
-                StringBuilder sb=new StringBuilder();
-
                 byte[] temp=myDecoder.GetDecoded();
-
                 return temp;
             }
         }
