@@ -216,7 +216,16 @@ namespace CSCL.Games.Manasource
 			ret+=String.Format("| fighting-strength = {0}", FightingStrength);
 
 			ret+=String.Format("| aggressive = {0}", agressive);
-			ret+=String.Format("| attack = {0}-{1}", Attributes.AttackMin, Attributes.AttackMin+Attributes.AttackDelta);
+
+			if(Attributes.AttackDelta==0)
+			{
+				ret+=String.Format("| attack = {0}", Attributes.AttackMin);
+			}
+			else
+			{
+				ret+=String.Format("| attack = {0}-{1}", Attributes.AttackMin, Attributes.AttackMin+Attributes.AttackDelta);
+			}
+
 			ret+=String.Format("| defense-physical = {0}", Attributes.PhysicalDefence);
 			ret+=String.Format("| defense-magical = {0}", Attributes.MagicalDefence);
 			ret+=String.Format("| mutation = {0}", Attributes.Mutation);
