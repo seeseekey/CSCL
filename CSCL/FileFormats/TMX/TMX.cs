@@ -216,12 +216,17 @@ namespace CSCL.FileFormats.TMX
 			}
 		}
 
-		public void Open(string filename)
+		public TMX(string filename)
 		{
 			Open(filename, true);
 		}
 
-		public void Open(string filename, bool loadTilesets)
+		public TMX(string filename, bool loadTilesets)
+		{
+			Open(filename, loadTilesets);
+		}
+
+		void Open(string filename, bool loadTilesets)
 		{
 			//Datei öffnen
 			Tilesets=new List<TilesetData>();
@@ -592,7 +597,7 @@ namespace CSCL.FileFormats.TMX
 					for(int x=0; x<i.width; x++)
 					{
 						int number = i.data[x,y];
-						if(number==0) continue; //Kein Tile zugewiesen
+						if(number<=0) continue; //Kein Tile zugewiesen //TODO was genau meint eine Zahl kleiner 0 genau
 						gtImage Tile=GetTile(number);
 
 						//Korrekturfaktor für Tiles welche breiter bzw. 

@@ -67,7 +67,8 @@ namespace CSCL.FileFormats.TMX
 						}
 					default:
 						{
-							throw new NotImplementedException();
+							int debug=555;
+							break;
 						}
 				}
 			}
@@ -86,7 +87,8 @@ namespace CSCL.FileFormats.TMX
 						}
 					default:
 						{
-							throw new NotImplementedException();
+							int debug=555;
+							break;
 						}
 				}
 			}
