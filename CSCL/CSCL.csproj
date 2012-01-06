@@ -73,6 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Bots\Mediawiki\DotNetWikiBot.cs" />
     <Compile Include="Compression\gzip.cs" />
     <Compile Include="Crypto\Encoding\Base64.cs" />

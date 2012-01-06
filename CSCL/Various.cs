@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Reflection;
 
 namespace CSCL
 {
@@ -47,6 +48,20 @@ namespace CSCL
 		{
 			DateTime now=DateTime.Now;
 			return String.Format("[{0:D4}.{1:D2}.{2:D2}] -> [{3:D2}:{4:D2}:{5:D2}:{6:D3}]", now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
+		}
+
+		public static string AssemblyVersion
+		{
+			get
+			{
+				string versionstring=Assembly.GetEntryAssembly().GetName().Version.ToString();
+				if(versionstring.EndsWith(".0"))
+				{
+					versionstring=versionstring.Substring(0, versionstring.Length-2);
+					if(versionstring.EndsWith(".0")) versionstring=versionstring.Substring(0, versionstring.Length-2);
+				}
+				return versionstring;
+			}
 		}
 	}
 }
