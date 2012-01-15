@@ -166,6 +166,7 @@
     <Compile Include="Database\SQLite\csharp-sqlite\where_c.cs" />
     <Compile Include="Database\SQLite\csharp-sqlite\_Custom.cs" />
     <Compile Include="Database\SQLite\SQLiteMisc.cs" />
+    <Compile Include="DoublePair.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Exceptions\NotSupportedCompression.cs" />
     <Compile Include="FileFormats\TMX\Object.cs" />

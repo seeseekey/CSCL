@@ -16,6 +16,14 @@ namespace CSCL.Database.SQLite
     // pointer to database
     private sqlite db;
 
+	public sqlite DB
+	{
+		get
+		{
+			return db;
+		}
+	}
+
     /// <summary>
     /// Creates new instance of SQLiteBase class with no database attached.
     /// </summary>
