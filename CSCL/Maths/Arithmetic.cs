@@ -1,3 +1,21 @@
+//
+//  Arithmetic.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,7 +38,7 @@ namespace CSCL.Maths
 		}
 
         /// <summary>
-        /// Berechnet den größten gemeinsamen Teiler zweier Zahlen.
+        /// Berechnet den grï¿½ï¿½ten gemeinsamen Teiler zweier Zahlen.
         /// </summary>
         /// <param name="n"></param>
         /// <param name="m"></param>
@@ -32,14 +50,14 @@ namespace CSCL.Maths
         }
 
         /// <summary>
-        /// Klasse gibt nach Übergabe eines Integer an "Teiler.Summe" die Summe
+        /// Klasse gibt nach ï¿½bergabe eines Integer an "Teiler.Summe" die Summe
         /// der echten Teiler aus.
         /// </summary>
         public static int Summe(int zahl)
         {
             int intSumme = 0;
             int intmax = 0;
-            //Zahl wird bis zur Hälfte durchsucht
+            //Zahl wird bis zur Hï¿½lfte durchsucht
             for(int i = 1; i < (zahl / 2); i++)
             {
                 if(zahl % i == 0)
@@ -62,11 +80,11 @@ namespace CSCL.Maths
         }//of Summe()
 
         /// <summary>
-        /// Auf die Idee brachte mich der berühmte Carl Friedrich Gauss. Eine Geschichte über ihn erzählt, 
+        /// Auf die Idee brachte mich der berï¿½hmte Carl Friedrich Gauss. Eine Geschichte ï¿½ber ihn erzï¿½hlt, 
         /// dass sein Lehrer in der Schule die Aufgabe stelle, alle ganzen Zahlen von 1 bis 100 zu addieren, 
-        /// in der Hoffnung, für die nächste Stunde seine Ruhe zu haben.
+        /// in der Hoffnung, fï¿½r die nï¿½chste Stunde seine Ruhe zu haben.
         /// 
-        /// Aber der Schüler Gauss stellte fest, dass sich die Summe der ersten und letzten Zahl immer 
+        /// Aber der Schï¿½ler Gauss stellte fest, dass sich die Summe der ersten und letzten Zahl immer 
         /// wieder ergibt, also beim ersten Zahlenpaar 1 + 100 = 101, beim zweiten Zahlenpaar 2 + 99 = 
         /// 101 u.s.w. Nun brauchte er nur noch die Anzahl der Paare ermitteln und mit 101 multiplizieren.
         /// </summary>

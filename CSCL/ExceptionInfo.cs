@@ -1,3 +1,21 @@
+//
+//  ExceptionInfo.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -9,7 +27,7 @@ using System.Text.RegularExpressions;
 namespace CSCL
 {
 	/// <summary>
-	/// Stellt Informationen über eine Exception bereit.
+	/// Stellt Informationen ï¿½ber eine Exception bereit.
 	/// </summary>
 	[Serializable]
 	public class ExceptionInfo
@@ -85,7 +103,7 @@ namespace CSCL
 
 		#region Public Properties
 		/// <summary>
-		/// Gibt die Exception an, für die Informationen ermittelt werden sollen.
+		/// Gibt die Exception an, fï¿½r die Informationen ermittelt werden sollen.
 		/// </summary>
 		public Exception Exception
 		{
@@ -94,7 +112,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt den Namen der AppDomain zurück, in der die Exception eingetreten ist.
+		/// Gibt den Namen der AppDomain zurï¿½ck, in der die Exception eingetreten ist.
 		/// </summary>
 		public string AppDomainName
 		{
@@ -102,7 +120,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt den Namen der aufrufenden Assembly zurück.
+		/// Gibt den Namen der aufrufenden Assembly zurï¿½ck.
 		/// </summary>
 		public string AssemblyName
 		{
@@ -110,7 +128,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt die ID des Threads zurück, in dem die Exception eingetreten ist.
+		/// Gibt die ID des Threads zurï¿½ck, in dem die Exception eingetreten ist.
 		/// </summary>
 		public int ThreadId
 		{
@@ -118,7 +136,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt den Benutzer des Threads zurück, in dem die Exception eingetreten ist.
+		/// Gibt den Benutzer des Threads zurï¿½ck, in dem die Exception eingetreten ist.
 		/// </summary>
 		public string ThreadUser
 		{
@@ -126,7 +144,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt den Titel der Anwendung zurück.
+		/// Gibt den Titel der Anwendung zurï¿½ck.
 		/// </summary>
 		public string ProductName
 		{
@@ -134,7 +152,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt die Version der Anwendung zurück.
+		/// Gibt die Version der Anwendung zurï¿½ck.
 		/// </summary>
 		public string ProductVersion
 		{
@@ -142,7 +160,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt das Ausführungsverzeichnis der Anwendung zurück.
+		/// Gibt das Ausfï¿½hrungsverzeichnis der Anwendung zurï¿½ck.
 		/// </summary>
 		public string ExecutablePath
 		{
@@ -150,7 +168,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt den zugehörigen Firmennamen zurück.
+		/// Gibt den zugehï¿½rigen Firmennamen zurï¿½ck.
 		/// </summary>
 		public string CompanyName
 		{
@@ -158,7 +176,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt das Informationen über das installierte Betriebssystem zurück.
+		/// Gibt das Informationen ï¿½ber das installierte Betriebssystem zurï¿½ck.
 		/// </summary>
 		public OperatingSystem OperatingSystem
 		{
@@ -166,7 +184,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt eine Versionsinformation über das installierte .NET-Framework zurück.
+		/// Gibt eine Versionsinformation ï¿½ber das installierte .NET-Framework zurï¿½ck.
 		/// </summary>
 		public Version FrameworkVersion
 		{
@@ -174,7 +192,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt die Summe des physischen Speichers, der dem aktiven Prozess zugewiesen wurde, zurück.
+		/// Gibt die Summe des physischen Speichers, der dem aktiven Prozess zugewiesen wurde, zurï¿½ck.
 		/// </summary>
 		public long WorkingSet
 		{
@@ -461,7 +479,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt das StackTrace der aktuellen Exception zurück.
+		/// Gibt das StackTrace der aktuellen Exception zurï¿½ck.
 		/// </summary>
 		/// <returns></returns>
 		public string GetStackTrace(Exception ex)
@@ -595,7 +613,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt den Thread-Benutzer zurück.
+		/// Gibt den Thread-Benutzer zurï¿½ck.
 		/// </summary>
 		/// <returns></returns>
 		private string GetThreadUser()

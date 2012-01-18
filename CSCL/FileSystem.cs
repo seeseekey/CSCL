@@ -1,3 +1,21 @@
+//
+//  FileSystem.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -5,7 +23,7 @@ using System.Collections.Generic;
 namespace CSCL
 {
     /// <summary>
-    /// Klasse für Filesystem Operationen
+    /// Klasse fï¿½r Filesystem Operationen
     /// </summary>
     public class FileSystem
     {
@@ -37,7 +55,7 @@ namespace CSCL
 
         #region Eigenschaften
         /// <summary>
-        /// Gibt den Tempfad des Benutzers zurück
+        /// Gibt den Tempfad des Benutzers zurï¿½ck
         /// </summary>
         public static string TempPath
         {
@@ -74,7 +92,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt die Position des Ordners Anwendungsdaten zurück
+        /// Gibt die Position des Ordners Anwendungsdaten zurï¿½ck
         /// </summary>
         /// <returns></returns>
         public static string ApplicationDataDirectory
@@ -88,7 +106,7 @@ namespace CSCL
 
         #region Directories & Files
         /// <summary>
-        /// Überprüft ob eine Datei oder ein Verzeichniss existiert
+        /// ï¿½berprï¿½ft ob eine Datei oder ein Verzeichniss existiert
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -105,7 +123,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Überprüft ob der übergebene Dateiname ein Verzeichnis ist
+        /// ï¿½berprï¿½ft ob der ï¿½bergebene Dateiname ein Verzeichnis ist
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -131,7 +149,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Legt ein Verzeichnis und sämtliche Unterverzeichnisse an
+        /// Legt ein Verzeichnis und sï¿½mtliche Unterverzeichnisse an
         /// </summary>
         /// <param name="dir">Path des anzulegenden Verzeichnisses</param>
         /// <param name="force">Erzwingt das Anlegen des Verzeichnisses</param>
@@ -286,7 +304,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Verschiebt ein Verzeichniss über Volumegrenzen hinaus
+        /// Verschiebt ein Verzeichniss ï¿½ber Volumegrenzen hinaus
         /// </summary>
         /// <param name="source"></param>
         /// <param name="dest"></param>
@@ -298,7 +316,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Löscht ein !leeres! Verzeichnis 
+        /// Lï¿½scht ein !leeres! Verzeichnis 
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -313,7 +331,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Löscht ein leeres (recursive=false)
+        /// Lï¿½scht ein leeres (recursive=false)
         /// oder nicht leeres (recursive=true) Verzeichnis
         /// </summary>
         /// <param name="dir"></param>
@@ -334,7 +352,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Gibt das aktuelle Verzeichnis zurück
+        /// Gibt das aktuelle Verzeichnis zurï¿½ck
         /// </summary>
         /// <returns></returns>
         public static string GetCurrentDir()
@@ -400,7 +418,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Überprüft ob der übergebene Dateiname eine Datei ist
+        /// ï¿½berprï¿½ft ob der ï¿½bergebene Dateiname eine Datei ist
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -417,7 +435,7 @@ namespace CSCL
 
         /// <summary>
         /// Kopiert eine Datei
-        /// ohne Überschreiben des Ziels, wenn bereits vorhanden
+        /// ohne ï¿½berschreiben des Ziels, wenn bereits vorhanden
         /// </summary>
         /// <param name="src"></param>
         /// <param name="dst"></param>
@@ -429,7 +447,7 @@ namespace CSCL
 
         /// <summary>
         /// Kopiert eine Datei
-        /// overwrite = true zum Überschreiben des Ziels, wenn bereits vorhanden
+        /// overwrite = true zum ï¿½berschreiben des Ziels, wenn bereits vorhanden
         /// </summary>
         /// <param name="src"></param>
         /// <param name="dst"></param>
@@ -544,7 +562,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Überprüft ob eine Datei ReadOnly ist
+        /// ï¿½berprï¿½ft ob eine Datei ReadOnly ist
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -560,7 +578,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt die Dateigröße zurück
+        /// Gibt die Dateigrï¿½ï¿½e zurï¿½ck
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -572,7 +590,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Überprüft ob der Dateiname nur gültige Zeichenenthält
+        /// ï¿½berprï¿½ft ob der Dateiname nur gï¿½ltige Zeichenenthï¿½lt
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -583,8 +601,8 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Macht aus einem Dateinamen mit ungültigen Zeichen einen Dateinamen
-        /// mit gültigen Zeichen
+        /// Macht aus einem Dateinamen mit ungï¿½ltigen Zeichen einen Dateinamen
+        /// mit gï¿½ltigen Zeichen
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -676,7 +694,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Überprüft ob der übergebende Pfad Absolut ist
+        /// ï¿½berprï¿½ft ob der ï¿½bergebende Pfad Absolut ist
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -688,7 +706,7 @@ namespace CSCL
 				case PlatformID.Win32S:
 				case PlatformID.Win32Windows:
 					{
-						if(path.Length<3) return false;	// kein "c:\" oder ähnliches
+						if(path.Length<3) return false;	// kein "c:\" oder ï¿½hnliches
 						if(!Char.IsLetter(path[0]))
 						{	//Test auf UNC Pfad
 							if(path[0]!='\\') return false;	// z.B. "\\FOO\myMusic"
@@ -713,7 +731,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Überprüftob es sich bei dem filename um einen Pfad handelt
+        /// ï¿½berprï¿½ftob es sich bei dem filename um einen Pfad handelt
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -730,13 +748,13 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Überprüft ob der Übergebende Pfad ein Netzwerkpfad ist
+        /// ï¿½berprï¿½ft ob der ï¿½bergebende Pfad ein Netzwerkpfad ist
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
         public static bool IsNetworkPath(string path)
         {
-            if(path.Length<3) return false;	// kein "c:\" oder ähnliches
+            if(path.Length<3) return false;	// kein "c:\" oder ï¿½hnliches
             if(!Char.IsLetter(path[0]))
             {	//Test auf UNC Pfad
                 if(path[0]!='\\') return false;	// z.B. "\\FOO\myMusic"
@@ -747,7 +765,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Überprüft ob der Übergebende Pfad ein lokaler Pfad ist
+        /// ï¿½berprï¿½ft ob der ï¿½bergebende Pfad ein lokaler Pfad ist
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -763,7 +781,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt den Absoluten Pfad des übergenen Pfades zurück
+        /// Gibt den Absoluten Pfad des ï¿½bergenen Pfades zurï¿½ck
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -779,7 +797,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Gibt den relativen Pfad zurück
+        /// Gibt den relativen Pfad zurï¿½ck
         /// </summary>
         /// <param name="completePath"></param>
         /// <param name="basePath"></param>
@@ -836,7 +854,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Gibt Verzeichnisanteil des Strings zurück (incl. \)
+        /// Gibt Verzeichnisanteil des Strings zurï¿½ck (incl. \)
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -879,7 +897,7 @@ namespace CSCL
 		}
 
         /// <summary>
-        /// Gibt Dateinamenanteil des Strings zurück (rechts des letzten \ oder /)
+        /// Gibt Dateinamenanteil des Strings zurï¿½ck (rechts des letzten \ oder /)
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -917,7 +935,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt Dateinamenendung des Strings zurück (rechts des letzten '.' )
+        /// Gibt Dateinamenendung des Strings zurï¿½ck (rechts des letzten '.' )
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -928,7 +946,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt einen String mit neuer Dateierweiterung zurück
+        /// Gibt einen String mit neuer Dateierweiterung zurï¿½ck
         /// </summary>
         /// <param name="filename"></param>
         /// <param name="newExt"></param>
@@ -941,7 +959,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt Dateinamenanteil(ohne letzte Erweiterung) des Strings zurück
+        /// Gibt Dateinamenanteil(ohne letzte Erweiterung) des Strings zurï¿½ck
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -952,7 +970,7 @@ namespace CSCL
         }
 
         /// <summary>
-        /// Gibt Path und Dateinamenanteil(ohne letzte Erweiterung) des Strings zurück
+        /// Gibt Path und Dateinamenanteil(ohne letzte Erweiterung) des Strings zurï¿½ck
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>

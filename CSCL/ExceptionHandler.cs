@@ -1,3 +1,21 @@
+//
+//  ExceptionHandler.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -63,7 +81,7 @@ namespace CSCL
 		private const string STANDARD_TITLE_TEXT="In der Anwendung ist ein Fehler aufgetreten! Klicken Sie auf \"Erweitert\", um sich detailierte Informationen anzeigen zu lassen.";
 		private const string STANDARD_MESSAGE="Es ist ein Fehler aufgetreten, der keinen Fehlertext besitzt.";
 		private const string STANDARD_REPORT_TEXT="Diesen Fehler an {0} melden";
-		private const string STANDARD_NO_HELP_TEXT="Für die gewählte Ausnahme exisitiert keine Hilfe!";
+		private const string STANDARD_NO_HELP_TEXT="Fï¿½r die gewï¿½hlte Ausnahme exisitiert keine Hilfe!";
 
 		// Allgemeine Variablen
 		private Exception m_exception;
@@ -906,7 +924,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Bestimmt, ob die "Erweitert"-Schaltfläche angezeigt wird.
+		/// Bestimmt, ob die "Erweitert"-Schaltflï¿½che angezeigt wird.
 		/// </summary>
 		public bool ShowExtendedButton
 		{
@@ -915,7 +933,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Bestimmt, ob die "Debug"-Schaltfläche angezeigt wird.
+		/// Bestimmt, ob die "Debug"-Schaltflï¿½che angezeigt wird.
 		/// </summary>
 		public bool ShowDebugButton
 		{
@@ -924,7 +942,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Bestimmt, ob die "Hilfe"-Schaltfläche angezeigt wird.
+		/// Bestimmt, ob die "Hilfe"-Schaltflï¿½che angezeigt wird.
 		/// </summary>
 		public bool ShowHelpButton
 		{
@@ -977,7 +995,7 @@ namespace CSCL
 				// Exception-Informationen anzeigen
 				this.ShowException();
 
-				// InnerException-Tree füllen
+				// InnerException-Tree fï¿½llen
 				this.CreateInnerExceptionTree(m_exceptionInfo.Exception);
 
 				// ExceptionInfo-Informationen anzeigen
@@ -997,7 +1015,7 @@ namespace CSCL
 				this.llblReportError.Text=string.Format(STANDARD_REPORT_TEXT, m_exceptionInfo.CompanyName);
 			}
 			else
-				MessageBox.Show("Die übergebene ExceptionInfo-Objekt ist ungültig!",
+				MessageBox.Show("Die ï¿½bergebene ExceptionInfo-Objekt ist ungï¿½ltig!",
 					"Fehler",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
@@ -1006,7 +1024,7 @@ namespace CSCL
 
 
 		/// <summary>
-		/// Zeigt die Bestandteile der übergebenen Exception im Fenster an.
+		/// Zeigt die Bestandteile der ï¿½bergebenen Exception im Fenster an.
 		/// </summary>
 		private void ShowException()
 		{
@@ -1037,7 +1055,7 @@ namespace CSCL
 				this.propgrdExtended.SelectedObject=m_exception;
 			}
 			else
-				MessageBox.Show("Die übergebene Exception ist ungültig!",
+				MessageBox.Show("Die ï¿½bergebene Exception ist ungï¿½ltig!",
 					"Fehler",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
@@ -1045,7 +1063,7 @@ namespace CSCL
 
 
 		/// <summary>
-		/// Füllt den InnerException-Treeview.
+		/// Fï¿½llt den InnerException-Treeview.
 		/// </summary>
 		/// <param name="ex"></param>
 		private void CreateInnerExceptionTree(Exception ex)
@@ -1220,7 +1238,7 @@ namespace CSCL
 
 			if (!AutoReport)
 			{
-				MessageBox.Show("Der Fehler wurde gemeldet. Vielen Dank für Ihre Unterstüzung.");
+				MessageBox.Show("Der Fehler wurde gemeldet. Vielen Dank fï¿½r Ihre Unterstï¿½zung.");
 			}
 		}
 		#endregion

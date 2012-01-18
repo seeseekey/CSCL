@@ -1,3 +1,21 @@
+//
+//  XmlData.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +39,7 @@ namespace CSCL
 		#region Eigenschaften
 		/// <summary>
 		/// Das XML Document Objekt
-		/// Für Bearbeitungen auf direkter XML Ebene
+		/// Fï¿½r Bearbeitungen auf direkter XML Ebene
 		/// </summary>
 		public XmlDocument Document
 		{
@@ -106,7 +124,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Konstruktor welcher gleich eine Datei lädt
+		/// Konstruktor welcher gleich eine Datei lï¿½dt
 		/// </summary>
 		/// <param name="filename">Name der Datei</param>
 		public void InitXmlDataWithFile(string filename, bool overwrite)
@@ -146,7 +164,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Fügt der Node ein Atribute hinzu
+		/// Fï¿½gt der Node ein Atribute hinzu
 		/// </summary>
 		/// <param name="addNode"></param>
 		/// <param name="attributeName"></param>
@@ -170,7 +188,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Fügt ein Element mit Inhalt hinzu
+		/// Fï¿½gt ein Element mit Inhalt hinzu
 		/// </summary>
 		/// <param name="path"></param>
 		/// <param name="name"></param>
@@ -266,8 +284,8 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt das erste Gefundende Element ruück welches dem Pfad entspricht
-		/// als String zurück
+		/// Gibt das erste Gefundende Element ruï¿½ck welches dem Pfad entspricht
+		/// als String zurï¿½ck
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
@@ -296,8 +314,8 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt das erste Gefundende Element zurück welches dem Pfad entspricht
-		/// als XmlNode zurück
+		/// Gibt das erste Gefundende Element zurï¿½ck welches dem Pfad entspricht
+		/// als XmlNode zurï¿½ck
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
@@ -307,7 +325,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt die Elemente eines bestimmten Pfades zurück
+		/// Gibt die Elemente eines bestimmten Pfades zurï¿½ck
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
@@ -318,7 +336,7 @@ namespace CSCL
 
 		/// <summary>
 		/// Gibt Alle Elemente eines bestimmten 
-		/// Pfades zurück welche ein bestimmtes Attribut 
+		/// Pfades zurï¿½ck welche ein bestimmtes Attribut 
 		/// mit einem bestimmten Wert haben
 		/// </summary>
 		/// <param name="path"></param>
@@ -350,7 +368,7 @@ namespace CSCL
 		}
 
 		/// <summary>
-		/// Gibt die Anzahl der Tags des übergebenen Pfades zurück
+		/// Gibt die Anzahl der Tags des ï¿½bergebenen Pfades zurï¿½ck
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>

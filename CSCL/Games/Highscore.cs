@@ -1,3 +1,21 @@
+//
+//  Highscore.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -67,7 +85,7 @@ namespace CSCL.Games
         }
 
         /// <summary>
-        /// Läd Werte für die Highscore aus einer XML-Datei
+        /// Lï¿½d Werte fï¿½r die Highscore aus einer XML-Datei
         /// </summary>
         /// <param name="filename">Der Name der XML-Datei</param>
         public void LoadFromXml(string filename)
@@ -103,10 +121,10 @@ namespace CSCL.Games
             foreach(HighscoreItem i in this._score)
             {
                 XmlElement item = doc.CreateElement("Platz" + placenr.ToString());
-                //Das Element, das den Namen des Spielers enthält
+                //Das Element, das den Namen des Spielers enthï¿½lt
                 XmlElement name = doc.CreateElement("Name");
                 name.InnerText = i.Name;
-                //Das Element, das die Punkte des Spielers enthält
+                //Das Element, das die Punkte des Spielers enthï¿½lt
                 XmlElement points = doc.CreateElement("Punkte");
                 points.InnerText = i.Points.ToString();
                 item.AppendChild(name);
@@ -118,7 +136,7 @@ namespace CSCL.Games
         }
 
         /// <summary>
-        /// Fügt der Highscore einen neuen Wert hinzu
+        /// Fï¿½gt der Highscore einen neuen Wert hinzu
         /// </summary>
         /// <param name="Name">Der Name des Spielers mit dem neuen Wert</param>
         /// <param name="Points">Die Punkte des Spielers</param>
