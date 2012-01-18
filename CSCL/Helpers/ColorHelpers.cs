@@ -1,3 +1,21 @@
+//
+//  ColorHelpers.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,15 +28,15 @@ namespace CSCL.Helpers
         /// <summary>
         /// Gets the color by percent.
         /// 
-        /// Diese Methode gibt eine System.Drawing.Color (von gelb bis rot) in Abhängigkeit von dem übergebenen Prozentwert zurück.
+        /// Diese Methode gibt eine System.Drawing.Color (von gelb bis rot) in Abhï¿½ngigkeit von dem ï¿½bergebenen Prozentwert zurï¿½ck.
         /// 
         /// Beispiel:
-        /// 0% grün
+        /// 0% grï¿½n
         /// 50% gelb
         /// 75% orange
         /// 100% rot
         /// 
-        /// Ich habe die Funktion genutzt um ein Oberflächenelement in Abhängigkeit von der Prozessorlast einzufärben.
+        /// Ich habe die Funktion genutzt um ein Oberflï¿½chenelement in Abhï¿½ngigkeit von der Prozessorlast einzufï¿½rben.
         /// </summary>
         /// <param name="percent">The value 0 - 100%</param>
         /// <returns>System.Drawing.Color dependent on the value</returns>
@@ -44,7 +62,7 @@ namespace CSCL.Helpers
         }
 
 		/// <summary>
-		/// Gibt eine zufällige Farbe zurück
+		/// Gibt eine zufï¿½llige Farbe zurï¿½ck
 		/// </summary>
 		/// <returns></returns>
         public static Color GetRandomColor()

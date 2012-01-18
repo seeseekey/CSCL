@@ -1,3 +1,21 @@
+//
+//  StringHelpers.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +33,7 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static byte[] StringToByteArray(string str)
         {
-            //TODO: Überprüfen ob das auch mit Unicode Strings funktioniert
+            //TODO: ï¿½berprï¿½fen ob das auch mit Unicode Strings funktioniert
             System.Text.ASCIIEncoding enc=new System.Text.ASCIIEncoding();
             return enc.GetBytes(str);
         }
@@ -172,27 +190,27 @@ namespace CSCL.Helpers
         }
 
         /// <summary>
-        /// Mit Hilfe dieser Methode wird ein übergebener String in einen "Barcodestring" 
-        /// (inkl. Start-, End- und berechnetem Prüfzeichen) umgewandelt. Dieser kann dann mit 
+        /// Mit Hilfe dieser Methode wird ein ï¿½bergebener String in einen "Barcodestring" 
+        /// (inkl. Start-, End- und berechnetem Prï¿½fzeichen) umgewandelt. Dieser kann dann mit 
         /// Hilfe einer Code128 TTF (einfach google'n) ausgegeben werden.
         /// </summary>
         /// <param name="textToConvert"></param>
         /// <returns></returns>
         public static string GetCode128BString(string textToConvert)
         {
-            /* Diese Methode wandelt den übergebenen String in einen String um, welcher mit Hilfer einer Code128-Schrift 
-             * ausgegeben werden kann. Es wird ein Start- und Endzeichen eingefügt und die erforderliche Prüfsumme 
+            /* Diese Methode wandelt den ï¿½bergebenen String in einen String um, welcher mit Hilfer einer Code128-Schrift 
+             * ausgegeben werden kann. Es wird ein Start- und Endzeichen eingefï¿½gt und die erforderliche Prï¿½fsumme 
              * berechnet. */
 
             char[] convertCharArray = textToConvert.ToCharArray();
             char startSign = (char)204, endSign = (char)206;
             string barcodeString = startSign.ToString();
-            int index = 1; // Multiplikator zum Berechnen der Prüfsumme
+            int index = 1; // Multiplikator zum Berechnen der Prï¿½fsumme
             int checkDigitValue = 104; // Code 128B erfordert einen Startwert von 104
 
-            /* Inhalt des zu codierenden Strings zeichenweise wieder zum Ergebnisstring hinzufügen und dabei die 
-             * Prüfsumme mitberechnen. Enthält der zu codierende String ein Zeichen, welches sich nicht im gültigen
-             * ACSII-Bereich befindet, wird der Vorgang abgebrochen und ein leerer String zurückgegeben. */
+            /* Inhalt des zu codierenden Strings zeichenweise wieder zum Ergebnisstring hinzufï¿½gen und dabei die 
+             * Prï¿½fsumme mitberechnen. Enthï¿½lt der zu codierende String ein Zeichen, welches sich nicht im gï¿½ltigen
+             * ACSII-Bereich befindet, wird der Vorgang abgebrochen und ein leerer String zurï¿½ckgegeben. */
 
             foreach(char c in convertCharArray)
             {
@@ -204,7 +222,7 @@ namespace CSCL.Helpers
                 ++index;
             }
 
-            // Das Prüfzeichen bei Code128B setzt sich aus dem Rest der Division durch 103 zusammen.
+            // Das Prï¿½fzeichen bei Code128B setzt sich aus dem Rest der Division durch 103 zusammen.
             checkDigitValue = checkDigitValue % 103;
 
             if(checkDigitValue > 94)
@@ -212,7 +230,7 @@ namespace CSCL.Helpers
             else
                 checkDigitValue += 32;
 
-            // Prüfzeichen und Endzeichen zum Ergebnisstring hinzufügen
+            // Prï¿½fzeichen und Endzeichen zum Ergebnisstring hinzufï¿½gen
             barcodeString += ((char)checkDigitValue).ToString() + endSign.ToString();
             return barcodeString;
         }
@@ -244,14 +262,14 @@ namespace CSCL.Helpers
                     if(positionLastSpace > -1 && positionLastSpace < length)
                         longString = longString.Substring(0, positionLastSpace);
 
-                    longString += " …";
+                    longString += " ï¿½";
                 }
             }
             return longString;
         }
 
         /// <summary>
-        /// Zählt wie oft ein String in einem String vorkommt.
+        /// Zï¿½hlt wie oft ein String in einem String vorkommt.
         /// </summary>
         /// <param name="str"></param>
         /// <param name="regexStr"></param>
@@ -291,7 +309,7 @@ namespace CSCL.Helpers
         }
 
         /// <summary>
-        /// Diese Funktion prüft, ob im übergebenen String nur Zeichen von A-Z a-z und von 0-9 vorhanden sind.
+        /// Diese Funktion prï¿½ft, ob im ï¿½bergebenen String nur Zeichen von A-Z a-z und von 0-9 vorhanden sind.
         /// </summary>
         /// <param name="strAlphanum"></param>
         /// <returns></returns>
@@ -302,7 +320,7 @@ namespace CSCL.Helpers
         }
 
         /// <summary>
-        /// Diese Funktion entfernt mehrfach vorkommende Worte aus dem übergebenen String.
+        /// Diese Funktion entfernt mehrfach vorkommende Worte aus dem ï¿½bergebenen String.
         /// </summary>
         /// <param name="Orginaltext">der Orginaltext</param>
         /// <returns>der Orginaltext ohne mehrfach vorkommende Worte</returns>
@@ -326,33 +344,33 @@ namespace CSCL.Helpers
         /// <summary>
         /// Encodiert Sonderzeichen
         /// Diese Methode encodiert Zeichenfolgen: Urls,Dateinamen etc.
-        /// für die Übertragung im HttpHeader zur weiteren Verwendung
-        /// in einen Hexcodierten String, damit Sonder- und Leerzeichen so übertragen werden
+        /// fï¿½r die ï¿½bertragung im HttpHeader zur weiteren Verwendung
+        /// in einen Hexcodierten String, damit Sonder- und Leerzeichen so ï¿½bertragen werden
         /// das es beim Client "richtig" ankommt.
         /// 
         /// Beispiel: FileDownload mit Response.WriteFile
         /// 
-        /// Dabei ist es möglich Dateien vom Filesystem per
-        /// Http an den Client zu übertragen und der Datei
+        /// Dabei ist es mï¿½glich Dateien vom Filesystem per
+        /// Http an den Client zu ï¿½bertragen und der Datei
         /// einen Namen zugeben.
         /// Dateiname auf dem System:
         /// {7fcd1a85-d5c8-4419-a5e0-ee12b1ab2057}.zip
-        /// Gewünschter Name:
-        /// Überführungrichtlinie EU Neufahrzeuge.zip
+        /// Gewï¿½nschter Name:
+        /// ï¿½berfï¿½hrungrichtlinie EU Neufahrzeuge.zip
         /// 
-        /// Dazu fügt man dem Response.Header folgendes hinzu:
-        /// Response.AddHeader("Content-Disposition", "attachment; filename=Überführungrichtlinie EU Neufahrzeuge.zip");
+        /// Dazu fï¿½gt man dem Response.Header folgendes hinzu:
+        /// Response.AddHeader("Content-Disposition", "attachment; filename=ï¿½berfï¿½hrungrichtlinie EU Neufahrzeuge.zip");
         /// 
-        /// Da der Dateiname jedoch Sonderzeichen / Leerzeichen enthält gibts Probleme beim Client,
+        /// Da der Dateiname jedoch Sonderzeichen / Leerzeichen enthï¿½lt gibts Probleme beim Client,
         /// im Dialog speichern erscheint: ÃœberfÃ¼hrungsrichtlinie_EU_Neufahrzeuge.zip
         /// 
-        /// Auch UrlEncode hilft da nicht: Überführungsrichtlinie+EU+Neufahrzeuge.zip
+        /// Auch UrlEncode hilft da nicht: ï¿½berfï¿½hrungsrichtlinie+EU+Neufahrzeuge.zip
         /// 
         /// Daher diese Methode ToHexEncodedString(string s)
-        /// "attachment; filename=" + ToHexEncodedString("Überführungrichtlinie EU Neufahrzeuge.zip");
+        /// "attachment; filename=" + ToHexEncodedString("ï¿½berfï¿½hrungrichtlinie EU Neufahrzeuge.zip");
         /// wird zu %c3%9cberf%c3%bchrungrichtlinie%20EU%20Neufahrzeuge.zip
         /// im speichern Dialog erscheint nun
-        /// Überführungrichtlinie EU Neufahrzeuge.zip
+        /// ï¿½berfï¿½hrungrichtlinie EU Neufahrzeuge.zip
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -381,7 +399,7 @@ namespace CSCL.Helpers
         }
 
 		/// <summary>
-		/// Gibt einen String in Anführungszeichen zurück
+		/// Gibt einen String in Anfï¿½hrungszeichen zurï¿½ck
 		/// </summary>
 		/// <param name="input"></param>
 		/// <returns></returns>
@@ -391,7 +409,7 @@ namespace CSCL.Helpers
 		}
 
 		/// <summary>
-		/// Gibt einen String in Anführungszeichen zurück
+		/// Gibt einen String in Anfï¿½hrungszeichen zurï¿½ck
 		/// </summary>
 		/// <param name="input"></param>
 		/// <returns></returns>
