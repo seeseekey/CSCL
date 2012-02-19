@@ -322,7 +322,14 @@ namespace CSCL.FileFormats.TMX
 				//Tilebildl laden
 				if(loadTilesets)
 				{
-					ts.img=pooledLoader.FromFile(imgsourceComplete);
+					try
+					{
+						ts.img=pooledLoader.FromFile(imgsourceComplete);
+					}
+					catch(FileNotFoundException ex)
+					{
+						throw new TilesetNotExistsException(ex.Message);
+					}
 				}
 
 				//Attrribute
