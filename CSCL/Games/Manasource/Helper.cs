@@ -52,9 +52,8 @@ namespace CSCL.Games.Manasource
 		/// <returns></returns>
 		public static int GetValidTilesetHeight(int tileheight)
 		{
-			int value=tileheight;
-			int tmp=1024/value;
-			int height=tmp*value;
+			int tmp=1024/tileheight;
+			int height=tmp*tileheight;
 
 			return height;
 		}
