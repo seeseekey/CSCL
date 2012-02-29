@@ -1,0 +1,15 @@
+# Build folder
+bin/
+obj/
+
+# Debug files
+*.pidb
+
+# Solution files
+*.suo
+
+# Misc files
+*.cache
+*.exe
+*.dll
+*.manifest
