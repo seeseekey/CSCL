@@ -127,8 +127,6 @@ namespace CSCL.Database.MySQL
 
 		#region Variablen
 		MySqlConnection IntlMySQlConnection;
-		//OdbcConnection IntlOdbcConnection=null;
-		//OdbcTransaction IntlSQLiteTransaction=null;
 		bool connected=false;
 		#endregion
 

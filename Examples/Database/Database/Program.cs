@@ -23,8 +23,7 @@ namespace Database
 				string mySQLDbName="daten";
 
 				MySQL mySQL=new MySQL();
-				mySQL.OpenDatabase(mySQLserver, mySQLDbName, mySQLusername, mySQLpassword);
-
+				mySQL.Connect(mySQLserver, mySQLDbName, mySQLusername, mySQLpassword);
 
 				//get table names
 				List<string> tables=mySQL.GetTables();
