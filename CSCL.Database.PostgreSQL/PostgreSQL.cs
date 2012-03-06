@@ -11,183 +11,48 @@ namespace CSCL.Database.PostgreSQL
 {
 	public class PostgreSQL : Database
 	{
-		#region Private Statische Funktionen
-		#region GetConnectionString
-		// Npgsql
-		//Type:    .NET Framework Class Library
-		//Usage:  Npgsql.NpgsqlConnection
-		//Manufacturer:  Npgsql Development Team
-		//More info about this class library »
-		//Customize string
-		//example values »
+		//Eigenschaften
+		public string Host { get; set; }
+		public int Port { get; set; }
+		public string Database { get; set; }
+		public string Username { get; set; }
+		public string Password { get; set; }
 
-		//Standard
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;User Id=myUsername;Password=myPassword;
+		//Variablen
+		NpgsqlConnection IntlPostgreSQLConnection=null;
+		NpgsqlTransaction IntllPostgreSQLTransaction=null;
 
-		//Using windows security
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;Integrated Security=true;
-
-		//Setting command timeout
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;User Id=myUsername;Password=myPassword;CommandTimeout=20;
-		//The CommandTimeout parameter is measured in seconds and controls for how long to wait for a command to finish before throwing an error.
-
-		//Setting connection timeout
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;User Id=myUsername;Password=myPassword;Timeout=15;
-		//The Timeout parameter is measured in seconds and controls for how long to wait for a connection to open before throwing an error.
-
-		//Specifying protocol version
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;User Id=myUsername;Password=myPassword;Protocol=3;
-		//Valid values for the key Protocol is 2 or 3.
-
-		//SSL activated
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;Userid=myUsername;Password=myPassword; Protocol=3;SSL=true;SslMode=Require;
-
-		//Without SSL
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;Userid=myUsername;Password=myPassword; Protocol=3;SSL=false;SslMode=Disable;
-
-		//Controlling pooling mechanisms
-		//Server=127.0.0.1;Port=5432;Database=myDataBase;Userid=myUsername;Password=myPassword; Protocol=3;Pooling=true;MinPoolSize=1;MaxPoolSize=20;ConnectionLifeTime=15;        //					compresses numbers more effectively 					N
-
-		/// <summary>
-		/// Gibt den Connection String zurück
-		/// </summary>
-		/// <param name="server"></param>
-		/// <param name="database"></param>
-		/// <param name="userid"></param>
-		/// <param name="password"></param>
-		/// <returns></returns>
-		private static string GetConnectionString(string server, string database, string userid, string password)
+		//Konstruktor
+		public PostgreSQL()
 		{
-			return GetConnectionString(server, 5432, database, userid, password);
 		}
 
-		/// <summary>
-		/// Gibt den Connection String zurück
-		/// </summary>
-		/// <param name="filename"></param>
-		/// <param name="pooling"></param>
-		/// <param name="UsePassword"></param>
-		/// <param name="password"></param>
-		/// <returns></returns>
-		private static string GetConnectionString(string server, int port, string database, string userid, string password)
+		public PostgreSQL(string host, int port, string database, string username, string passwort)
 		{
-			return String.Format("Server={0};Port={1};Database={2};User Id={3};Password={4};", server, port, database, userid, password);
-		}
-		#endregion
-		#endregion
-
-		#region Statische Funktionen
-		/// <summary>
-		/// Gibt anhand des .NET Datentypes 
-		/// den Postgre Datentyp zurück
-		/// </summary>
-		/// <param name="datatype"></param>
-		/// <returns></returns>
-		public override string GetDBSystemDatatype(string datatype)
-		{
-			switch(datatype)
-			{
-				case "System.Boolean":
-					{
-						return "Boolean";
-					}
-				case "System.Int16":
-				case "System.Int32":
-				case "System.Int64":
-				case "System.UInt16":
-				case "System.UInt32":
-				case "System.UInt64":
-					{
-						return "Bigint";
-					}
-				case "System.Decimal":
-				case "System.Double":
-					{
-						return "Numeric";
-					}
-				case "System.String":
-					{
-						return "Varchar";
-					}
-				case "System.Byte[]":
-					{
-						return "Bytea";
-					}
-				default:
-					{
-						throw new Exception("Type not supported!");
-					}
-			}
+			Host=host;
+			Port=port;
+			Database=database;
+			Username=username;
+			Password=passwort;
 		}
 
-		/// <summary>
-		/// Gibt den DBType zurück
-		/// </summary>
-		/// <param name="datatype"></param>
-		/// <returns></returns>
-		public static NpgsqlDbType GetNpgsqlDbType(string datatype)
-		{
-			//http://npgsql.projects.postgresql.org/docs/manual/UserManual.html
-
-			switch(datatype)
-			{
-				case "System.Boolean": return NpgsqlDbType.Boolean;
-				case "System.UInt16":
-				case "System.Int16": return NpgsqlDbType.Smallint;
-				case "System.UInt32":
-				case "System.Int32": return NpgsqlDbType.Integer;
-				case "System.UInt64":
-				case "System.Int64": return NpgsqlDbType.Bigint;
-				case "System.Decimal": return NpgsqlDbType.Numeric;
-				case "System.Double": return NpgsqlDbType.Double;
-				case "System.String": return NpgsqlDbType.Text;
-				case "System.DateTime": return NpgsqlDbType.Timestamp;
-				case "System.Byte[]": return NpgsqlDbType.Bytea;
-				case "NpgsqlTypes.NpgsqlPoint": return NpgsqlDbType.Point;
-				case "NpgsqlTypes.NpgsqlBox": return NpgsqlDbType.Box;
-				case "System.Int64[]": return NpgsqlDbType.Array|NpgsqlDbType.Bigint;
-				case "System.String[]": return NpgsqlDbType.Array|NpgsqlDbType.Text;
-				default:
-					{
-						throw new Exception("Type not supported!");
-					}
-			}
-		}
-		#endregion
-
-		#region Variablen
-		NpgsqlConnection IntlSQLiteConnection=null;
-		NpgsqlTransaction IntlSQLiteTransaction=null;
-		#endregion
-
-		#region Eigenschaften
-		public bool Connected { get; private set; }
-		public string Server { get; private set; }
-		public string Database { get; private set; }
-		public string UserID { get; private set; }
-		#endregion
-
-		#region Allgemeine Dinge
+		//Verbindung
 		/// <summary>
 		/// Öffnet eine SQLite Datenbank
 		/// </summary>
 		/// <param name="filename"></param>
-		public bool Connect(string server, string database, string userid, string password)
+		public override bool Connect()
 		{
 			try
 			{
 				if(Connected) Disconnect(); //Datenbank schließen falls noch eine geöffnet ist
 
-				Server=server;
-				Database=database;
-				UserID=userid;
+				string cs=GetConnectionString(Host, Database, Username, Password);
 
-				string cs=GetConnectionString(server, database, userid, password);
+				IntlPostgreSQLConnection=new NpgsqlConnection();
+				IntlPostgreSQLConnection.ConnectionString=cs;
 
-				IntlSQLiteConnection=new NpgsqlConnection();
-				IntlSQLiteConnection.ConnectionString=cs;
-
-				IntlSQLiteConnection.Open();
+				IntlPostgreSQLConnection.Open();
 
 				Connected=true;
 			}
@@ -202,122 +67,127 @@ namespace CSCL.Database.PostgreSQL
 		/// <summary>
 		/// Schließt die PostgreSQL Datenbank
 		/// </summary>
-		public void Disconnect()
+		public override void Disconnect()
 		{
 			if(Connected)
 			{
-				IntlSQLiteConnection.Close();
-				IntlSQLiteConnection.Dispose();
-				IntlSQLiteConnection=null;
+				IntlPostgreSQLConnection.Close();
+				IntlPostgreSQLConnection.Dispose();
+				IntlPostgreSQLConnection=null;
 				Connected=false;
 			}
 		}
 
+		//Abfragen
+		#region Abfragen
 		/// <summary>
-		/// Startet eine Transaction
+		/// Führt ein Kommando aus
 		/// </summary>
-		public void StartTransaction()
+		/// <param name="sqlCommand"></param>
+		public override int ExecuteNonQuery(string sqlCommand)
 		{
-			IntlSQLiteTransaction=IntlSQLiteConnection.BeginTransaction();
+			try
+			{
+				NpgsqlCommand InstSQLiteCommand=new NpgsqlCommand(sqlCommand, IntlPostgreSQLConnection);
+				return InstSQLiteCommand.ExecuteNonQuery();
+			}
+			catch(NpgsqlException sqlex)
+			{
+				throw sqlex;
+			}
+			catch(Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
 		}
 
 		/// <summary>
-		/// Commitet eine Transaction
+		/// Führt ein SQLiteCommand aus
 		/// </summary>
-		public void CommitTransaction()
+		/// <param name="sqlCommand"></param>
+		/// <returns></returns>
+		private int ExecuteNonQuery(NpgsqlCommand sqlCommand)
 		{
-			IntlSQLiteTransaction.Commit();
+			try
+			{
+				sqlCommand.Connection=IntlPostgreSQLConnection;
+				return sqlCommand.ExecuteNonQuery();
+			}
+			catch(NpgsqlException sqlex)
+			{
+				throw new Exception(sqlex.Message);
+			}
+			catch(Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Führt eine Query aus und gibt sie zurück
+		/// </summary>
+		/// <param name="sqlCommand"></param>
+		/// <returns></returns>
+		public override DataTable ExecuteQuery(string sqlCommand)
+		{
+			try
+			{
+				GC.Collect(2, GCCollectionMode.Forced);
+
+				NpgsqlCommand SQLiteCommand=new NpgsqlCommand(sqlCommand, IntlPostgreSQLConnection);
+
+				DataTable ret=new DataTable();
+				NpgsqlDataReader tmpDataReader=SQLiteCommand.ExecuteReader();
+				ret.Load(tmpDataReader);
+				tmpDataReader.Close();
+				return ret;
+			}
+			catch(NpgsqlException sqlex)
+			{
+				throw new Exception(sqlex.Message);
+			}
+			catch(Exception ex)
+			{
+				throw new Exception(ex.Message);
+			}
+		}
+
+		private DataTable ExecuteQuery(NpgsqlCommand sqlCommand)
+		{
+			try
+			{
+				GC.Collect(2, GCCollectionMode.Forced);
+
+				sqlCommand.Connection=IntlPostgreSQLConnection;
+
+				DataTable ret=new DataTable();
+				NpgsqlDataReader tmpDataReader=sqlCommand.ExecuteReader();
+				ret.Load(tmpDataReader);
+				tmpDataReader.Close();
+				return ret;
+			}
+			catch(NpgsqlException sqlex)
+			{
+				throw sqlex;
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
 		}
 		#endregion
 
-		#region Daten Edits
-		/// <summary>
-		/// Erzeugt eine Tabelle aus einer Datatable
-		/// in der Datenbank
-		/// </summary>
-		/// <param name="table"></param>
-		/// <returns></returns>
-		public void CreateTable(DataTable table)
+		//Edits
+		public override void InsertData(DataTable insertData)
 		{
-			string tblName;
-			List<string> Colums=new List<string>();
-
-			tblName=table.TableName;
-			if(tblName=="") throw new Exception("Can't create table without name!");
-
-			for(int i=0; i<table.Columns.Count; i++)
-			{
-				string Column=table.Columns[i].Caption;
-
-				//Typ bestimmen
-
-				//SQLite Datentyp ermitteln
-				Column+=" "+GetDBSystemDatatype(table.Columns[i].DataType.FullName);
-
-				//Primärschlüssel
-				if(table.Columns[i].Unique=true&&table.Columns[i].AllowDBNull==false)
-				{
-					Column+=" PRIMARY KEY";
-				}
-
-				if(table.Columns[i].AutoIncrement==true)
-				{
-					Column+=" AUTOINCREMENT";
-				}
-
-				Colums.Add(Column);
-			}
-
-			//SQL Kommando zusammenbauen
-			string sqlCommand="CREATE table \""+tblName+"\" (";
-			for(int i=0; i<Colums.Count; i++)
-			{
-				if(i==Colums.Count-1) sqlCommand+=" "+Colums[i];
-				else sqlCommand+=" "+Colums[i]+",";
-			}
-			sqlCommand+=")";
-
-			ExecuteNonQuery(sqlCommand);
-		}
-
-		/// <summary>
-		/// Entfernt eine Tabelle aus der Datenbank
-		/// </summary>
-		/// <param name="tblName"></param>
-		public void RemoveTable(string tblName)
-		{
-			string sqlCommand=String.Format("drop table \"{0}\";", tblName);
-			ExecuteNonQuery(sqlCommand);
-		}
-
-		/// <summary>
-		/// Löscht mehrere Tabellen
-		/// </summary>
-		/// <param name="Tables"></param>
-		public void RemoveTables(List<string> Tables)
-		{
-			foreach(string i in Tables)
-			{
-				RemoveTable(i);
-			}
-		}
-
-		public void RemoveEntry(string table, string key, string value)
-		{
-			string sqlCommand=String.Format("DELETE FROM public.\"{0}\" WHERE \"{0}\".\"{1}\"={2}", table, key, value);
-			ExecuteNonQuery(sqlCommand);
-		}
-
-		public DataTable InsertData(DataTable insertData)
-		{
-			return InsertData(insertData, false);
+			InsertData(insertData, false);
 		}
 
 		/// <summary>
 		/// Fügt Daten zur einer Tabelle hinzu
 		/// </summary>
 		/// <param name="addData"></param>
-		public DataTable InsertData(DataTable insertData, bool returningIndexID)
+		private DataTable InsertData(DataTable insertData, bool returningIndexID)
 		{
 			string sqlCommand=String.Format("INSERT INTO \"{0}\" (", insertData.TableName);
 			DataTable ret=null;
@@ -397,7 +267,7 @@ namespace CSCL.Database.PostgreSQL
 		/// Updatet bestimmte Daten
 		/// </summary>
 		/// <param name="insertData"></param>
-		public void UpdateData(DataTable updateData, string PrimaryKey)
+		public override void UpdateData(DataTable updateData, string PrimaryKey)
 		{
 			string sqlCommand=String.Format("UPDATE \"{0}\" SET ", updateData.TableName);
 
@@ -434,104 +304,89 @@ namespace CSCL.Database.PostgreSQL
 
 			CommitTransaction();
 		}
-		#endregion
 
-		#region Abfragen
-		/// <summary>
-		/// Führt ein Kommando aus
-		/// </summary>
-		/// <param name="sqlCommand"></param>
-		public override int ExecuteNonQuery(string sqlCommand)
+		public override void RemoveData(string table, string key, string value)
 		{
-			try
-			{
-				NpgsqlCommand InstSQLiteCommand=new NpgsqlCommand(sqlCommand, IntlSQLiteConnection);
-				return InstSQLiteCommand.ExecuteNonQuery();
-			}
-			catch(NpgsqlException sqlex)
-			{
-				throw sqlex;
-			}
-			catch(Exception ex)
-			{
-				throw new Exception(ex.Message);
-			}
+			string sqlCommand=String.Format("DELETE FROM public.\"{0}\" WHERE \"{0}\".\"{1}\"={2}", table, key, value);
+			ExecuteNonQuery(sqlCommand);
+		}
+
+		//Transaktionen
+		/// <summary>
+		/// Startet eine Transaction
+		/// </summary>
+		public override void StartTransaction()
+		{
+			IntllPostgreSQLTransaction=IntlPostgreSQLConnection.BeginTransaction();
 		}
 
 		/// <summary>
-		/// Führt ein SQLiteCommand aus
+		/// Commitet eine Transaction
 		/// </summary>
-		/// <param name="sqlCommand"></param>
+		public override void CommitTransaction()
+		{
+			IntllPostgreSQLTransaction.Commit();
+			IntllPostgreSQLTransaction=null;
+		}
+
+		//Tabellen
+		/// <summary>
+		/// Erzeugt eine Tabelle aus einer Datatable
+		/// in der Datenbank
+		/// </summary>
+		/// <param name="table"></param>
 		/// <returns></returns>
-		public int ExecuteNonQuery(NpgsqlCommand sqlCommand)
+		public override void CreateTable(DataTable table)
 		{
-			try
-			{
-				sqlCommand.Connection=IntlSQLiteConnection;
-				return sqlCommand.ExecuteNonQuery();
-			}
-			catch(NpgsqlException sqlex)
-			{
-				throw new Exception(sqlex.Message);
-			}
-			catch(Exception ex)
-			{
-				throw new Exception(ex.Message);
-			}
-		}
+			string tblName;
+			List<string> Colums=new List<string>();
 
+			tblName=table.TableName;
+			if(tblName=="") throw new Exception("Can't create table without name!");
+
+			for(int i=0; i<table.Columns.Count; i++)
+			{
+				string Column=table.Columns[i].Caption;
+
+				//Typ bestimmen
+
+				//PostgreSQL Datentyp ermitteln
+				Column+=" "+GetDBSystemDatatype(table.Columns[i].DataType.FullName);
+
+				//Primärschlüssel
+				if(table.Columns[i].Unique=true&&table.Columns[i].AllowDBNull==false)
+				{
+					Column+=" PRIMARY KEY";
+				}
+
+				if(table.Columns[i].AutoIncrement==true)
+				{
+					Column+=" AUTOINCREMENT";
+				}
+
+				Colums.Add(Column);
+			}
+
+			//SQL Kommando zusammenbauen
+			string sqlCommand="CREATE table \""+tblName+"\" (";
+			for(int i=0; i<Colums.Count; i++)
+			{
+				if(i==Colums.Count-1) sqlCommand+=" "+Colums[i];
+				else sqlCommand+=" "+Colums[i]+",";
+			}
+			sqlCommand+=")";
+
+			ExecuteNonQuery(sqlCommand);
+		}
 
 		/// <summary>
-		/// Führt eine Query aus und gibt sie zurück
+		/// Entfernt eine Tabelle aus der Datenbank
 		/// </summary>
-		/// <param name="sqlCommand"></param>
-		/// <returns></returns>
-		public override DataTable ExecuteQuery(string sqlCommand)
+		/// <param name="tblName"></param>
+		public override void RemoveTable(string tblName)
 		{
-			try
-			{
-				GC.Collect(2, GCCollectionMode.Forced);
-
-				NpgsqlCommand SQLiteCommand=new NpgsqlCommand(sqlCommand, IntlSQLiteConnection);
-
-				DataTable ret=new DataTable();
-				NpgsqlDataReader tmpDataReader=SQLiteCommand.ExecuteReader();
-				ret.Load(tmpDataReader);
-				tmpDataReader.Close();
-				return ret;
-			}
-			catch(NpgsqlException sqlex)
-			{
-				throw new Exception(sqlex.Message);
-			}
-			catch(Exception ex)
-			{
-				throw new Exception(ex.Message);
-			}
-		}
-
-		public DataTable ExecuteQuery(NpgsqlCommand sqlCommand)
-		{
-			try
-			{
-				GC.Collect(2, GCCollectionMode.Forced);
-
-				sqlCommand.Connection=IntlSQLiteConnection;
-
-				DataTable ret=new DataTable();
-				NpgsqlDataReader tmpDataReader=sqlCommand.ExecuteReader();
-				ret.Load(tmpDataReader);
-				tmpDataReader.Close();
-				return ret;
-			}
-			catch(NpgsqlException sqlex)
-			{
-				throw sqlex;
-			}
-			catch(Exception ex)
-			{
-				throw ex;
-			}
+			string sqlCommand=String.Format("drop table \"{0}\";", tblName);
+			ExecuteNonQuery(sqlCommand);
 		}
 
 		/// <summary>
@@ -568,6 +423,109 @@ namespace CSCL.Database.PostgreSQL
 			return ret;
 		}
 
+		//Sonstige Funktionen
+		/// <summary>
+		/// Gibt den Connection String zurück
+		/// </summary>
+		/// <param name="server"></param>
+		/// <param name="database"></param>
+		/// <param name="userid"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		private static string GetConnectionString(string server, string database, string userid, string password)
+		{
+			return GetConnectionString(server, 5432, database, userid, password);
+		}
+
+		/// <summary>
+		/// Gibt den Connection String zurück
+		/// </summary>
+		/// <param name="filename"></param>
+		/// <param name="pooling"></param>
+		/// <param name="UsePassword"></param>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		private static string GetConnectionString(string server, int port, string database, string userid, string password)
+		{
+			return String.Format("Server={0};Port={1};Database={2};User Id={3};Password={4};", server, port, database, userid, password);
+		}
+
+		/// <summary>
+		/// Gibt anhand des .NET Datentypes 
+		/// den Postgre Datentyp zurück
+		/// </summary>
+		/// <param name="datatype"></param>
+		/// <returns></returns>
+		public override string GetDBSystemDatatype(string datatype)
+		{
+			switch(datatype)
+			{
+				case "System.Boolean":
+					{
+						return "Boolean";
+					}
+				case "System.Int16":
+				case "System.Int32":
+				case "System.Int64":
+				case "System.UInt16":
+				case "System.UInt32":
+				case "System.UInt64":
+					{
+						return "Bigint";
+					}
+				case "System.Decimal":
+				case "System.Double":
+					{
+						return "Numeric";
+					}
+				case "System.String":
+					{
+						return "Varchar";
+					}
+				case "System.Byte[]":
+					{
+						return "Bytea";
+					}
+				default:
+					{
+						throw new Exception("Type not supported!");
+					}
+			}
+		}
+
+		/// <summary>
+		/// Gibt den DBType zurück
+		/// </summary>
+		/// <param name="datatype"></param>
+		/// <returns></returns>
+		public static NpgsqlDbType GetNpgsqlDbType(string datatype)
+		{
+			switch(datatype)
+			{
+				case "System.Boolean": return NpgsqlDbType.Boolean;
+				case "System.UInt16":
+				case "System.Int16": return NpgsqlDbType.Smallint;
+				case "System.UInt32":
+				case "System.Int32": return NpgsqlDbType.Integer;
+				case "System.UInt64":
+				case "System.Int64": return NpgsqlDbType.Bigint;
+				case "System.Decimal": return NpgsqlDbType.Numeric;
+				case "System.Double": return NpgsqlDbType.Double;
+				case "System.String": return NpgsqlDbType.Text;
+				case "System.DateTime": return NpgsqlDbType.Timestamp;
+				case "System.Byte[]": return NpgsqlDbType.Bytea;
+				case "NpgsqlTypes.NpgsqlPoint": return NpgsqlDbType.Point;
+				case "NpgsqlTypes.NpgsqlBox": return NpgsqlDbType.Box;
+				case "System.Int64[]": return NpgsqlDbType.Array|NpgsqlDbType.Bigint;
+				case "System.String[]": return NpgsqlDbType.Array|NpgsqlDbType.Text;
+				default:
+					{
+						throw new Exception("Type not supported!");
+					}
+			}
+		}
+
+		//Noch nicht sortierte Funktionen
 		public DataTable GetTableSchema(string tblName)
 		{
 			string sqlCommand=String.Format("SELECT a.attnum, a.attname AS field, t.typname AS type, "
@@ -580,7 +538,7 @@ namespace CSCL.Database.PostgreSQL
 			ret.TableName=tblName;
 			return ret;
 		}
-
+		
 		public List<string> GetTableColumns(string tblName)
 		{
 			string sqlCommand=String.Format("SELECT table_name, column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND table_name = '{0}'", tblName);
@@ -702,12 +660,11 @@ namespace CSCL.Database.PostgreSQL
 
 			return ret;
 		}
-		#endregion
 
 		#region Sonstige Funktionen
 		public bool ChangePassword(string password)
 		{
-			string sql=String.Format("ALTER USER {0} WITH PASSWORD '{1}';", UserID, password);
+			string sql=String.Format("ALTER USER {0} WITH PASSWORD '{1}';", Username, password);
 
 			try
 			{
