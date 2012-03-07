@@ -18,12 +18,13 @@ namespace Database
 
 				//Connect to MySQL Database
 				string mySQLserver="seeseekey.net";
+				int mySQLPort=3306;
 				string mySQLusername="nutzer";
 				string mySQLpassword="geheim";
 				string mySQLDbName="daten";
 
-				MySQL mySQL=new MySQL();
-				mySQL.Connect(mySQLserver, mySQLDbName, mySQLusername, mySQLpassword);
+				MySQL mySQL=new MySQL(mySQLserver, mySQLPort, mySQLDbName, mySQLusername, mySQLpassword);
+				mySQL.Connect();
 
 				//get table names
 				List<string> tables=mySQL.GetTables();
@@ -40,12 +41,13 @@ namespace Database
 
 				//Connect to PostgreSQL Database
 				string postgreSQLserver="seeseekey.net";
+				int postgreSQLPort=5432;
 				string postgreSQLusername="postgres";
 				string postgreSQLpassword="geheim";
 				string postgreSQLDbName="test";
 
-				PostgreSQL postgresql=new PostgreSQL();
-				postgresql.Connect(postgreSQLserver, postgreSQLDbName, postgreSQLusername, postgreSQLpassword);
+				PostgreSQL postgresql=new PostgreSQL(postgreSQLserver, postgreSQLPort, postgreSQLDbName, postgreSQLusername, postgreSQLpassword);
+				postgresql.Connect();
 
 				//get table names
 				List<string> tables=postgresql.GetTables();
