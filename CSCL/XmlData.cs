@@ -15,12 +15,12 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.Net;
 
 namespace CSCL
 {
@@ -135,7 +135,7 @@ namespace CSCL
 			InternalXmlDocument.InsertBefore(InternalXmlDeclaration, InternalXmlDocument.DocumentElement);
 
 			InternalFilename=filename;
-			InternalXmlDocument.XmlResolver=null;
+			//InternalXmlDocument.XmlResolver=new Resolver();
 
 			if(FileSystem.ExistsFile(filename)&&overwrite==false)
 			{
@@ -152,7 +152,6 @@ namespace CSCL
 
 			MemoryStream ms=new MemoryStream(data);
 			InternalFilename="";
-			InternalXmlDocument.XmlResolver=null;
 			InternalXmlDocument.Load(ms);
 		}
 		#endregion
@@ -258,10 +257,12 @@ namespace CSCL
 
 			if(splitted.Length>1)
 			{
-				for(int j=1; j<splitted.Length; j++)
+				for(int j=1;j<splitted.Length;j++)
 				{
-					if(j==splitted.Length-1) restPath+=splitted[j];
-					else restPath+=splitted[j]+".";
+					if(j==splitted.Length-1)
+						restPath+=splitted[j];
+					else
+						restPath+=splitted[j]+".";
 				}
 			}
 
@@ -296,21 +297,22 @@ namespace CSCL
 			{
 				return "";
 			}
-			else if(ret[0]==null)
-			{
-				return "";
-			}
 			else
-			{
-				if(ret[0].InnerText==null)
+			if(ret[0]==null)
 				{
 					return "";
 				}
 				else
 				{
-                    return ret[0].InnerText.ToString();
+					if(ret[0].InnerText==null)
+					{
+						return "";
+					}
+					else
+					{
+						return ret[0].InnerText.ToString();
+					}
 				}
-			}
 		}
 
 		/// <summary>
@@ -353,18 +355,22 @@ namespace CSCL
 		#region Sonstige Funktionen
 		public bool ExistElement(string path)
 		{
-			if(GetElements(path).Count==0) return false;
-			else if(GetElements(path).Count==1)
-			{
-				XmlNode node=GetElements(path)[0];
-
-				if(node.NodeType==XmlNodeType.XmlDeclaration)
+			if(GetElements(path).Count==0)
+				return false;
+			else
+			if(GetElements(path).Count==1)
 				{
-					return false;
+					XmlNode node=GetElements(path)[0];
+
+					if(node.NodeType==XmlNodeType.XmlDeclaration)
+					{
+						return false;
+					}
+					else
+						return true;
 				}
-				else return true;
-			}
-			else return true;
+				else
+					return true;
 		}
 
 		/// <summary>
