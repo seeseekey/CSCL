@@ -1,7 +1,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace CSCL
+namespace CSCL.Crypto
 {
     public static class SHA256
     {
