@@ -28,28 +28,52 @@ namespace CSCL.Crypto
     {
         public static class SHA1
         {
-            public static string HashStringToSHA1(string HashString)
+            public static string HashString(string HashString)
             {
                 SHA1CryptoServiceProvider SHA1 = new SHA1CryptoServiceProvider();
+                    
+                byte[] arrayData;
+                byte[] arrayResult;
+                string result = null;
+                string temp = null;
+                    
+                arrayData = System.Text.Encoding.UTF8.GetBytes(HashString);
+                arrayResult = SHA1.ComputeHash(arrayData);
 
-                byte[] textToHash = System.Text.Encoding.Default.GetBytes(HashString);
-                byte[] result = SHA1.ComputeHash(textToHash);
+                for (int i = 0; i < arrayResult.Length; i++)
+                {
+                    temp = Convert.ToString(arrayResult [i], 16);
+                    if (temp.Length == 1)
+                        temp = "0" + temp;
+                    result += temp;
+                }
 
-                return System.BitConverter.ToString(result);
+                return result;
             }
 
-            public static string HashFileToSHA1(string filename)
+            public static string HashFile(string filename)
             {
-                SHA1CryptoServiceProvider SHA1=new SHA1CryptoServiceProvider();
+                SHA1CryptoServiceProvider SHA1 = new SHA1CryptoServiceProvider();
                
                 FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
 
-                byte[] textToHash=br.ReadBytes((int)fs.Length);
+                byte[] textToHash = br.ReadBytes((int)fs.Length);
                 br.Close();
-                byte[] result=SHA1.ComputeHash(textToHash);
+                byte[] arrayResult = SHA1.ComputeHash(textToHash);
 
-                return System.BitConverter.ToString(result);
+                string result = null;
+                string temp = null;
+
+                for (int i = 0; i < arrayResult.Length; i++)
+                {
+                    temp = Convert.ToString(arrayResult [i], 16);
+                    if (temp.Length == 1)
+                        temp = "0" + temp;
+                    result += temp;
+                }
+
+                return result;
             }
         }
     }
