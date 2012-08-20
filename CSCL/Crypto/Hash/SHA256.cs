@@ -15,7 +15,7 @@ namespace CSCL.Crypto
             string result = null;
             string temp = null;
             
-            arrayData = System.Text.Encoding.UTF8.GetBytes(HashString);
+			arrayData=System.Text.Encoding.UTF8.GetBytes(HashString);
             arrayResult = SHA1.ComputeHash(arrayData);
             
             for (int i = 0; i < arrayResult.Length; i++)
