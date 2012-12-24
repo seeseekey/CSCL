@@ -49,10 +49,16 @@ namespace CSCL.Helpers
             return enc.GetString(arr);
         }
 
-		public static string ByteArrayToStringUTF8(byte[] arr)
+        public static string ByteArrayToStringUTF8(byte[] arr)
         {
-			System.Text.UTF8Encoding enc=new System.Text.UTF8Encoding();
+            System.Text.UTF8Encoding enc=new System.Text.UTF8Encoding();
             return enc.GetString(arr);
+        }
+
+        public static byte[] StringUTF8ToByteArray(string str)
+        {
+            System.Text.UTF8Encoding enc=new System.Text.UTF8Encoding();
+            return enc.GetBytes(str);
         }
 
         /// <summary>
@@ -82,27 +88,27 @@ namespace CSCL.Helpers
             return System.Convert.ToByte(intHex.ToString(), 10);
         }
 
-		public static string GetRandomString(Int64 Length)
-		{
-			System.Random rnd=new System.Random();
-			StringBuilder Temp=new StringBuilder();
-			for (Int64 i=0; i<Length; i++)
-			{
-				Temp.Append(Convert.ToChar(((byte)rnd.Next(254))).ToString());
-			}
-			return Temp.ToString();
-		}
+        public static string GetRandomString(Int64 Length)
+        {
+            System.Random rnd=new System.Random();
+            StringBuilder Temp=new StringBuilder();
+            for(Int64 i=0;i<Length;i++)
+            {
+                Temp.Append(Convert.ToChar(((byte)rnd.Next(254))).ToString());
+            }
+            return Temp.ToString();
+        }
 
-		public static string GetRandomASCIIString(Int64 Length)
-		{
-			System.Random rnd=new System.Random((int)System.DateTime.Now.Ticks);
-			StringBuilder Temp=new StringBuilder();
-			for (Int64 i=0; i<Length; i++)
-			{
-				Temp.Append(Convert.ToChar(((byte)rnd.Next(97, 121))).ToString());
-			}
-			return Temp.ToString();
-		}
+        public static string GetRandomASCIIString(Int64 Length)
+        {
+            System.Random rnd=new System.Random((int)System.DateTime.Now.Ticks);
+            StringBuilder Temp=new StringBuilder();
+            for(Int64 i=0;i<Length;i++)
+            {
+                Temp.Append(Convert.ToChar(((byte)rnd.Next(97, 121))).ToString());
+            }
+            return Temp.ToString();
+        }
 
         /// <summary>
         /// Gets the last word of the given string.
@@ -111,8 +117,8 @@ namespace CSCL.Helpers
         /// <returns>the last word of the given string</returns>
         public static string GetLastWordOfString(string token)
         {
-            string[] words = Regex.Split(token.TrimEnd(), @"[\s]");
-            return words[words.Length - 1];
+            string[] words=Regex.Split(token.TrimEnd(), @"[\s]");
+            return words[words.Length-1];
         }
 
         /// <summary>
@@ -135,18 +141,18 @@ namespace CSCL.Helpers
         /// </returns>
         public static bool IsPalindrome(string text, bool CaseSensitive)
         {
-            if (String.IsNullOrEmpty(text))
+            if(String.IsNullOrEmpty(text))
                 return false;
 
-            int textLength = text.Length - 1;
-            int halfTextLength = textLength / 2;
+            int textLength=text.Length-1;
+            int halfTextLength=textLength/2;
 
-            if (!CaseSensitive)
-                text = text.ToLower();
+            if(!CaseSensitive)
+                text=text.ToLower();
 
-            for (int i = 0; i <= halfTextLength; i++)
+            for(int i = 0;i <= halfTextLength;i++)
             {
-                if (text[i] != text[textLength])
+                if(text[i]!=text[textLength])
                     return false;
                 textLength--;
             }
@@ -160,10 +166,10 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static string ReverseString(string text)
         {
-            if (text.Length == 1 || String.IsNullOrEmpty(text))
+            if(text.Length==1||String.IsNullOrEmpty(text))
                 return text;
             else
-                return ReverseString(text.Substring(1)) + text.Substring(0, 1);
+                return ReverseString(text.Substring(1))+text.Substring(0, 1);
         }
 
         /// <summary>
@@ -173,12 +179,12 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static string AddLineNumbersToText(string text)
         {
-            StringBuilder sb = new StringBuilder();
-            string[] splitStrings = { "\r", "\r\n", "\n" };
-            string[] lines = text.Split(splitStrings, StringSplitOptions.None);
-            int lineCounter = 0;
+            StringBuilder sb=new StringBuilder();
+            string[] splitStrings={ "\r", "\r\n", "\n" };
+            string[] lines=text.Split(splitStrings, StringSplitOptions.None);
+            int lineCounter=0;
 
-            foreach (string s in lines)
+            foreach(string s in lines)
             {
                 sb.Append(lineCounter.ToString());
                 sb.Append(":\t");
@@ -202,11 +208,11 @@ namespace CSCL.Helpers
              * ausgegeben werden kann. Es wird ein Start- und Endzeichen eingef�gt und die erforderliche Pr�fsumme 
              * berechnet. */
 
-            char[] convertCharArray = textToConvert.ToCharArray();
-            char startSign = (char)204, endSign = (char)206;
-            string barcodeString = startSign.ToString();
-            int index = 1; // Multiplikator zum Berechnen der Pr�fsumme
-            int checkDigitValue = 104; // Code 128B erfordert einen Startwert von 104
+            char[] convertCharArray=textToConvert.ToCharArray();
+            char startSign=(char)204, endSign=(char)206;
+            string barcodeString=startSign.ToString();
+            int index=1; // Multiplikator zum Berechnen der Pr�fsumme
+            int checkDigitValue=104; // Code 128B erfordert einen Startwert von 104
 
             /* Inhalt des zu codierenden Strings zeichenweise wieder zum Ergebnisstring hinzuf�gen und dabei die 
              * Pr�fsumme mitberechnen. Enth�lt der zu codierende String ein Zeichen, welches sich nicht im g�ltigen
@@ -214,24 +220,24 @@ namespace CSCL.Helpers
 
             foreach(char c in convertCharArray)
             {
-                if(((int)c < 32) || ((int)c > 126))
+                if(((int)c<32)||((int)c>126))
                     return string.Empty;
 
-                barcodeString += c.ToString();
-                checkDigitValue += ((int)c - 32) * index;
+                barcodeString+=c.ToString();
+                checkDigitValue+=((int)c-32)*index;
                 ++index;
             }
 
             // Das Pr�fzeichen bei Code128B setzt sich aus dem Rest der Division durch 103 zusammen.
-            checkDigitValue = checkDigitValue % 103;
+            checkDigitValue=checkDigitValue%103;
 
-            if(checkDigitValue > 94)
-                checkDigitValue += 100;
+            if(checkDigitValue>94)
+                checkDigitValue+=100;
             else
-                checkDigitValue += 32;
+                checkDigitValue+=32;
 
             // Pr�fzeichen und Endzeichen zum Ergebnisstring hinzuf�gen
-            barcodeString += ((char)checkDigitValue).ToString() + endSign.ToString();
+            barcodeString+=((char)checkDigitValue).ToString()+endSign.ToString();
             return barcodeString;
         }
 
@@ -253,16 +259,16 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static string CutLongString(string longString, int length)
         {
-            if(longString.Trim() != string.Empty)
+            if(longString.Trim()!=string.Empty)
             {
-                if(longString.Length > length)
+                if(longString.Length>length)
                 {
-                    longString = longString.Substring(0, length);
-                    int positionLastSpace = longString.LastIndexOf(" ");
-                    if(positionLastSpace > -1 && positionLastSpace < length)
-                        longString = longString.Substring(0, positionLastSpace);
+                    longString=longString.Substring(0, length);
+                    int positionLastSpace=longString.LastIndexOf(" ");
+                    if(positionLastSpace>-1&&positionLastSpace<length)
+                        longString=longString.Substring(0, positionLastSpace);
 
-                    longString += " �";
+                    longString+=" �";
                 }
             }
             return longString;
@@ -276,7 +282,7 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static int CountStrings(string str, string regexStr)
         {
-            Regex regex = new Regex(regexStr);
+            Regex regex=new Regex(regexStr);
             return regex.Matches(str).Count;
         }
 
@@ -299,7 +305,7 @@ namespace CSCL.Helpers
         /// <returns>lines of a File</returns>
         public static int CountLines(string fileToCount)
         {
-            int counter = 0;
+            int counter=0;
             using(StreamReader countReader = new StreamReader(fileToCount))
             {
                 while(countReader.ReadLine() != null)
@@ -315,7 +321,7 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static bool IsValidAlphaNumericString(string strAlphanum)
         {
-            System.Text.RegularExpressions.Regex pattern = new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
+            System.Text.RegularExpressions.Regex pattern=new System.Text.RegularExpressions.Regex(@"^[A-Za-z0-9]+$");
             return pattern.IsMatch(strAlphanum.Trim());
         }
 
@@ -326,17 +332,17 @@ namespace CSCL.Helpers
         /// <returns>der Orginaltext ohne mehrfach vorkommende Worte</returns>
         public static string RemoveDoubleStrings(string orginaltext)
         {
-            string[] arrOriginaltext = orginaltext.Split(' ');
+            string[] arrOriginaltext=orginaltext.Split(' ');
 
-            Dictionary<string, object> dicOriginaltext = new Dictionary<string, object>();
+            Dictionary<string, object> dicOriginaltext=new Dictionary<string, object>();
 
             foreach(string wort in arrOriginaltext)
-                dicOriginaltext[wort] = true;
+                dicOriginaltext[wort]=true;
 
-            StringBuilder ret = new StringBuilder();
+            StringBuilder ret=new StringBuilder();
 
             foreach(string wort in dicOriginaltext.Keys)
-                ret.Append(wort + " ");
+                ret.Append(wort+" ");
 
             return ret.ToString();
         }
@@ -376,19 +382,19 @@ namespace CSCL.Helpers
         /// <returns></returns>
         public static string ToHexEncodedString(string s)
         {
-            System.Text.StringBuilder returnValue = new System.Text.StringBuilder();
-            System.Text.UTF8Encoding utf8 = new System.Text.UTF8Encoding();
-            string reservedChars = "_+-=.,!'()@&$";
-            char[] chr = s.ToCharArray();
-            for(int i = 0; i != chr.Length; i++)
+            System.Text.StringBuilder returnValue=new System.Text.StringBuilder();
+            System.Text.UTF8Encoding utf8=new System.Text.UTF8Encoding();
+            string reservedChars="_+-=.,!'()@&$";
+            char[] chr=s.ToCharArray();
+            for(int i = 0;i != chr.Length;i++)
             {
-                if(chr[i] <= 127 && (reservedChars.IndexOf(chr[i]) != -1 || char.IsLetterOrDigit(chr[i])))
+                if(chr[i]<=127&&(reservedChars.IndexOf(chr[i])!=-1||char.IsLetterOrDigit(chr[i])))
                     returnValue.Append(chr[i]);
                 else
                 {
-                    System.Text.StringBuilder encodedValue = new System.Text.StringBuilder();
-                    byte[] encBytes = utf8.GetBytes(chr[i].ToString());
-                    for(int j = 0; j != encBytes.Length; j++)
+                    System.Text.StringBuilder encodedValue=new System.Text.StringBuilder();
+                    byte[] encBytes=utf8.GetBytes(chr[i].ToString());
+                    for(int j = 0;j != encBytes.Length;j++)
                     {
                         encodedValue.AppendFormat("%{0}", Convert.ToString(encBytes[j], 16));
                     }
@@ -398,24 +404,24 @@ namespace CSCL.Helpers
             return returnValue.ToString();
         }
 
-		/// <summary>
-		/// Gibt einen String in Anf�hrungszeichen zur�ck
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public static string QuotedString(string input)
-		{
-			return QuotedString(input, '\"');
-		}
+        /// <summary>
+        /// Gibt einen String in Anf�hrungszeichen zur�ck
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string QuotedString(string input)
+        {
+            return QuotedString(input, '\"');
+        }
 
-		/// <summary>
-		/// Gibt einen String in Anf�hrungszeichen zur�ck
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public static string QuotedString(string input, char quotes)
-		{
-			return String.Format("{0}{1}{2}", quotes, input, quotes);
-		}
+        /// <summary>
+        /// Gibt einen String in Anf�hrungszeichen zur�ck
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string QuotedString(string input, char quotes)
+        {
+            return String.Format("{0}{1}{2}", quotes, input, quotes);
+        }
     }
 }
