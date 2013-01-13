@@ -75,19 +75,24 @@ namespace CSCL.Database.MySQL
         /// <param name="sqlCommand"></param>
         public override int ExecuteNonQuery(string sqlCommand)
         {
-            try
+            for(int i=0;i<3;i++) //Dreimal versuchen die Verbindung wieder aufzunehmen
             {
-                MySqlCommand SQLiteCommand=new MySqlCommand(sqlCommand, IntlMySQlConnection);
-                return SQLiteCommand.ExecuteNonQuery();
+                try
+                {
+                    MySqlCommand SQLiteCommand=new MySqlCommand(sqlCommand, IntlMySQlConnection);
+                    return SQLiteCommand.ExecuteNonQuery();
+                }
+                catch(MySqlException sqlex)
+                {
+                    Connect();
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
-            catch(MySqlException sqlex)
-            {
-                throw new Exception(sqlex.Message);
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
+            throw new Exception();
         }
 
         /// <summary>
@@ -97,19 +102,24 @@ namespace CSCL.Database.MySQL
         /// <returns></returns>
         private int ExecuteNonQuery(MySqlCommand sqlCommand)
         {
-            try
+            for(int i=0;i<3;i++) //Dreimal versuchen die Verbindung wieder aufzunehmen
             {
-                sqlCommand.Connection=IntlMySQlConnection;
-                return sqlCommand.ExecuteNonQuery();
+                try
+                {
+                    sqlCommand.Connection=IntlMySQlConnection;
+                    return sqlCommand.ExecuteNonQuery();
+                }
+                catch(MySqlException sqlex)
+                {
+                    Connect();
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
-            catch(MySqlException sqlex)
-            {
-                throw new Exception(sqlex.Message);
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
+            throw new Exception();
         }
 
         /// <summary>
@@ -119,20 +129,25 @@ namespace CSCL.Database.MySQL
         /// <returns></returns>
         public override DataTable ExecuteQuery(string sqlCommand)
         {
-            try
+            for(int i=0;i<3;i++) //Dreimal versuchen die Verbindung wieder aufzunehmen
             {
-                MySqlCommand command=new MySqlCommand(sqlCommand, IntlMySQlConnection);
+                try
+                {
+                    MySqlCommand command=new MySqlCommand(sqlCommand, IntlMySQlConnection);
 
-                DataTable ret=new DataTable();
-                MySqlDataReader tmpDataReader=command.ExecuteReader();
-                ret.Load(tmpDataReader);
-                tmpDataReader.Close();
-                return ret;
+                    DataTable ret=new DataTable();
+                    MySqlDataReader tmpDataReader=command.ExecuteReader();
+                    ret.Load(tmpDataReader);
+                    tmpDataReader.Close();
+                    return ret;
+                }
+                catch(MySqlException ex)
+                {
+                    Connect();
+                }
             }
-            catch(MySqlException ex)
-            {
-                throw new Exception(ex.Message);
-            }
+
+            throw new Exception();
         }
 		#endregion
 
