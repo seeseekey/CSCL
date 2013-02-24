@@ -22,41 +22,46 @@ using System.Text;
 
 namespace CSCL.Games.Manasource
 {
-	public static class Enums
-{
-		public static Elements GetElementFromString(string element)
-		{
-			switch(element.ToLower())
-			{
-				case "fire":
-					{
-						return Elements.Fire;
-					}
-				case "metal":
-					{
-						return Elements.Metal; //TODO: Existiert dieses Element?
-					}
-				case "earth":
-					{
-						return Elements.Earth;
-					}
-				case "ice":
-					{
-						return Elements.Ice;
-					}
-				default:
-					{
-						throw new NotImplementedException();
-					}
-			}
-		}
-}
+    public static class Enums
+    {
+        public static Elements GetElementFromString(string element)
+        {
+            switch(element.ToLower())
+            {
+                case "fire":
+                    {
+                        return Elements.Fire;
+                    }
+                case "metal":
+                    {
+                        return Elements.Metal; //TODO: Existiert dieses Element?
+                    }
+                case "earth":
+                    {
+                        return Elements.Earth;
+                    }
+                case "ice":
+                    {
+                        return Elements.Ice;
+                    }
+                case "neutral":
+                    {
+                        return Elements.Neutral;
+                    }
+                default:
+                    {
+                        throw new NotImplementedException();
+                    }
+            }
+        }
+    }
 
-	public enum Elements
-	{
-		Fire,
-		Earth,
-		Ice,
-		Metal
-	}
+    public enum Elements
+    {
+        Fire,
+        Earth,
+        Ice,
+        Metal,
+        Neutral
+    }
 }
