@@ -358,14 +358,21 @@ namespace CSCL.FileFormats.TMX
                 //Layerdaten
                 // Attribute werden als "<data encoding="base64" compression="gzip">" angenommen
                 string encoding=j["data"].Attributes["encoding"].Value;
-                string compression=j["data"].Attributes["compression"].Value;
+
+                string compression="uncompressed";
+
+                if(j["data"].Attributes["compression"]!=null)
+                {
+                    compression=j["data"].Attributes["compression"].Value;
+                }
 
                 if(encoding!="base64")
                 {
                     throw (new NotImplementedException("Weitere Codierungsarten sind noch nicht implementiert!"));
                 }
 
-                if(compression!="gzip")
+
+                if(compression!="uncompressed"&&compression!="gzip")
                 {
                     throw (new NotSupportedCompressionException("Weitere Kompressionsverfahren sind noch nicht implementiert!"));
                 }
@@ -376,8 +383,16 @@ namespace CSCL.FileFormats.TMX
                 layerdataBase64Compressed=layerdataBase64Compressed.Trim();
                 byte[] layerdataCompressed=CSCL.Crypto.Encoding.Base64.Decode(layerdataBase64Compressed); 
 
-                //Gzip Decodierung
-                byte[] layerdataDecompressed=gzip.Decompress(layerdataCompressed);
+                //Gzip Decodierung (wenn nötig)
+                byte[] layerdataDecompressed;
+                if(compression=="uncompressed")
+                {
+                    layerdataDecompressed=layerdataCompressed;
+                }
+                else
+                {
+                    layerdataDecompressed=gzip.Decompress(layerdataCompressed);
+                }
 
                 //Interpretieren der Codierten Daten
                 lr.data=new int[lr.width, lr.height];
