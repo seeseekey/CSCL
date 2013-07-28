@@ -1081,6 +1081,22 @@ namespace CSCL
 		//////////////////////////////////////////////////////////////////////
 		// Sonstiges
 		//////////////////////////////////////////////////////////////////////
+		public List<string> GetFilesFromParameters()
+		{
+			List<string> ret=new List<string>();
+
+			foreach(string i in GetNames())
+			{
+				if(i.StartsWith("file"))
+				{
+					ret.Add(GetString(i));
+				}
+			}
+
+			return ret;
+		}
+
+
 		// Interpretiert eine Kommandozeile und schreibt die Werte in diese Parameterstruktur.
 		// z.B. "-verbose -InFile:C:\hfjkhd.txt -OutFile:c:\dfsfk.out"
 		#region InterpretCommandLine
