@@ -201,6 +201,29 @@ namespace CSCL.Network
 			client.Send(test_message);
 		}
 
+		public static void SendMailMessageWithAuthAndAttachment(string SMTPServer, string SMTPUsername, string SMTPPassword, string fromAddress, string fromName, string toAddress, string toName, string msgSubject, string msgBody, string attachmentFilename)
+		{
+			MailMessage test_message=new MailMessage();
+			MailAddress test_adress=new MailAddress(fromAddress);
+
+			test_message.To.Add(toAddress);
+			test_message.From=test_adress;
+			test_message.Subject=msgSubject;
+			test_message.Body=msgBody;
+
+			test_message.Attachments.Add(new Attachment(attachmentFilename));
+
+			string host=SMTPServer;
+			int port=25;
+
+			SmtpClient client=new SmtpClient(host, port);
+
+			System.Net.NetworkCredential nc=new System.Net.NetworkCredential(SMTPUsername, SMTPPassword);
+			client.Credentials=nc;
+
+			client.Send(test_message);
+		}
+
 		public static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
 		{
 			String token=(string)e.UserState;
