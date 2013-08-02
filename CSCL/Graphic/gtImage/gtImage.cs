@@ -43,7 +43,7 @@ namespace CSCL.Graphic
 		public enum Format
 		{
 			GRAY=0,
-			GRAY_Alpha=1,
+			GRAYAlpha=1,
 			RGB=2,
 			RGBA=3,
 			BGR=4,
@@ -158,7 +158,7 @@ namespace CSCL.Graphic
 						int col=imageData[pos];
 						return Color.FromArgb(col, col, col);
 					}
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					{
 						int col=imageData[pos];
 						return Color.FromArgb(imageData[pos+1], col, col, col);
@@ -220,7 +220,7 @@ namespace CSCL.Graphic
 						imageData[pos]=color.R;
 						break;
 					}
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					{
 						imageData[pos]=color.R;
 						imageData[pos+1]=color.A;
@@ -346,7 +346,7 @@ namespace CSCL.Graphic
 			{
 				case Format.GRAY:
 					intern=ConvertToRGB(); break;
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					intern=ConvertToRGBA(); break;
 				case Format.RGB:
 					intern=ConvertToRGB(); break;
@@ -527,7 +527,7 @@ namespace CSCL.Graphic
 					ret.imageData[i+3]=imageData[i+3];
 				}
 			}
-			else if(channelFormat==Format.GRAY_Alpha)
+			else if(channelFormat==Format.GRAYAlpha)
 			{
 				for(uint i=0; i<count; i+=2)
 				{
@@ -545,7 +545,7 @@ namespace CSCL.Graphic
 		/// <returns></returns>
 		public gtImage InvertAlpha()
 		{
-			if (channelFormat!=Format.RGBA&&channelFormat!=Format.BGRA&&channelFormat!=Format.GRAY_Alpha) return this;
+			if (channelFormat!=Format.RGBA&&channelFormat!=Format.BGRA&&channelFormat!=Format.GRAYAlpha) return this;
 
 			gtImage ret=new gtImage(width, height, channelFormat);
 			if (ret.imageData==null) return ret;
@@ -561,7 +561,7 @@ namespace CSCL.Graphic
 					ret.imageData[i+3]=(byte)(255-imageData[i+3]);
 				}
 			}
-			else if (channelFormat==Format.GRAY_Alpha)
+			else if (channelFormat==Format.GRAYAlpha)
 			{
 				for (uint i=0; i<count; i+=2)
 				{

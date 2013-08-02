@@ -423,7 +423,7 @@ namespace CSCL.Graphic
 				switch(bpp_)
 				{
 					case 1: ret.channelFormat=Format.GRAY; break;
-					case 2: ret.channelFormat=Format.GRAY_Alpha; break;
+					case 2: ret.channelFormat=Format.GRAYAlpha; break;
 					case 3: ret.channelFormat=Format.RGB; break;
 					case 4: ret.channelFormat=Format.RGBA; break;
 					default: ret.channelFormat=Format.GRAY; break;

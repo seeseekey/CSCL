@@ -39,7 +39,7 @@ namespace CSCL.Graphic
 
 			switch(channelFormat)
 			{
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					{
 						for(uint i=0; i<count; i++) { dst[ind++]=src[inds++]; inds++; }
 						break;
@@ -71,8 +71,8 @@ namespace CSCL.Graphic
 
 		public gtImage ConvertToGrayAlpha()
 		{
-			if(channelFormat==Format.GRAY_Alpha) return this;
-			gtImage ret=new gtImage(width, height, Format.GRAY_Alpha);
+			if(channelFormat==Format.GRAYAlpha) return this;
+			gtImage ret=new gtImage(width, height, Format.GRAYAlpha);
 			if(ret.imageData==null) return ret;
 
 			uint count=width*height;
@@ -127,7 +127,7 @@ namespace CSCL.Graphic
 				case Format.GRAY:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; }
 					break;
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; inds++; }
 					break;
 				case Format.BGR:
@@ -159,7 +159,7 @@ namespace CSCL.Graphic
 				case Format.GRAY:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; dst[ind++]=255; }
 					break;
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; dst[ind++]=src[inds++]; }
 					break;
 				case Format.BGR:
@@ -191,7 +191,7 @@ namespace CSCL.Graphic
 				case Format.GRAY:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; }
 					break;
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; inds++; }
 					break;
 				case Format.RGB:
@@ -223,7 +223,7 @@ namespace CSCL.Graphic
 				case Format.GRAY:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; dst[ind++]=255; }
 					break;
-				case Format.GRAY_Alpha:
+				case Format.GRAYAlpha:
 					for(uint i=0; i<count; i++) { byte g=src[inds++]; dst[ind++]=g; dst[ind++]=g; dst[ind++]=g; dst[ind++]=src[inds++]; }
 					break;
 				case Format.RGB:
@@ -244,7 +244,7 @@ namespace CSCL.Graphic
 			switch(trgformat)
 			{
 				case Format.GRAY: return ConvertToGray();
-				case Format.GRAY_Alpha: return ConvertToGrayAlpha();
+				case Format.GRAYAlpha: return ConvertToGrayAlpha();
 				case Format.RGB: return ConvertToRGB();
 				case Format.RGBA: return ConvertToRGBA();
 				case Format.BGR: return ConvertToBGR();

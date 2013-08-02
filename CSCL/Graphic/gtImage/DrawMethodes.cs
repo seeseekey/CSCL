@@ -80,7 +80,7 @@ namespace CSCL.Graphic
 			switch(channelFormat)
 			{
 				case Format.GRAY: srcimg=source.ConvertToGrayAlpha(); break;
-				case Format.GRAY_Alpha: srcimg=source.ConvertToGrayAlpha(); break;
+				case Format.GRAYAlpha: srcimg=source.ConvertToGrayAlpha(); break;
 				case Format.RGB: srcimg=source.ConvertToRGBA(); break;
 				case Format.RGBA: srcimg=source.ConvertToRGBA(); break;
 				case Format.BGR: srcimg=source.ConvertToBGRA(); break;
@@ -295,7 +295,7 @@ namespace CSCL.Graphic
 							*dst++=a;
 						}
 					}
-					else if(channelFormat==Format.GRAY_Alpha)
+					else if(channelFormat==Format.GRAYAlpha)
 					{
 						byte g=color.R;
 						byte a=color.A;
@@ -464,40 +464,6 @@ namespace CSCL.Graphic
 		{
 			Line(xstart, ystart, xend, yend, Color.FromArgb(alpha, r, g, b));
 		}
-
-		//public void PolyLine(Tuple2iList points, Color color)
-		//{
-		//    for(int i=0; i<points.Count-1; i++)
-		//    {
-		//        Line(points[i].x, points[i].y, points[i+1].x, points[i+1].y, color);
-		//    }
-		//}
-
-		//public void PolyLine(Tuple2iList points, byte r, byte g, byte b)
-		//{
-		//    PolyLine(points, Color.FromArgb(r, g, b));
-		//}
-
-		//public void PolyLine(Tuple2iList points, byte alpha, byte r, byte g, byte b)
-		//{
-		//    PolyLine(points, Color.FromArgb(alpha, r, g, b));
-		//}
-
-		//public void Polygon(Tuple2iList points, Color color)
-		//{
-		//    PolyLine(points, color);
-		//    Line(points[points.Count-1].x, points[points.Count-1].y, points[0].x, points[0].y, color);
-		//}
-
-		//public void Polygon(Tuple2iList points, byte r, byte g, byte b)
-		//{
-		//    Polygon(points, Color.FromArgb(r, g, b));
-		//}
-
-		//public void Polygon(Tuple2iList points, byte alpha, byte r, byte g, byte b)
-		//{
-		//    Polygon(points, Color.FromArgb(alpha, r, g, b));
-		//}
 		#endregion
 
 		#region Rect & RectFilled
@@ -626,7 +592,7 @@ namespace CSCL.Graphic
 							}
 						}
 					}
-					else if(channelFormat==Format.GRAY_Alpha)
+					else if(channelFormat==Format.GRAYAlpha)
 					{
 						byte g=color.R;
 						byte a=color.A;
@@ -644,12 +610,6 @@ namespace CSCL.Graphic
 					}
 				}
 			}
-
-			//pImage tmpImage=pImage.GenImage(w, h, pImage.Format.RGBA);
-			//tmpImage.SetPixel(0, 0, color);
-			//tmpImage.Fill(color);
-			//tmpImage=tmpImage.NearestPixelResize(w, h);
-			//Draw(x, y, tmpImage);
 		}
 
 		public void RectFilled(int x, int y, uint w, uint h, byte r, byte g, byte b)

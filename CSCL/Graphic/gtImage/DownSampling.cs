@@ -195,7 +195,7 @@ namespace CSCL.Graphic
 				return ret;
 			}
 
-			if(channelFormat==Format.GRAY_Alpha)
+			if(channelFormat==Format.GRAYAlpha)
 			{
 				gtImage ret=new gtImage(width, h, channelFormat);
 				if(ret.imageData==null) return ret;
@@ -331,7 +331,7 @@ namespace CSCL.Graphic
 				return ret;
 			}
 
-			if(channelFormat==Format.GRAY_Alpha)
+			if(channelFormat==Format.GRAYAlpha)
 			{
 				gtImage ret=new gtImage(w, height, channelFormat);
 				if(ret.imageData==null) return ret;
@@ -559,7 +559,7 @@ namespace CSCL.Graphic
 				return ret;
 			}
 
-			if(channelFormat==Format.GRAY_Alpha)
+			if(channelFormat==Format.GRAYAlpha)
 			{
 				gtImage ret=new gtImage(width, h, channelFormat);
 				if(ret.imageData==null) return ret;
@@ -783,7 +783,7 @@ namespace CSCL.Graphic
 				return ret;
 			}
 
-			if(channelFormat==Format.GRAY_Alpha)
+			if(channelFormat==Format.GRAYAlpha)
 			{
 				gtImage ret=new gtImage(w, height, channelFormat);
 				if(ret.imageData==null) return ret;

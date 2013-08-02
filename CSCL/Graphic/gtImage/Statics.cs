@@ -31,7 +31,7 @@ namespace CSCL.Graphic
 			{
 				default: return 1;
 				case Format.GRAY: return 1;
-				case Format.GRAY_Alpha: return 2;
+				case Format.GRAYAlpha: return 2;
 				case Format.RGB: return 3;
 				case Format.BGR: return 3;
 				case Format.RGBA: return 4;
@@ -52,7 +52,7 @@ namespace CSCL.Graphic
 			{
 				default: return "Gray";
 				case Format.GRAY: return "Gray";
-				case Format.GRAY_Alpha: return "GrayAlpha";
+				case Format.GRAYAlpha: return "GrayAlpha";
 				case Format.RGB: return "RGB";
 				case Format.BGR: return "BGR";
 				case Format.RGBA: return "RGBA";

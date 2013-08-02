@@ -41,7 +41,7 @@ namespace CSCL.Graphic
 			if(channelFormat==Format.BGRA) return ConvertToRGBA().SaveToTGA(pathfilename);
 
 			bool isRGB=(channelFormat==Format.BGR||channelFormat==Format.RGB||channelFormat==Format.BGRA||channelFormat==Format.RGBA);
-			bool isAlpha=(channelFormat==Format.BGRA||channelFormat==Format.RGBA||channelFormat==Format.GRAY_Alpha);
+			bool isAlpha=(channelFormat==Format.BGRA||channelFormat==Format.RGBA||channelFormat==Format.GRAYAlpha);
 
 			ulong size=(ulong)(18+((isRGB)?(isAlpha?4:3):(isAlpha?2:1))*width*height);	// Länge der Daten
 			if(size>0xFFFFFFFF) return 4;		// Übertrieben groß
