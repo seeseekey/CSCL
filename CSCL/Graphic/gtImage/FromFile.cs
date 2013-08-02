@@ -29,66 +29,56 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-        /////////////////////////////////////////////////////////////////
-        // Eigenschaften
-        /////////////////////////////////////////////////////////////////
-        public static string FromFileFilter
-        {
-            get
-            {
-                return "Alle Dateien|*.png;*.jpg;*.jpeg;*.jpe;*.jif;*.jfi;*.jfif;*.psi;*.pmi;*.ljpg;*.tga;*.bmp;*.dib;"
-                +"|PNG Dateien|*.png"
-                +"|JPEG Dateien|*.jpg;*.jpeg;*.jpe;*.jif;*.jfi;*.jfif;*.psi;*.pmi"
-                +"|TGA Dateien|*.tga"
-                +"|BMP Dateien|*.bmp"
-                +"|DIB Dateien|*.dib";
-            }
-        }
+		public static string FromFileFilter
+		{
+			get
+			{
+				return "Alle Dateien|*.png;*.jpg;*.jpeg;*.jpe;*.jif;*.jfi;*.jfif;*.psi;*.pmi;*.ljpg;*.tga;*.bmp;*.dib;"
+				+"|PNG Dateien|*.png"
+				+"|JPEG Dateien|*.jpg;*.jpeg;*.jpe;*.jif;*.jfi;*.jfif;*.psi;*.pmi"
+				+"|TGA Dateien|*.tga"
+				+"|BMP Dateien|*.bmp"
+				+"|DIB Dateien|*.dib";
+			}
+		}
 
-        public static List<string> FromFileFilterList
-        {
-            get
-            {
-                List<string> ret=new List<string>();
+		public static List<string> FromFileFilterList
+		{
+			get
+			{
+				List<string> ret=new List<string>();
 
-                ret.Add("png");
-                ret.Add("jpg");
-                ret.Add("jpeg");
-                ret.Add("jpe");
-                ret.Add("jif");
-                ret.Add("jfi");
-                ret.Add("jfif");
-                ret.Add("psi");
-                ret.Add("pmi");
-                ret.Add("ljpg");
-                ret.Add("tga");
-                ret.Add("bmp");
-                ret.Add("dib");
-                return ret;
-            }
-        }
+				ret.Add("png");
+				ret.Add("jpg");
+				ret.Add("jpeg");
+				ret.Add("jpe");
+				ret.Add("jif");
+				ret.Add("jfi");
+				ret.Add("jfif");
+				ret.Add("psi");
+				ret.Add("pmi");
+				ret.Add("ljpg");
+				ret.Add("tga");
+				ret.Add("bmp");
+				ret.Add("dib");
+				return ret;
+			}
+		}
 
-		/////////////////////////////////////////////////////////////////
-		// FromFile
-		/////////////////////////////////////////////////////////////////
 		#region FromFile
 		public static gtImage FromFile(string filename)
 		{
-				if(filename.Length<5) return null;
+			if(filename.Length<5) return null;
 
-				string ext=FileSystem.GetExtension(filename).ToLower();
+			string ext=FileSystem.GetExtension(filename).ToLower();
 
-				if(ext=="tga") return FromTGAFile(filename);
-				if(ext=="bmp") return FromBMPFile(filename);
-				if(ext=="bw") return FromBWFile(filename);
+			if(ext=="tga") return FromTGAFile(filename);
+			if(ext=="bmp") return FromBMPFile(filename);
 
-				return FromGDIFile(filename);
+			return FromGDIFile(filename);
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// FromTGAFile
-		/////////////////////////////////////////////////////////////////
 		#region FromTGAFile
 		public static gtImage FromTGAFile(string filename)
 		{
@@ -451,9 +441,6 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// FromBMPFile
-		/////////////////////////////////////////////////////////////////
 		#region FromBMPFile
 		enum BMPBiCompression { BI_RGB=0, BI_RLE8=1, BI_RLE4=2, BI_BITFIELDS=3, BI_JPEG=4, BI_PNG=5, BI_ALPHABITFIELDS=6 }
 
@@ -610,7 +597,7 @@ namespace CSCL.Graphic
 					if(biBitCount==32&&bmRed==0xFF0000&&bmGreen==0xFF00&&bmBlue==0xFF&&bmAlpha==0xFF000000) biCompression=BMPBiCompression.BI_RGB;
 				}
 
-                int absHeight=System.Math.Abs(biHeight);
+				int absHeight=System.Math.Abs(biHeight);
 				#endregion
 
 				#region pImage anlegen
@@ -1454,60 +1441,6 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// FromBWFile
-		/////////////////////////////////////////////////////////////////
-		#region FromBWFile
-		public static gtImage FromBWFile(string filename)
-		{
-			// A bw file contains sequences of pixels. Each pixel is
-			// stored as one unsigned char, and thus ranges in intensity
-			// from 0 (black) to 255 (white). The first pixel in a bw file
-			// is the lower left corner of the image. The pixels proceed
-			// from left-to-right across each scanline, with scanlines
-			// being written from the bottom to the top of the image.
-
-			// By convention, bw images are usually square, and thus their
-			// dimensions can be determined by the file size. If this is
-			// not the case, often only the file width need be known by a
-			// program reading the file. History has left us with two
-			// "standard" sizes, 512x512 and the "hires" 1024x1024. A com-
-			// mon practice for other file sizes is to include the file
-			// width in the filename.
-
-			// At some time in the future bw files will probably get self-
-			// typing headers so that parameters such as their size can be
-			// automatically determined by programs.
-
-			// Datei öffnen
-			BinaryReader fileReader=new BinaryReader(File.OpenRead(filename));
-
-			try
-			{
-                uint ImageDim=(uint)System.Math.Sqrt(fileReader.BaseStream.Length);
-				uint bwWidth=ImageDim;
-				uint bwHeight=ImageDim;
-
-				gtImage ret=new gtImage(bwWidth, bwHeight, gtImage.Format.GRAY);
-
-				fileReader.Read(ret.imageData, 0, (int)fileReader.BaseStream.Length);
-
-				return ret.ToFlippedHorizontal();
-			}
-			catch(Exception)
-			{
-				return new gtImage();
-			}
-			finally
-			{
-				fileReader.Close();
-			}
-		}
-		#endregion
-
-		/////////////////////////////////////////////////////////////////
-		// FromGDIFile (BMP, DIB, JPG, GIF, PNG)
-		/////////////////////////////////////////////////////////////////
 		#region FromGDIFile
 		public static gtImage FromGDIFile(string filename)
 		{

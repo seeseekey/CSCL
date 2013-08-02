@@ -29,9 +29,6 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-		/////////////////////////////////////////////////////////////////
-		// FromStream (BMP, DIB, JPG, GIF, PNG)
-		/////////////////////////////////////////////////////////////////
 		#region FromStream
 		public static gtImage FromStream(Stream stream)
 		{
