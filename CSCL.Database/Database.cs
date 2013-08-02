@@ -78,8 +78,7 @@ namespace CSCL.Database
         public bool ExistsTable(string tblName)
         {
             List<string> tables=GetTables();
-            if(tables.IndexOf(tblName)==-1)
-                return false;
+            if(tables.IndexOf(tblName)==-1) return false;
             return true;
         }
 

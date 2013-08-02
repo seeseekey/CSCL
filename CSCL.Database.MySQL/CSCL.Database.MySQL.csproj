@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,7 +47,7 @@
       <Project>{9E75C324-52EC-4C26-B307-523082BE43EE}</Project>
       <Name>CSCL.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External\mysql-connector-net\Source\MySql.Data\MySql.Data.csproj">
+    <ProjectReference Include="..\External\MySql.Data\MySql.Data.csproj">
       <Project>{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}</Project>
       <Name>MySql.Data</Name>
     </ProjectReference>
