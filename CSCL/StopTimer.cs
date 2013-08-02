@@ -27,36 +27,25 @@ namespace CSCL
     /// </summary>
     public class StopTimer
     {
-        //TODO: Pause und Resume implementieren
-
-        enum TimerState
-        {
-            enStop,
-            enStart,
-            enPause,
-            enResume
-        }
-
-        TimerState InternalTimerState = TimerState.enStop;
-
-        Int64 StartTime;
-        Int64 StopTime;
+        StopTimerState timerState = StopTimerState.enStop;
+        Int64 startTime;
+        Int64 stopTime;
 
         public void Start()
         {
-            if(InternalTimerState == TimerState.enStart)
+            if(timerState == StopTimerState.enStart)
             {
                 throw new Exception("Timer is already started!");
             }
 
-            StartTime = DateTime.Now.Ticks;
-            InternalTimerState = TimerState.enStart;
+            startTime = DateTime.Now.Ticks;
+            timerState = StopTimerState.enStart;
         }
 
         public void Stop()
         {
-            StopTime = DateTime.Now.Ticks;
-            InternalTimerState = TimerState.enStop;
+            stopTime = DateTime.Now.Ticks;
+            timerState = StopTimerState.enStop;
         }
 
         #region Eigenschaften
@@ -64,15 +53,15 @@ namespace CSCL
         {
             get
             {
-                switch(InternalTimerState)
+                switch(timerState)
                 {
-                    case TimerState.enStart:
+                    case StopTimerState.enStart:
                         {
-                            return DateTime.Now.Ticks - StartTime;
+                            return DateTime.Now.Ticks - startTime;
                         }
-                    case TimerState.enStop:
+                    case StopTimerState.enStop:
                         {
-                            return DateTime.Now.Ticks - StartTime;
+                            return DateTime.Now.Ticks - startTime;
                         }
                     default:
                         {

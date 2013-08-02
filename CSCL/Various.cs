@@ -28,10 +28,9 @@ namespace CSCL
 	/// </summary>
 	public static class Various
 	{
-		static System.Random TmpRandom=new System.Random(Environment.TickCount);
-		static System.Random TmpRandom2=new System.Random((int)Environment.WorkingSet);
-
-		static uint TmpCounter=0;
+		static System.Random rndOne=new System.Random(Environment.TickCount);
+		static System.Random rndTwo=new System.Random((int)Environment.WorkingSet);
+		static uint counter=0;
 
 		/// <summary>
 		/// Diese Funtion liefert eine eindeutige ID zur�ck
@@ -39,18 +38,18 @@ namespace CSCL
 		/// <returns></returns>
 		public static string GetUniqueID()
 		{
-			if(TmpCounter>4294967200) TmpCounter=0;
-			TmpCounter++;
+			if(counter>4294967200) counter=0;
+			counter++;
 
-			DateTime TmpDateTime=DateTime.Now;
+			DateTime now=DateTime.Now;
 
-			return TmpDateTime.Ticks.ToString().PadLeft(20, '0')
+			return now.Ticks.ToString().PadLeft(20, '0')
 				+"-"
-				+TmpCounter.ToString().PadLeft(10, '0')
+				+counter.ToString().PadLeft(10, '0')
 				+"-"
-				+TmpRandom2.Next(999999999).ToString().PadLeft(9, '0')
+				+rndTwo.Next(999999999).ToString().PadLeft(9, '0')
 				+"-"
-				+TmpRandom.Next(999999999).ToString().PadLeft(9, '0');
+				+rndOne.Next(999999999).ToString().PadLeft(9, '0');
 		}
 
 		/// <summary>

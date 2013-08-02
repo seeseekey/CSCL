@@ -99,6 +99,7 @@
     <Compile Include="Games\Manasource\Sequence.cs" />
     <Compile Include="Games\Manasource\Sprite.cs" />
     <Compile Include="Graphic\gtImage\ToAscii.cs" />
+    <Compile Include="Helpers\CommandLineHelpers.cs" />
     <Compile Include="Helpers\DatatableHelpers.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExceptionHandler.cs">
@@ -170,12 +171,12 @@
     <Compile Include="Network\SMTP.cs" />
     <Compile Include="Helpers\ProcessHelpers.cs" />
     <Compile Include="Pair.cs" />
-    <Compile Include="Parameters.cs" />
     <Compile Include="Progress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\RandomHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.Tokenizer.cs" />
     <Compile Include="StopTimer.cs" />
+    <Compile Include="StopTimerState.cs" />
     <Compile Include="Various.cs" />
     <Compile Include="XmlData.cs" />
     <Compile Include="Crypto\Hash\SHA256.cs" />
