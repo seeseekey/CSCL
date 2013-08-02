@@ -26,8 +26,8 @@ using System.IO;
 using System.IO.Compression;
 using CSCL.Crypto;
 using CSCL.Compression;
-using CSCL.Graphic;
 using CSCL.Exceptions;
+using CSCL.Imaging;
 
 namespace CSCL.FileFormats.TMX
 {
@@ -38,7 +38,7 @@ namespace CSCL.FileFormats.TMX
     /// </summary>
     public class TMX
     {
-        static gtImage.PooledLoader pooledLoader=new gtImage.PooledLoader(100);
+        static Graphic.PooledLoader pooledLoader=new Graphic.PooledLoader(100);
 
 		#region Datenstrukturen
         public class Tile
@@ -65,7 +65,7 @@ namespace CSCL.FileFormats.TMX
             public int tileheight;
 
             public string imgsource;
-            public gtImage img;
+            public Graphic img;
 
             public List<Tile> Tiles;
 
@@ -442,7 +442,7 @@ namespace CSCL.FileFormats.TMX
             return ret;
         }
 
-        public gtImage GetTile(int number)
+        public Graphic GetTile(int number)
         {
             TilesetData ts=GetTileset(number);
             int tilesetNumber=number-ts.firstgid;
@@ -461,7 +461,7 @@ namespace CSCL.FileFormats.TMX
             }
             catch
             {
-                return new gtImage((uint)ts.tilewidth, (uint)ts.tileheight, gtImage.Format.RGBA);
+                return new Graphic((uint)ts.tilewidth, (uint)ts.tileheight, Format.RGBA);
             }
         }
 
@@ -613,24 +613,24 @@ namespace CSCL.FileFormats.TMX
             return layerdataEncoded;
         }
 
-        public gtImage Render()
+        public Graphic Render()
         {
             return Render(Width*TileWidth, Height*TileHeight);
         }
 
-        public gtImage Render(string onlyLayer)
+        public Graphic Render(string onlyLayer)
         {
             return Render(Width*TileWidth, Height*TileHeight, onlyLayer);
         }
 
-        private gtImage Render(int width, int height)
+        private Graphic Render(int width, int height)
         {
             return Render(width, height, "");
         }
 
-        private gtImage Render(int width, int height, string onlyLayer)
+        private Graphic Render(int width, int height, string onlyLayer)
         {
-            gtImage ret=new gtImage((uint)width, (uint)height, gtImage.Format.RGBA);
+            Graphic ret=new Graphic((uint)width, (uint)height, Format.RGBA);
             ret=ret.InvertAlpha();
 
             foreach(LayerData i in Layers)
@@ -654,7 +654,7 @@ namespace CSCL.FileFormats.TMX
                         int number=i.data[x, y];
                         if(number<=0)
                             continue; //Kein Tile zugewiesen //TODO was genau meint eine Zahl kleiner 0 genau
-                        gtImage Tile=GetTile(number);
+                        Graphic Tile=GetTile(number);
 
                         //Korrekturfaktor für Tiles welche breiter bzw. 
                         //höher sind als normal

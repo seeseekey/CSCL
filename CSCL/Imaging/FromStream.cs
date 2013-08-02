@@ -1,0 +1,91 @@
+//
+//  FromStream.cs
+//
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using CSCL;
+
+namespace CSCL.Imaging
+{
+	public partial class Graphic
+	{
+		#region FromStream
+		public static Graphic FromStream(Stream stream)
+		{
+			Image img=Image.FromStream(stream);
+			uint width=(uint)img.Size.Width;
+			uint height=(uint)img.Size.Height;
+
+			Graphic ret=null;
+
+			if ((img.PixelFormat&PixelFormat.Alpha)==PixelFormat.Alpha)
+			{
+				ret=new Graphic(width, height, Format.RGBA);
+
+				Bitmap bmp=new Bitmap(img);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+				Marshal.Copy(data.Scan0, ret.imageData, 0, (int)(width*height*4));
+				bmp.UnlockBits(data);
+			}
+			else
+			{
+				ret=new Graphic(width, height, Format.RGB);
+
+				Bitmap bmp=new Bitmap(img);
+				BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+				if (((int)width*3)==data.Stride)
+				{
+					Marshal.Copy(data.Scan0, ret.imageData, 0, (int)(width*height*3));
+				}
+				else
+				{
+					if (IntPtr.Size==4)
+					{
+						for (uint i=0; i<height; i++)
+						{
+							Marshal.Copy((IntPtr)(data.Scan0.ToInt32()+(int)(i*data.Stride)), ret.imageData, (int)(width*3*i), (int)(width*3));
+						}
+					}
+					else if (IntPtr.Size==8)
+					{
+						for (uint i=0; i<height; i++)
+						{
+							Marshal.Copy((IntPtr)(data.Scan0.ToInt64()+(long)(i*data.Stride)), ret.imageData, (int)(width*3*i), (int)(width*3));
+						}
+					}
+				}
+
+				bmp.UnlockBits(data);
+				data=null;
+				bmp.Dispose();
+				bmp=null;
+			}
+
+			img.Dispose();
+			img=null;
+
+			return ret;
+		}
+		#endregion
+	}
+}

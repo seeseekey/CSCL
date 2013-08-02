@@ -20,31 +20,31 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSCL.Graphic
+namespace CSCL.Imaging
 {
-	public partial class gtImage
+	public partial class Graphic
 	{
 		public class PooledLoader
 		{
 			int maxImages;
-			Dictionary<string, gtImage> imgPool;
+			Dictionary<string, Graphic> imgPool;
 			List<string> imgLoadOrder;
 
 			public PooledLoader()
 			{
 				maxImages=20;
-				imgPool=new Dictionary<string, gtImage>();
+				imgPool=new Dictionary<string, Graphic>();
 				imgLoadOrder=new List<string>();
 			}
 
 			public PooledLoader(uint mxi)
 			{
 				maxImages=(int)mxi;
-				imgPool=new Dictionary<string, gtImage>();
+				imgPool=new Dictionary<string, Graphic>();
 				imgLoadOrder=new List<string>();
 			}
 
-			public gtImage FromFile(string filename)
+			public Graphic FromFile(string filename)
 			{
 				if (imgPool.ContainsKey(filename))
 				{
@@ -60,7 +60,7 @@ namespace CSCL.Graphic
 					imgPool.Remove(del);
 				}
 
-				gtImage ret=gtImage.FromFile(filename);
+				Graphic ret=Graphic.FromFile(filename);
 				imgPool.Add(filename, ret);
 				imgLoadOrder.Add(filename);
 
