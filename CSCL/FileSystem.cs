@@ -23,10 +23,11 @@ using System.Collections.Generic;
 namespace CSCL
 {
     /// <summary>
-    /// Klasse f�r Filesystem Operationen
+    /// Class for file systems operations
     /// </summary>
     public class FileSystem
-    {
+	{
+		#region Statische Variablen
 		static char pathDelimiter=System.IO.Path.DirectorySeparatorChar;
 
 		public static char PathDelimiter
@@ -37,14 +38,6 @@ namespace CSCL
 			}
 		}
 
-		public static DateTime GetFileDateTime(string filename)
-		{
-			if(!IsFile(filename)) throw new FileNotFoundException("", filename);
-			FileInfo fi=new FileInfo(filename);
-			return fi.LastWriteTime;
-		}
-
-        #region Statische Variablen
         /// <summary>
         /// Feld nicht erlaubter Zeichen im Dateinamen
         /// </summary>
@@ -656,6 +649,13 @@ namespace CSCL
 			{
 				return null;
 			}
+		}
+
+		public static DateTime GetFileDateTime(string filename)
+		{
+			if(!IsFile(filename)) throw new FileNotFoundException("", filename);
+			FileInfo fi=new FileInfo(filename);
+			return fi.LastWriteTime;
 		}
         #endregion
 

@@ -29,9 +29,6 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-		/////////////////////////////////////////////////////////////////
-		// SaveToTGA
-		/////////////////////////////////////////////////////////////////
 		#region SaveToTGA
 		public int SaveToTGA(string pathfilename)
 		{
@@ -78,9 +75,6 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// SaveToJpeg
-		/////////////////////////////////////////////////////////////////
 		#region SaveToJpeg
 		public void SaveToJpeg(string filename)
 		{
@@ -236,14 +230,11 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// SaveToTiff
-		/////////////////////////////////////////////////////////////////
-		#region Save To Tiff
-		public void SaveToTiffGDI(string filename)
+		#region SaveToTiff
+		public void SaveToTiff(string filename)
 		{
-			if(channelFormat==Format.BGR) {ConvertToRGB().SaveToTiffGDI(filename); return; }
-			if(channelFormat==Format.BGRA) { ConvertToRGBA().SaveToTiffGDI(filename); return; }
+			if(channelFormat==Format.BGR) {ConvertToRGB().SaveToTiff(filename); return; }
+			if(channelFormat==Format.BGRA) { ConvertToRGBA().SaveToTiff(filename); return; }
 
 			if(channelFormat!=Format.RGB&&channelFormat!=Format.RGBA) // nur RGB(A) Bilder bitte
 				throw new Exception("Only rgb(a) images can be saved by SaveToTiff.");
@@ -298,9 +289,6 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// SaveToBMP
-		/////////////////////////////////////////////////////////////////
 		#region SaveToBMP
 		public void SaveToBMP(string filename)
 		{
@@ -349,53 +337,11 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		#region SaveToBMPGDI
-		public void SaveToBMPGDI(string filename)
+		#region SaveToPNG
+		public void SaveToPNG(string filename)
 		{
-			if(channelFormat!=Format.RGB) // nur RGB Bilder bitte
-				throw new Exception("Only rgb images can be saved by SaveToBMP.");
-
-			Bitmap bmp=new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
-			BitmapData data=bmp.LockBits(new Rectangle(0, 0, (int)width, (int)height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-			if(((int)width*3)==data.Stride)
-			{
-				Marshal.Copy(imageData, 0, data.Scan0, (int)(width*height*3));
-			}
-			else
-			{
-				if(IntPtr.Size==4)
-				{
-					for(uint i=0; i<height; i++)
-					{
-						Marshal.Copy(imageData, (int)(width*3*i), (IntPtr)(data.Scan0.ToInt32()+(int)(i*data.Stride)), (int)(width*3));
-					}
-				}
-				else if(IntPtr.Size==8)
-				{
-					for(uint i=0; i<height; i++)
-					{
-						Marshal.Copy(imageData, (int)(width*3*i), (IntPtr)(data.Scan0.ToInt64()+(long)(i*data.Stride)), (int)(width*3));
-					}
-				}
-			}
-			bmp.UnlockBits(data);
-			data=null;
-
-			bmp.Save(filename, ImageFormat.Bmp);
-			bmp.Dispose();
-			bmp=null;
-		}
-		#endregion
-
-		/////////////////////////////////////////////////////////////////
-		// SaveToPNG
-		/////////////////////////////////////////////////////////////////
-		#region SaveToPNGGDI
-		public void SaveToPNGGDI(string filename)
-		{
-			if(channelFormat==Format.BGR) ConvertToRGB().SaveToPNGGDI(filename);
-			if(channelFormat==Format.BGRA) ConvertToRGBA().SaveToPNGGDI(filename);
+			if(channelFormat==Format.BGR) ConvertToRGB().SaveToPNG(filename);
+			if(channelFormat==Format.BGRA) ConvertToRGBA().SaveToPNG(filename);
 
 			if(channelFormat!=Format.RGB&&channelFormat!=Format.RGBA) // nur RGB(A) Bilder bitte
 				throw new Exception("Only rgb(a) images can be saved by SaveToPNG.");
@@ -450,9 +396,6 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// SaveToFile
-		/////////////////////////////////////////////////////////////////
 		#region SaveToFile
 		public void SaveToFile(string filename)
 		{
@@ -460,7 +403,7 @@ namespace CSCL.Graphic
 
 			switch(ext)
 			{
-				case "png": SaveToPNGGDI(filename); break;
+				case "png": SaveToPNG(filename); break;
 				case "jpg":
 				case "jpeg":
 				case "jpe":
@@ -473,7 +416,7 @@ namespace CSCL.Graphic
 				case "bmp":
 				case "dib": SaveToBMP(filename); break;
 				case "tiff":
-				case "tif": SaveToTiffGDI(filename); break;
+				case "tif": SaveToTiff(filename); break;
 				default: throw new Exception("Unknown Extension.");
 			}
 		}

@@ -36,8 +36,8 @@ namespace CSCL.Graphic
 
 			try
 			{
-				for(int y=rectangle.Y;y<rectangle.Bottom;y++)
-					for(int x=rectangle.X;x<rectangle.Right;x++)
+				for(int y=rectangle.Y; y<rectangle.Bottom; y++)
+					for(int x=rectangle.X; x<rectangle.Right; x++)
 					{
 						average+=grayscaleBitmap.GetPixel(x, y).R;
 					}
@@ -80,9 +80,9 @@ namespace CSCL.Graphic
 
 			gtImage edgeMap=new gtImage(grayscaleMap.Width, grayscaleMap.Height, Format.RGB);
 
-			for(int y=1;y<edgeMap.Height-1;y++)
+			for(int y=1; y<edgeMap.Height-1; y++)
 			{
-				for(int x=1;x<edgeMap.Width-1;x++)
+				for(int x=1; x<edgeMap.Width-1; x++)
 				{
 					int sum=System.Math.Abs(grayscaleMap.GetPixel(x-1, y-1).R+grayscaleMap.GetPixel(x, y-1).R+grayscaleMap.GetPixel(x+1, y-1).R
 						-grayscaleMap.GetPixel(x-1, y+1).R-grayscaleMap.GetPixel(x, y+1).R-grayscaleMap.GetPixel(x+1, y+1).R);
@@ -148,14 +148,14 @@ namespace CSCL.Graphic
 
 			string output="";
 
-			for(int y=0;y<edgeMap.Height;y+=13)
+			for(int y=0; y<edgeMap.Height; y+=13)
 			{
-				for(int x=0;x<edgeMap.Width;x+=8)
+				for(int x=0; x<edgeMap.Width; x+=8)
 				{
 					int minDistance=999999999;
 					char minChar=' ';
 
-					for(int i=32;i<127;i++)
+					for(int i=32; i<127; i++)
 					{
 						char c=(char)i;
 						string str=""+c;

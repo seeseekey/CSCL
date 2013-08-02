@@ -24,9 +24,6 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-		/////////////////////////////////////////////////////////////////
-		// NearestPixelResize
-		/////////////////////////////////////////////////////////////////
 		#region NearestPixelResize
 		public gtImage NearestPixelResize(uint w, uint h)
 		{

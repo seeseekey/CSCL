@@ -80,7 +80,6 @@
     <Compile Include="Compression\gzip.cs" />
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
-    <Compile Include="DoublePair.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Exceptions\NotSupportedCompression.cs" />
     <Compile Include="FileFormats\TMX\Object.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="Games\Manasource\Sprite.cs" />
     <Compile Include="Graphic\gtImage\ToAscii.cs" />
     <Compile Include="Helpers\CommandLineHelpers.cs" />
-    <Compile Include="Helpers\DatatableHelpers.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExceptionHandler.cs">
       <SubType>Form</SubType>
@@ -134,9 +132,6 @@
     <Compile Include="Graphic\gtImage\Statics.cs" />
     <Compile Include="Graphic\gtImage\Text.cs" />
     <Compile Include="Graphic\gtImage\Transform.cs" />
-    <Compile Include="Helpers\DateTimeHelpers.cs" />
-    <Compile Include="Helpers\ColorHelpers.cs" />
-    <Compile Include="Helpers\ListHelpers.cs" />
     <Compile Include="Helpers\ListViewHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\TreeViewHelpers.cs" />
@@ -173,8 +168,6 @@
     <Compile Include="Pair.cs" />
     <Compile Include="Progress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\RandomHelpers.cs" />
-    <Compile Include="Helpers\StringHelpers.Tokenizer.cs" />
     <Compile Include="StopTimer.cs" />
     <Compile Include="StopTimerState.cs" />
     <Compile Include="Various.cs" />

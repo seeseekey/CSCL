@@ -24,9 +24,6 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-		/////////////////////////////////////////////////////////////////
-		// Statics
-		/////////////////////////////////////////////////////////////////
 		#region Sonstiges
 		public static uint ConvertToBytePerPixel(Format format)
 		{
@@ -64,9 +61,6 @@ namespace CSCL.Graphic
 		}
 		#endregion
 
-		/////////////////////////////////////////////////////////////////
-		// RGB to ... 
-		/////////////////////////////////////////////////////////////////
 		#region RGBToHSI/HSL
 		// RGB to HSI (Gonzalez and Woods)
 		public static byte[] RGB2HSIByte(byte r, byte g, byte b)

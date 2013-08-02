@@ -40,7 +40,7 @@ namespace CSCL.Helpers
 				ListViewItem item1, item2;
 				item1=(ListViewItem)x;
 				item2=(ListViewItem)y;
-				if (this.order==SortOrder.Ascending)
+				if(this.order==SortOrder.Ascending)
 					return item1.SubItems[col].Text.CompareTo(item2.SubItems[col].Text);
 				else
 					return
@@ -55,7 +55,7 @@ namespace CSCL.Helpers
 		/// <param name="toleranz"></param>
 		public static void SetUniformColumnWidth(ListView lw, int toleranz)
 		{
-			foreach (ColumnHeader column in lw.Columns)
+			foreach(ColumnHeader column in lw.Columns)
 			{
 				column.Width=(lw.Width/lw.Columns.Count)-toleranz;
 			}
@@ -67,7 +67,7 @@ namespace CSCL.Helpers
 		/// <param name="lw"></param>
 		public static void SetColumnWidthFromContent(ListView lw)
 		{
-			foreach (ColumnHeader column in lw.Columns)
+			foreach(ColumnHeader column in lw.Columns)
 			{
 				column.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
 			}

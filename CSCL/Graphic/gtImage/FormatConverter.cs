@@ -24,10 +24,7 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-		/////////////////////////////////////////////////////////////////
-		// Format-Converter
-		/////////////////////////////////////////////////////////////////
-		#region Format-Converter
+		#region Formatconverter
 		public gtImage ConvertToGray()
 		{
 			if(channelFormat==Format.GRAY) return this;
@@ -39,24 +36,36 @@ namespace CSCL.Graphic
 			uint ind=0;
 			byte[] dst=ret.imageData;
 			uint inds=0;
+
 			switch(channelFormat)
 			{
 				case Format.GRAY_Alpha:
-					for(uint i=0; i<count; i++) { dst[ind++]=src[inds++]; inds++; }
-					break;
+					{
+						for(uint i=0; i<count; i++) { dst[ind++]=src[inds++]; inds++; }
+						break;
+					}
 				case Format.BGR:
-					for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
+						break;
+					}
 				case Format.RGB:
-					for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
+						break;
+					}
 				case Format.BGRA:
-					for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; inds++; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; inds++; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
+						break;
+					}
 				case Format.RGBA:
-					for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; inds++; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; inds++; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); }
+						break;
+					}
 			}
+
 			return ret;
 		}
 
@@ -74,20 +83,30 @@ namespace CSCL.Graphic
 			switch(channelFormat)
 			{
 				case Format.GRAY:
-					for(uint i=0; i<count; i++) { dst[ind++]=src[inds++]; dst[ind++]=255; }
-					break;
+					{
+						for(uint i=0; i<count; i++) { dst[ind++]=src[inds++]; dst[ind++]=255; }
+						break;
+					}
 				case Format.BGR:
-					for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=255; }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=255; }
+						break;
+					}
 				case Format.RGB:
-					for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=255; }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=255; }
+						break;
+					}
 				case Format.BGRA:
-					for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=src[inds++]; }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte r=src[inds++]; byte g=src[inds++]; byte b=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=src[inds++]; }
+						break;
+					}
 				case Format.RGBA:
-					for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=src[inds++]; }
-					break;
+					{
+						for(uint i=0; i<count; i++) { byte b=src[inds++]; byte g=src[inds++]; byte r=src[inds++]; dst[ind++]=(byte)(0.299*r+0.587*g+0.114*b); dst[ind++]=src[inds++]; }
+						break;
+					}
 			}
 			return ret;
 		}

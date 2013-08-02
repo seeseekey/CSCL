@@ -26,7 +26,6 @@ using CSCL.Helpers;
 namespace CSCL
 {
 		//Use Example
-
 		//[STAThread]
 		//static void Main()
 		//{

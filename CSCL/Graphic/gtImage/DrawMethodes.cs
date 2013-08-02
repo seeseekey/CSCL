@@ -26,9 +26,6 @@ namespace CSCL.Graphic
 {
 	public partial class gtImage
 	{
-		/////////////////////////////////////////////////////////////////
-		// Zeichenroutinen
-		/////////////////////////////////////////////////////////////////
 		#region Draw
 		public void Draw(int x, int y, gtImage source)
 		{
@@ -905,69 +902,6 @@ namespace CSCL.Graphic
 				}
 			}
 		}
-		#endregion
-
-		#region Bezier
-		//public void Bezier(Tuple2dList p, int iter, Color color)
-		//{
-		//    int n=p.Count-1;
-
-		//    List<Tuple2dList> q=new List<Tuple2dList>();
-
-		//    q.Add(p);
-
-		//    for(int j=1; j<=n; j++)
-		//    {
-		//        Tuple2dList q0=q[j-1];
-		//        Tuple2dList q1=new Tuple2dList();
-		//        for(int i=0; i<=(n-j); i++) q1.Add((q0[i]+q0[i+1])*0.5);
-		//        q.Add(q1);
-		//    }
-
-		//    if(iter>=0)
-		//    {
-		//        //Arrays für die Punkte der geteilten Kontrollpolygone C1, C2)
-		//        Tuple2dList c1=new Tuple2dList(), c2=new Tuple2dList();
-
-		//        for(int i=0; i<n+1; i++)
-		//        {
-		//            c1.Add(q[i][0]);
-		//            c2.Add(q[n-i][i]);
-		//        }
-
-		//        Bezier(c1, --iter, color);
-		//        Bezier(c2, --iter, color);
-		//        return;
-		//    }
-
-		//    for(int i=0; i<n; i++)
-		//    {
-		//        //Kurve C1 zur Linie vereinfacht
-		//        int b1x1=(int)Math.Round(q[i][0].x);
-		//        int b1y1=(int)Math.Round(q[i][0].y);
-		//        int b1x2=(int)Math.Round(q[i+1][0].x);
-		//        int b1y2=(int)Math.Round(q[i+1][0].y);
-
-		//        //Kurve C2 zur Linie vereinfacht
-		//        int b2x1=(int)Math.Round(q[n-i][i].x);
-		//        int b2y1=(int)Math.Round(q[n-i][i].y);
-		//        int b2x2=(int)Math.Round(q[n-i-1][i+1].x);
-		//        int b2y2=(int)Math.Round(q[n-i-1][i+1].y);
-
-		//        Line(b1x1, b1y1, b1x2, b1y2, color);
-		//        Line(b2x1, b2y1, b2x2, b2y2, color);
-		//    }
-		//}
-
-		//public void Bezier(Tuple2dList p, int iter, byte r, byte g, byte b)
-		//{
-		//    Bezier(p, iter, Color.FromArgb(r, g, b));
-		//}
-
-		//public void Bezier(Tuple2dList p, int iter, byte alpha, byte r, byte g, byte b)
-		//{
-		//    Bezier(p, iter, Color.FromArgb(alpha, r, g, b));
-		//}
 		#endregion
 	}
 }
