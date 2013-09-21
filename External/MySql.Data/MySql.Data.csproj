@@ -172,11 +172,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\CHANGES">
-      <Link>CHANGES</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="docs\MySqlCommand.xml" />
     <Content Include="docs\MySqlCommandBuilder.xml" />
     <Content Include="docs\MySqlConnection.xml" />
