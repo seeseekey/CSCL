@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace CSCL.Database.MySQL
 {
-    public class MySQL : Database
+	public class MySQL : CSCL.Database.Database
     {
         //Eigenschaften
         public string Host { get; set; }
