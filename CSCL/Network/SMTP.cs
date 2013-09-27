@@ -217,6 +217,8 @@ namespace CSCL.Network
 			int port=25;
 
 			SmtpClient client=new SmtpClient(host, port);
+			client.EnableSsl=true;
+			ServicePointManager.ServerCertificateValidationCallback=delegate { return true; }; //deaktiviere Zertifikatswarnung
 
 			System.Net.NetworkCredential nc=new System.Net.NetworkCredential(SMTPUsername, SMTPPassword);
 			client.Credentials=nc;
