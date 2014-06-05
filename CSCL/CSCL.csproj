@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0E720343-5366-4C3A-BC59-7B7FD2C311B5}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -76,7 +76,6 @@
     <Compile Include="AdvancedTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Bots\Mediawiki\DotNetWikiBot.cs" />
     <Compile Include="Compression\gzip.cs" />
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
@@ -174,6 +173,7 @@
     <Compile Include="Various.cs" />
     <Compile Include="XmlData.cs" />
     <Compile Include="Crypto\Hash\SHA256.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExceptionHandler.resx">
@@ -210,4 +210,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>
