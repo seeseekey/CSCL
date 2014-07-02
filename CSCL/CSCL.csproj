@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0E720343-5366-4C3A-BC59-7B7FD2C311B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -40,6 +38,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -174,6 +174,8 @@
     <Compile Include="XmlData.cs" />
     <Compile Include="Crypto\Hash\SHA256.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Network\REST\RestClient.cs" />
+    <Compile Include="Network\REST\HttpMethod.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExceptionHandler.resx">
@@ -212,5 +214,6 @@
   -->
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Network\REST\" />
   </ItemGroup>
 </Project>
