@@ -45,7 +45,7 @@
       <Project>{9E75C324-52EC-4C26-B307-523082BE43EE}</Project>
       <Name>CSCL.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External\MySql.Data\MySql.Data.csproj">
+    <ProjectReference Include="..\Externals\MySql.Data\MySql.Data.csproj">
       <Project>{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}</Project>
       <Name>MySql.Data</Name>
     </ProjectReference>

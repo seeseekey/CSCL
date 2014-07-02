@@ -45,7 +45,7 @@
       <Project>{9E75C324-52EC-4C26-B307-523082BE43EE}</Project>
       <Name>CSCL.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External\Npgsql\Npgsql.csproj">
+    <ProjectReference Include="..\Externals\Npgsql\Npgsql.csproj">
       <Project>{9D13B739-62B1-4190-B386-7A9547304EB3}</Project>
       <Name>Npgsql</Name>
     </ProjectReference>
