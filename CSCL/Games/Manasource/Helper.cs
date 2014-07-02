@@ -1,7 +1,7 @@
 //
 //  Helper.cs
 //
-//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@googlemail.com>
+//  Copyright (c) 2011, 2012 by seeseekey <seeseekey@gmail.com>
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
