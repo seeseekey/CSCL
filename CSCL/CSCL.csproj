@@ -69,6 +69,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedTimer.cs">
@@ -174,6 +175,7 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Network\REST\RestClient.cs" />
     <Compile Include="Network\REST\HttpMethod.cs" />
+    <Compile Include="Bots\MediaWiki\DotNetWikiBot.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExceptionHandler.resx">
@@ -213,5 +215,7 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Network\REST\" />
+    <Folder Include="Bots\" />
+    <Folder Include="Bots\MediaWiki\" />
   </ItemGroup>
 </Project>
