@@ -20,7 +20,13 @@ namespace CSCL.Network.REST
             PostData = postData;
         }
 
-        public string Request(string parameters="")
+		public string Request(string parameters="")
+		{
+			HttpStatusCode statusCode;
+			return Request(out statusCode, parameters);
+		}
+
+		public string Request(out HttpStatusCode statusCode, string parameters="")
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(EndPoint + parameters);
 
@@ -43,25 +49,23 @@ namespace CSCL.Network.REST
             {
                 string ret="";
 
-                if(response.StatusCode!=HttpStatusCode.OK)
-                {
-                    string message=String.Format("Request failed. Received HTTP {0}", response.StatusCode);
-                    throw new Exception(message);
-                }
+				if(response.StatusCode==HttpStatusCode.OK)
+				{
+					//Recieve the response
+					using(var responseStream=response.GetResponseStream())
+					{
+						if(responseStream!=null)
+						{
+							using(var reader=new StreamReader(responseStream))
+							{
+								ret=reader.ReadToEnd();
+							}
+						}
+					}
+				}
 
-                //Recieve the response
-                using(var responseStream=response.GetResponseStream())
-                {
-                    if(responseStream!=null)
-                    {
-                        using(var reader=new StreamReader(responseStream))
-                        {
-                            ret=reader.ReadToEnd();
-                        }
-                    }
-                }
-
-                return ret;
+				statusCode=response.StatusCode;
+				return ret;
             }
         }
     }

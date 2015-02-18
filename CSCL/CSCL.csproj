@@ -143,6 +143,7 @@
     <Compile Include="Network\FTP\FTPSClient.cs" />
     <Compile Include="Network\FTP\FTPStream.cs" />
     <Compile Include="Network\Ping.cs" />
+    <Compile Include="Network\REST\RestException.cs" />
     <Compile Include="Network\smartirc4net\Consts.cs" />
     <Compile Include="Network\smartirc4net\EventArgs.cs" />
     <Compile Include="Network\smartirc4net\Exceptions.cs" />
@@ -212,10 +213,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Network\REST\" />
-    <Folder Include="Bots\" />
-    <Folder Include="Bots\MediaWiki\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
