@@ -76,6 +76,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Compression\gzip.cs" />
+    <Compile Include="Crypto\Checksum\CRC16.cs" />
     <Compile Include="Crypto\Encoding\Base64.cs" />
     <Compile Include="Crypto\Hash\SHA1.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
